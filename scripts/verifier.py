@@ -69,6 +69,15 @@ def main() -> None:
                 if invisible:
                     defauts.append(f"{vue} {suffixe} : texte invisible — {invisible}")
 
+                # Quatrième sonde, propre à la carte : un graphe vide est une
+                # page valide. Si la simulation échoue ou si les positions ne
+                # sont jamais posées, le SVG existe, le cadre existe, et il ne
+                # contient rien — aucune erreur, aucune trace.
+                if vue == "carte":
+                    points = page.evaluate("document.querySelectorAll('svg circle').length")
+                    if points < 50:
+                        defauts.append(f"carte {suffixe} : {points} nœuds dessinés, moins de 50")
+
                 if vue in ("accueil", "carte", "applications", "operations") or suffixe == "390":
                     cible = CAPTURES / f"{vue}-{suffixe}.png"
                     page.screenshot(path=str(cible), full_page=(suffixe == "1440"))

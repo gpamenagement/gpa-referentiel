@@ -39,10 +39,10 @@ Pour regarder ce qui sort :
 
 ```bash
 pnpm build && pnpm preview --port 5312
-python3 scripts/verifier.py               # trois sondes + 12 captures
+python3 scripts/verifier.py               # quatre sondes + 12 captures
 ```
 
-## Les trois sondes de `verifier.py`
+## Les quatre sondes de `verifier.py`
 
 Chacune est née d'un défaut déjà produit ailleurs, et qu'aucune erreur ne signale :
 
@@ -52,6 +52,8 @@ Chacune est née d'un défaut déjà produit ailleurs, et qu'aucune erreur ne si
    c'est un enfant flex qui refuse de se comprimer.
 3. **Aucun texte invisible** — une variable CSS inconnue ne lève pas : la couleur tombe sur
    `transparent` et la page paraît simplement vide à cet endroit.
+4. **La carte dessine au moins 50 nœuds** — un graphe vide est une page parfaitement valide :
+   si la simulation échoue, le cadre est là, et il ne contient rien.
 
 ## La charte
 

@@ -74,7 +74,18 @@ export function Revelation(
     }
     // Deux images d'attente : une seule suffit en théorie, deux survivent à un
     // navigateur qui regroupe les changements de style.
-    requestAnimationFrame(() => requestAnimationFrame(() => setArrive(true)))
+    //
+    // Les deux images sont annulées au démontage : sans ça, un composant démonté
+    // entre les deux trames appelle `setArrive` sur un état qui n'existe plus.
+    // Le défaut vient du socle — il y est encore.
+    let interne = 0
+    const externe = requestAnimationFrame(() => {
+      interne = requestAnimationFrame(() => setArrive(true))
+    })
+    return () => {
+      cancelAnimationFrame(externe)
+      if (interne) cancelAnimationFrame(interne)
+    }
   }, [ouvert, depuis])
 
   // La sortie se joue avant la fermeture réelle, sinon la transition n'existe

@@ -3,8 +3,6 @@ import {
   forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide,
   type Simulation, type SimulationNodeDatum, type SimulationLinkDatum,
 } from 'd3-force'
-import { select } from 'd3-selection'
-import { zoom as d3zoom, zoomIdentity, type D3ZoomEvent } from 'd3-zoom'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -40,16 +38,17 @@ const TYPES: { cle: TypeNoeud; libelle: string; classe: string }[] = [
 
 const RAYON: Record<string, number> = { processus: 7, objet: 10, application: 8 }
 
+const largeur = 980
+const hauteur = 680
+/** La bande basse est réservée aux orphelins : le graphe ne s'y étend pas. */
+const zoneGraphe = 520
+
 export default function CarteSi() {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const [caches, setCaches] = useState<Set<TypeNoeud>>(new Set())
   const [selection, setSelection] = useState<string | null>(null)
-  const [transformation, setTransformation] = useState(zoomIdentity)
+  const [vue, setVue] = useState({ x: 0, y: 0, k: 1 })
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({})
-  const largeur = 980
-  const hauteur = 680
-  /** La bande basse est réservée aux orphelins : le graphe ne s'y étend pas. */
-  const zoneGraphe = 520
 
   /** Le sous-graphe affiché. Filtrer les nœuds sans filtrer les arêtes
    *  laisserait des arêtes pendantes — invisibles, et fatales à la simulation. */
@@ -123,12 +122,62 @@ export default function CarteSi() {
   }, [noeuds, aretes])
 
   useEffect(() => {
-    if (!svgRef.current) return
-    const z = d3zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.4, 4])
-      .on('zoom', (e: D3ZoomEvent<SVGSVGElement, unknown>) => setTransformation(e.transform))
-    select(svgRef.current).call(z)
-    return () => { select(svgRef.current as SVGSVGElement).on('.zoom', null) }
+    // Le zoom et le déplacement, sur des écouteurs natifs.
+    //
+    // `d3-zoom` faisait la même chose en trois lignes, mais il attache ses
+    // écouteurs par son propre canal : aucune analyse statique ne peut vérifier
+    // qu'ils sont retirés, et `react-doctor` le signalait — à raison, puisque
+    // la preuve manquait. Trente lignes dont le nettoyage se lit valent mieux
+    // qu'une dépendance dont il faut croire qu'elle nettoie. La référence est
+    // capturée à l'entrée : relue au démontage, elle peut déjà valoir null.
+    const svg = svgRef.current
+    if (!svg) return undefined
+
+    const molette = (e: WheelEvent) => {
+      e.preventDefault()
+      const boite = svg.getBoundingClientRect()
+      // Le point sous le curseur ne bouge pas : c'est ce qui distingue un zoom
+      // utilisable d'un zoom qui fait perdre ce qu'on était en train de lire.
+      const px = ((e.clientX - boite.left) / boite.width) * largeur
+      const py = ((e.clientY - boite.top) / boite.height) * hauteur
+      // Mise à jour fonctionnelle : l'état précédent vient de React, pas d'une
+      // référence tenue en parallèle. Une `ref` écrite pendant le rendu pour
+      // « avoir la valeur fraîche » est un second état, et les deux divergent.
+      setVue(v => {
+        const k = Math.min(Math.max(v.k * Math.exp(-e.deltaY * 0.0015), 0.4), 4)
+        return { k, x: px - ((px - v.x) / v.k) * k, y: py - ((py - v.y) / v.k) * k }
+      })
+    }
+
+    // Le déplacement est INCRÉMENTAL : chaque mouvement ajoute son propre
+    // écart, donc il n'a jamais besoin de connaître la position courante.
+    let depart: { x: number; y: number } | null = null
+    const prise = (e: PointerEvent) => {
+      depart = { x: e.clientX, y: e.clientY }
+      svg.setPointerCapture(e.pointerId)
+    }
+    const glisse = (e: PointerEvent) => {
+      if (!depart) return
+      const echelle = largeur / svg.getBoundingClientRect().width
+      const dx = (e.clientX - depart.x) * echelle
+      const dy = (e.clientY - depart.y) * echelle
+      depart = { x: e.clientX, y: e.clientY }
+      setVue(v => ({ ...v, x: v.x + dx, y: v.y + dy }))
+    }
+    const lache = () => { depart = null }
+
+    svg.addEventListener('wheel', molette, { passive: false })
+    svg.addEventListener('pointerdown', prise)
+    svg.addEventListener('pointermove', glisse)
+    svg.addEventListener('pointerup', lache)
+    svg.addEventListener('pointercancel', lache)
+    return () => {
+      svg.removeEventListener('wheel', molette)
+      svg.removeEventListener('pointerdown', prise)
+      svg.removeEventListener('pointermove', glisse)
+      svg.removeEventListener('pointerup', lache)
+      svg.removeEventListener('pointercancel', lache)
+    }
   }, [])
 
   const noeudSelectionne = selection
@@ -183,15 +232,15 @@ export default function CarteSi() {
           <svg ref={svgRef} viewBox={`0 0 ${largeur} ${hauteur}`} role="img"
                aria-label="Carte du système d'information : processus, objets de données et applications"
                className="block h-[680px] w-full touch-none bg-card">
-            <g transform={transformation.toString()}>
-              {aretes.map((a, i) => {
+            <g transform={`translate(${vue.x},${vue.y}) scale(${vue.k})`}>
+              {aretes.map(a => {
                 const s = typeof a.source === 'object' ? (a.source as N).id : String(a.source)
                 const c = typeof a.target === 'object' ? (a.target as N).id : String(a.target)
                 const ps = positions[s]; const pc = positions[c]
                 if (!ps || !pc) return null
                 const dedans = !voisinage || (voisinage.tout.has(s) && voisinage.tout.has(c))
                 return (
-                  <line key={i} x1={ps.x} y1={ps.y} x2={pc.x} y2={pc.y}
+                  <line key={`${s}->${c}`} x1={ps.x} y1={ps.y} x2={pc.x} y2={pc.y}
                         className={dedans ? 'stroke-[var(--gpa-bleu)]' : 'stroke-border'}
                         strokeWidth={dedans ? 1.4 : 0.8} opacity={dedans ? 0.55 : 0.18} />
                 )
