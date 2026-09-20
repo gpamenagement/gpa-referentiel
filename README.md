@@ -4,6 +4,14 @@
 SI & Data. Application web du référentiel : la première version est livrée **avec l'offre**,
 construite à partir du patrimoine informationnel déjà public de l'établissement.
 
+> **Dépôt public, droits réservés.** Le code est visible de tous ; sa propriété intellectuelle
+> reste celle de **BOOTLY SASU (Flowmetrik)**. Lire et citer : libre. Reproduire, modifier ou
+> réutiliser : autorisation écrite. En cas d'attribution du marché, Grand Paris Aménagement
+> reçoit sur les livrables de la mission un droit d'usage, de modification et de réutilisation
+> **sans limitation technique ni contractuelle** (article 7 du CCTP). Détail : [`LICENSE`](LICENSE).
+>
+> Les données embarquées sont **publiques uniquement** ; aucune donnée interne de l'établissement.
+
 Émetteur : **BOOTLY SASU**, nom commercial Flowmetrik. Le document porte la **charte de Grand
 Paris Aménagement** : c'est leur marque qui tient l'écran, la nôtre signe en pied de latérale.
 
