@@ -7,3 +7,4 @@ dist
 # Artefact de compilation TypeScript — il change à chaque build et
 # pollue chaque diff.
 tsconfig.tsbuildinfo
+dist-autonome

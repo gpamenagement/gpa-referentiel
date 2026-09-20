@@ -42,6 +42,23 @@ pnpm build && pnpm preview --port 5312
 python3 scripts/verifier.py               # quatre sondes + 12 captures
 ```
 
+**La sortie autonome** — un seul fichier `.html`, tout inliné, qui s'ouvre sans serveur (courriel,
+téléphone, poste de soutenance sans réseau) :
+
+```bash
+pnpm build:autonome && python3 scripts/autonome.py   # dist-autonome/index.html, ~1,3 Mo
+```
+
+`vite-plugin-singlefile` inline le JS et le CSS, **mais pas `public/`** : ces fichiers restent
+référencés par une URL absolue, et le fichier « autonome » perd alors ses polices et ses logos
+**sans qu'aucune erreur ne le signale**. `scripts/autonome.py` les remplace par des data URI,
+puis ouvre le résultat **en `file://`** pour le vérifier — c'est précisément ce protocole qui
+casse les URL absolues, donc c'est le seul qui prouve quelque chose. Deux pièges vérifiés :
+Vite écrit les URL du CSS en relatif (`url(./brand/…)`, d'où un `.` qui survit au remplacement
+et produit une URL invalide), et une URL construite à la volée dans du JSX
+(`` `/brand/logo/${x}.svg` ``) n'existe pour l'assembleur que sous forme de morceaux — d'où les
+logos **importés** dans `src/assets/marque/`, jamais référencés par chemin.
+
 ## Les quatre sondes de `verifier.py`
 
 Chacune est née d'un défaut déjà produit ailleurs, et qu'aucune erreur ne signale :
