@@ -74,11 +74,25 @@ def main() -> None:
                 # sont jamais posées, le SVG existe, le cadre existe, et il ne
                 # contient rien — aucune erreur, aucune trace.
                 if vue == "carte":
-                    points = page.evaluate("document.querySelectorAll('svg circle').length")
-                    if points < 50:
-                        defauts.append(f"carte {suffixe} : {points} nœuds dessinés, moins de 50")
+                    # Le sélecteur suit l'implémentation : les nœuds étaient des
+                    # `<circle>` du temps de la simulation de forces, ce sont des
+                    # boîtes React Flow depuis la disposition en couches. Une sonde
+                    # dont le sélecteur a vieilli compte zéro et accuse la page.
+                    points = page.evaluate("document.querySelectorAll('.react-flow__node').length")
+                    liens = page.evaluate("document.querySelectorAll('.react-flow__edge').length")
+                    if points < 40:
+                        defauts.append(f"carte {suffixe} : {points} nœuds dessinés, moins de 40")
+                    if liens < 40:
+                        defauts.append(f"carte {suffixe} : {liens} liens dessinés, moins de 40")
 
-                if vue in ("accueil", "carte", "applications", "operations") or suffixe == "390":
+                # Le catalogue a sa propre sonde : une table de schéma vide est
+                # une page valide, et c'est le défaut qu'on ne verrait pas.
+                if vue == "objets":
+                    champs = page.evaluate("document.querySelectorAll('table tbody tr').length")
+                    if champs < 8:
+                        defauts.append(f"objets {suffixe} : {champs} lignes de schéma, moins de 8")
+
+                if vue in ("accueil", "carte", "objets", "applications", "operations") or suffixe == "390":
                     cible = CAPTURES / f"{vue}-{suffixe}.png"
                     page.screenshot(path=str(cible), full_page=(suffixe == "1440"))
             page.close()

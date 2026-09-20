@@ -72,6 +72,40 @@ export type Operation = {
 
 export type Entite = { nom: string; statut: string | null; note: string | null }
 
+/** Un champ du catalogue — type et exemple viennent des données, pas d'une saisie. */
+export type Champ = {
+  nom: string
+  description: string | null
+  type: string | null
+  exemple: string | null
+  regles: string[]
+  cle: boolean
+  obligatoire: boolean
+}
+
+export type EntiteCatalogue = {
+  cle: string
+  modele: string
+  couche: 'socle' | 'referentiel'
+  /** L'objet de données du référentiel auquel ce modèle correspond. */
+  objet: string | null
+  source_applicative: string | null
+  description: string
+  proprietaire: string | null
+  classification: string | null
+  fraicheur: string | null
+  destinataires: string | null
+  lignes: number | null
+  champs: Champ[]
+  champs_documentes: number
+  /** Trois lignes réelles du jeu source — vides pour un modèle calculé. */
+  echantillon: Record<string, string>[]
+}
+
+/** `de` alimente `vers` — lu dans les `ref()` du SQL, la seule déclaration
+ *  de lignage qui ne puisse pas mentir puisqu'elle fait tourner le calcul. */
+export type RelationModele = { de: string; vers: string; type: string }
+
 export type Noeud = { id: string; libelle: string; type: TypeNoeud; preuve: Preuve }
 export type Arete = { source: string; cible: string; type: string }
 export type TypeNoeud = 'processus' | 'application' | 'objet' | 'fonctionnalite' | 'interface' | 'regle'
@@ -81,6 +115,11 @@ export type Socle = {
   source: string
   avertissement: string | null
   compteurs: Record<string, number>
+  catalogue: {
+    source?: string; note?: string
+    entites: EntiteCatalogue[]
+    relations: RelationModele[]
+  }
   niveaux_de_preuve: unknown[]
   applications: Application[]
   applications_hypothese: Application[]

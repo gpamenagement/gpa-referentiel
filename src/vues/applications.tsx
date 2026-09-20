@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { AppWindow } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -29,7 +30,7 @@ export default function Applications() {
 
   return (
     <div>
-      <Titre surtitre="Livrable 10" note="Vingt applications, et pour chacune ce qui la prouve. Le CCTP nomme les six premières ; les autres viennent d’une offre d’emploi, d’un avis d’attribution, ou d’une hypothèse que nous confirmerons en atelier.">
+      <Titre surtitre="Livrable 10" icone={<AppWindow />} note="Vingt applications, et pour chacune ce qui la prouve. Le CCTP nomme les six premières ; les autres viennent d’une offre d’emploi, d’un avis d’attribution, ou d’une hypothèse que nous confirmerons en atelier.">
         Cartographie applicative
       </Titre>
 

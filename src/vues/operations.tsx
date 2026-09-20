@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { MapPinned } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -59,7 +60,7 @@ export default function Operations() {
 
   return (
     <div>
-      <Titre surtitre="Livrable 9"
+      <Titre surtitre="Livrable 9" icone={<MapPinned />}
              note="Les 58 opérations publiées par l’établissement, avec leur commune, leur direction territoriale, leur type et leurs chiffres clés. C’est la projection lisible de l’objet de données « Opération d’aménagement » — et la preuve que l’objet existe avant tout atelier.">
         Opérations d’aménagement
       </Titre>

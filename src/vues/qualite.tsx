@@ -1,3 +1,4 @@
+import { Gauge, ShieldCheck, FileSearch } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { socle, nombre, euros, applications } from '@/donnees/socle'
@@ -56,7 +57,7 @@ export default function Qualite() {
 
   return (
     <div>
-      <Titre surtitre="L’indicateur qui compte"
+      <Titre surtitre="L’indicateur qui compte" icone={<Gauge />}
              note="Un référentiel ne se juge pas au nombre de lignes qu’il contient, mais au nombre de liens qu’on peut suivre sans demander à personne. C’est ce que cette vue mesure — et elle affiche zéro là où c’est zéro.">
         Qualité et confiance du référentiel
       </Titre>
@@ -72,7 +73,7 @@ export default function Qualite() {
                precision="la fraîcheur est une donnée, pas une note de bas de page" />
       </Tuiles>
 
-      <Titre surtitre="Six contrôles">Ce qui passe, ce qui ne passe pas encore</Titre>
+      <Titre surtitre="Six contrôles" icone={<ShieldCheck />}>Ce qui passe, ce qui ne passe pas encore</Titre>
       <div className="mb-6 space-y-2">
         {controles.map(x => (
           <Card key={x.nom} profondeur="plat" className="flex items-start gap-3 p-3">
@@ -85,7 +86,7 @@ export default function Qualite() {
         ))}
       </div>
 
-      <Titre surtitre="Ce que les marchés publics apprennent">L’achat comme indice sur le SI</Titre>
+      <Titre surtitre="Ce que les marchés publics apprennent" icone={<FileSearch />}>L’achat comme indice sur le SI</Titre>
       <div className="mb-6 grid gap-3 md:grid-cols-2">
         <Card className="p-4">
           <p className="gpa-surtitre">Volume</p>

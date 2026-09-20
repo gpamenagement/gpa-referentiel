@@ -1,0 +1,14 @@
+# Ce qui ne doit PAS monter dans le contexte de build. `dist/` est ignoré par
+# git mais reste NÉCESSAIRE ici : sans la ligne `!dist`, gcloud reprend le
+# .gitignore et le conteneur part sans le site, ce qui donne un 404 en
+# production et aucune erreur au build.
+.git
+node_modules
+src
+captures
+public
+moodboard
+dist-autonome
+scripts
+*.md
+!dist

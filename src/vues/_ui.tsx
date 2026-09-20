@@ -13,13 +13,16 @@ import { tonDePreuve, type Preuve } from '@/donnees/socle'
  */
 
 export function Titre(
-  { surtitre, children, note }:
-  { surtitre?: string; children: ReactNode; note?: ReactNode },
+  { surtitre, children, note, icone }:
+  { surtitre?: string; children: ReactNode; note?: ReactNode; icone?: ReactNode },
 ) {
   return (
     <header className="mb-5">
       {surtitre && <p className="gpa-surtitre">{surtitre}</p>}
-      <h2 className="font-display text-[22px] leading-tight font-medium">{children}</h2>
+      <h2 className="flex items-center gap-2 font-display text-[22px] leading-tight font-medium">
+        {icone && <span className="[&_svg]:size-5 text-[var(--gpa-rouge)]" aria-hidden>{icone}</span>}
+        {children}
+      </h2>
       <span className="gpa-filet" aria-hidden />
       {note && <p className="max-w-[68ch] text-sm text-muted-foreground">{note}</p>}
     </header>
@@ -28,12 +31,16 @@ export function Titre(
 
 /** Un chiffre et ce qu'il compte. Le chiffre est en Rubik 600, jamais en corail. */
 export function Tuile(
-  { valeur, libelle, precision, ton = 'neutre' }:
-  { valeur: ReactNode; libelle: string; precision?: string; ton?: 'neutre' | 'accent' },
+  { valeur, libelle, precision, ton = 'neutre', icone }:
+  { valeur: ReactNode; libelle: string; precision?: string
+    ton?: 'neutre' | 'accent'; icone?: ReactNode },
 ) {
   return (
     <Card className="p-4">
-      <p className="gpa-surtitre">{libelle}</p>
+      <p className="gpa-surtitre flex items-center gap-1.5">
+        {icone && <span className="[&_svg]:size-3.5 text-[var(--gpa-rouge)]" aria-hidden>{icone}</span>}
+        {libelle}
+      </p>
       <p className={cn('mt-1 font-display text-[30px] leading-none font-semibold tabular-nums',
                        ton === 'accent' ? 'text-[var(--color-accentInk)]' : 'text-[var(--gpa-bleu)]')}>
         {valeur}

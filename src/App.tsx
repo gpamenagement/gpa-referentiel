@@ -5,7 +5,9 @@ import {
 } from 'lucide-react'
 import { AppShell, type Entree } from '@/components/shell/app-shell'
 import { Badge } from '@/components/ui/badge'
-import { VUES, composant, vueParCle } from '@/registre'
+import { Logo } from '@/components/brand/logo'
+import { BandeauDemonstration } from '@/composants/bandeau-demonstration'
+import { VUES, VUE_PAR_DEFAUT, composant, vueParCle } from '@/registre'
 import { socle } from '@/donnees/socle'
 
 /**
@@ -35,7 +37,7 @@ const BADGES: Record<string, string> = {
 
 function cleDuHash(): string {
   const brut = window.location.hash.replace(/^#/, '')
-  return VUES.some(v => v.cle === brut) ? brut : 'accueil'
+  return VUES.some(v => v.cle === brut) ? brut : VUE_PAR_DEFAUT
 }
 
 export default function App() {
@@ -64,8 +66,17 @@ export default function App() {
       onNaviguer={cle => { window.location.hash = cle }}
       titre={vue.titre}
       sousTitre={vue.sousTitre}
-      actions={vue.livrable ? <Badge ton="unite">{vue.livrable}</Badge> : undefined}
+      actions={
+        <>
+          {vue.livrable && <Badge ton="unite" className="hidden sm:inline-flex">{vue.livrable}</Badge>}
+          {/* Le logotype couleur, dans la barre haute : sur mobile la latérale
+              est un tiroir fermé, donc la marque du client n'apparaîtrait nulle
+              part — c'est l'écran où il compte le plus. */}
+          <Logo className="h-6 sm:h-7" />
+        </>
+      }
     >
+      <BandeauDemonstration />
       <Suspense fallback={<p className="text-sm text-muted-foreground">Chargement…</p>}>
         <Contenu />
       </Suspense>

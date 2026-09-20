@@ -1,7 +1,11 @@
+import {
+  AppWindow, Database, MapPinned, Network, Layers, FileSearch, Users, Landmark,
+} from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { socle, nombre, euros } from '@/donnees/socle'
 import { A_VENIR, VUES } from '@/registre'
+import { ConsoleMcp } from '@/composants/mcp-console'
 import { Titre, Tuile, Tuiles, Encadre, Provenance } from './_ui'
 
 /**
@@ -12,12 +16,6 @@ import { Titre, Tuile, Tuiles, Encadre, Provenance } from './_ui'
  */
 export default function Accueil() {
   const c = socle.compteurs
-  const parPreuve = new Map<string, number>()
-  for (const a of [...socle.applications, ...socle.applications_hypothese]) {
-    const k = a.preuve ?? 'sans source'
-    parPreuve.set(k, (parPreuve.get(k) ?? 0) + 1)
-  }
-
   return (
     <div>
       <section className="gpa-aplat-bleu gpa-motif-blanc mb-7 px-6 py-8">
@@ -34,29 +32,39 @@ export default function Accueil() {
       </section>
 
       <Tuiles>
-        <Tuile valeur={nombre(c.applications + c.applications_hypothese)} libelle="Applications"
+        <Tuile icone={<AppWindow />} valeur={nombre(c.applications + c.applications_hypothese)} libelle="Applications"
                precision={`${c.applications} nommées par le CCTP, ${c.applications_hypothese} en hypothèse`} />
-        <Tuile valeur={nombre(c.objets)} libelle="Objets de données"
+        <Tuile icone={<Database />} valeur={nombre(c.objets)} libelle="Objets de données"
                precision="déduits du métier d’aménageur, à confirmer en atelier" />
-        <Tuile valeur={nombre(c.operations)} libelle="Opérations"
+        <Tuile icone={<MapPinned />} valeur={nombre(c.operations)} libelle="Opérations"
                precision={`dont ${c.operations_avec_perimetre} avec leur périmètre géographique`} />
-        <Tuile valeur={nombre(c.aretes)} libelle="Liens de la chaîne"
+        <Tuile icone={<Network />} valeur={nombre(c.aretes)} libelle="Liens de la chaîne"
                precision={`${c.noeuds} nœuds, ${c.orphelins} encore orphelins`} ton="accent" />
       </Tuiles>
 
-      <Titre surtitre="Ce que porte cette version">Cinq jeux, cinq provenances</Titre>
+      <Titre surtitre="Interrogeable par un agent" icone={<Network />}>
+        Le même contrat pour l’écran et pour la machine
+      </Titre>
+      <div className="mb-7">
+        <ConsoleMcp />
+      </div>
+
+      <Titre surtitre="Ce que porte cette version" icone={<Layers />}>Six jeux, six provenances</Titre>
       <div className="mb-7 grid gap-3 md:grid-cols-2">
         {[
-          { quoi: 'Les opérations d’aménagement', source: 'la carte publique des opérations de GPA', statut: 'réel', vue: 'operations' },
-          { quoi: 'Les directions, filiales et instances', source: 'le site officiel et la presse institutionnelle', statut: 'réel', vue: 'organisation' },
-          { quoi: 'Les applications et le SI', source: 'le CCTP, les offres d’emploi, les avis d’attribution', statut: 'réel, gradué', vue: 'applications' },
-          { quoi: 'Les personnes', source: 'instances de gouvernance publiées', statut: 'partiel', vue: 'organisation' },
-          { quoi: 'Les objets de données', source: 'déduits des applications et du métier', statut: 'hypothèse', vue: 'objets' },
-          { quoi: 'Les marchés publics', source: 'API BOAMP (DILA)', statut: 'réel', vue: 'qualite' },
+          { quoi: 'Les opérations d’aménagement', source: 'la carte publique des opérations de GPA', statut: 'réel', vue: 'operations', icone: <MapPinned /> },
+          { quoi: 'Les directions, filiales et instances', source: 'le site officiel et la presse institutionnelle', statut: 'réel', vue: 'organisation', icone: <Landmark /> },
+          { quoi: 'Les applications et le SI', source: 'le CCTP, les offres d’emploi, les avis d’attribution', statut: 'réel, gradué', vue: 'applications', icone: <AppWindow /> },
+          { quoi: 'Les personnes', source: 'instances de gouvernance publiées', statut: 'partiel', vue: 'organisation', icone: <Users /> },
+          { quoi: 'Les objets de données', source: 'déduits des applications et du métier', statut: 'hypothèse', vue: 'objets', icone: <Database /> },
+          { quoi: 'Les marchés publics', source: 'API BOAMP (DILA)', statut: 'réel', vue: 'qualite', icone: <FileSearch /> },
         ].map(l => (
           <Card key={l.quoi} className="p-4">
             <div className="flex items-start justify-between gap-3">
-              <p className="font-medium">{l.quoi}</p>
+              <p className="flex items-center gap-2 font-medium">
+                <span className="[&_svg]:size-4 text-muted-foreground" aria-hidden>{l.icone}</span>
+                {l.quoi}
+              </p>
               <Badge ton={l.statut === 'hypothèse' ? 'alerte' : l.statut === 'partiel' ? 'info' : 'succes'}>
                 {l.statut}
               </Badge>
@@ -69,7 +77,9 @@ export default function Accueil() {
         ))}
       </div>
 
-      <Titre surtitre="Ce qui manque, et nous le disons">Deux choses ne s’obtiennent pas de l’extérieur</Titre>
+      <Titre surtitre="Ce qui manque, et nous le disons" icone={<FileSearch />}>
+        Deux choses ne s’obtiennent pas de l’extérieur
+      </Titre>
       <Encadre titre="Le catalogue de données réel" ton="accent">
         <p>
           Il ne s’obtient que par les accès aux applications. Les {nombre(c.objets)} objets affichés
@@ -86,7 +96,9 @@ export default function Accueil() {
         </p>
       </Encadre>
 
-      <Titre surtitre="Les vues du contrat">Ce qui s’ouvre au fil de la mission</Titre>
+      <Titre surtitre="Les vues du contrat" icone={<Landmark />}>
+        Ce qui s’ouvre au fil de la mission
+      </Titre>
       <div className="mb-2 grid gap-2 md:grid-cols-2">
         {A_VENIR.map(v => (
           <Card key={v.libelle} profondeur="plat" className="flex items-start gap-3 p-3">

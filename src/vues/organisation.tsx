@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Landmark, Building2, Users } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { socle, nombre } from '@/donnees/socle'
@@ -28,7 +29,7 @@ export default function Organisation() {
 
   return (
     <div>
-      <Titre surtitre="Le porteur de la donnée"
+      <Titre surtitre="Le porteur de la donnée" icone={<Landmark />}
              note="Tout ce qui est affiché ici vient de pages publiées par l’établissement ou de la presse institutionnelle, avec la citation d’origine conservée en base. L’annuaire des équipes, lui, vit dans l’Entra ID de GPA et viendra en atelier.">
         Organisation, filiales et gouvernance
       </Titre>
@@ -73,7 +74,7 @@ export default function Organisation() {
         </Card>
       </div>
 
-      <Titre surtitre="Périmètre du CCTP">Les directions que la mission doit solliciter</Titre>
+      <Titre surtitre="Périmètre du CCTP" icone={<Building2 />}>Les directions que la mission doit solliciter</Titre>
       <div className="mb-6 grid gap-2 md:grid-cols-3">
         {o.directions_cctp.map(d => (
           <Card key={d.nom} profondeur="plat" className="p-3">
@@ -83,7 +84,7 @@ export default function Organisation() {
         ))}
       </div>
 
-      <Titre surtitre="Instances publiées">Qui siège, et où</Titre>
+      <Titre surtitre="Instances publiées" icone={<Users />}>Qui siège, et où</Titre>
       <div className="mb-3 flex flex-wrap gap-2">
         {parDirection.map(([d, gens]) => (
           <button key={d} type="button" onClick={() => setDirection(direction === d ? null : d)}

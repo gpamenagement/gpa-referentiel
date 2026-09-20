@@ -1,76 +1,139 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
-  forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide,
-  type Simulation, type SimulationNodeDatum, type SimulationLinkDatum,
-} from 'd3-force'
+  ReactFlow, Background, Controls, MiniMap, Handle, Position,
+  type Node, type Edge, type NodeProps, BackgroundVariant,
+} from '@xyflow/react'
+import dagre from '@dagrejs/dagre'
+import { Workflow, Database, AppWindow, ArrowRight, ArrowLeft, Unlink } from 'lucide-react'
+import '@xyflow/react/dist/style.css'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { socle, nombre, type Noeud, type TypeNoeud } from '@/donnees/socle'
+import { socle, nombre, applications, type TypeNoeud } from '@/donnees/socle'
 import { Titre, Tuiles, Tuile, EtiquettePreuve, Encadre, Provenance } from './_ui'
 
 /**
  * La carte du SI — livrables 14 (matrice de traçabilité) et 16 (analyse d'impact).
  *
- * Deux choses la distinguent d'un joli nuage de points, et ce sont les deux
- * qu'un référentiel doit savoir faire :
+ * **Une disposition en couches, pas un nuage de forces.** La chaîne du CCTP a
+ * un SENS — processus → objet de données → application — et une simulation de
+ * forces le perd : elle place par répulsion, donc elle mélange les trois
+ * niveaux et laisse le lecteur reconstituer l'ordre. `dagre` calcule un rang
+ * par nœud, React Flow le rend : les processus à gauche, les objets au milieu,
+ * les applications à droite, et aucune étiquette n'en recouvre une autre.
  *
- *   1. **le parcours dans les deux sens** — on sélectionne un objet de données et
- *      on remonte aux processus qui le produisent, ou on descend aux applications
- *      qui le portent. C'est le livrable 14, mot pour mot ;
- *   2. **l'analyse d'impact** — le voisinage du nœud sélectionné est mis en
- *      évidence, le reste s'efface. C'est le livrable 16.
+ * Ce que la carte doit savoir faire, et que le CCTP nomme :
+ *   1. **le parcours dans les deux sens** (livrable 14) — remonter d'un objet
+ *      aux processus qui le produisent, descendre aux applications qui le portent ;
+ *   2. **l'analyse d'impact** (livrable 16) — marquer un nœud et voir se
+ *      détacher tout ce qui en dépend.
  *
- * Le graphe est calculé par `scripts/importer_base_gpa.py`, pas ici : la
- * topologie est une propriété des données. d3 ne fait que placer les nœuds, et
- * React les dessine — donc aucune couleur n'est écrite en dur, elles viennent
- * toutes des jetons de la charte.
+ * Le graphe est calculé par `scripts/importer_base_gpa.py` : la topologie est
+ * une propriété des données, pas de l'écran qui les montre.
  */
 
-type N = Noeud & SimulationNodeDatum
-type L = SimulationLinkDatum<N> & { type: string }
+type DonneesNoeud = {
+  libelle: string
+  genre: TypeNoeud
+  preuve: string | null
+  logo?: string | null
+  etat: 'normal' | 'choisi' | 'amont' | 'aval' | 'efface'
+}
 
-const TYPES: { cle: TypeNoeud; libelle: string; classe: string }[] = [
-  { cle: 'processus', libelle: 'Processus métier', classe: 'fill-[var(--gpa-bleu)]' },
-  { cle: 'objet', libelle: 'Objet de données', classe: 'fill-[var(--gpa-rouge)]' },
-  { cle: 'application', libelle: 'Application', classe: 'fill-[var(--gpa-vert)]' },
-]
+const COULEUR: Record<string, { puce: string; bord: string; fond: string }> = {
+  processus: { puce: 'bg-[var(--gpa-bleu)]', bord: 'border-[var(--gpa-bleu)]', fond: 'bg-[var(--gpa-lavande)]' },
+  objet: { puce: 'bg-[var(--gpa-rouge)]', bord: 'border-[var(--gpa-rouge)]', fond: 'bg-card' },
+  application: { puce: 'bg-[var(--gpa-vert)]', bord: 'border-[var(--gpa-vert)]', fond: 'bg-card' },
+}
 
-const RAYON: Record<string, number> = { processus: 7, objet: 10, application: 8 }
+const ICONE: Record<string, typeof Workflow> = {
+  processus: Workflow,
+  objet: Database,
+  application: AppWindow,
+}
 
-const largeur = 980
-const hauteur = 680
-/** La bande basse est réservée aux orphelins : le graphe ne s'y étend pas. */
-const zoneGraphe = 520
+const LIBELLE_GENRE: Record<string, string> = {
+  processus: 'Processus métier',
+  objet: 'Objet de données',
+  application: 'Application',
+}
+
+const LARGEUR = 236
+const HAUTEUR = 46
+
+function NoeudSI({ data }: NodeProps) {
+  const d = data as DonneesNoeud
+  const c = COULEUR[d.genre]
+  const Icone = ICONE[d.genre]
+  const marque = d.etat === 'choisi'
+  return (
+    <div
+      className={[
+        'flex items-center gap-2 border-l-[3px] border border-border px-2.5 py-2',
+        'transition-opacity duration-150',
+        c.bord, c.fond,
+        marque ? 'ring-2 ring-[var(--gpa-bleu)]' : '',
+        d.etat === 'efface' ? 'opacity-25' : 'opacity-100',
+      ].join(' ')}
+      style={{ width: LARGEUR, height: HAUTEUR }}
+    >
+      <Handle type="target" position={Position.Left} className="!h-1.5 !w-1.5 !border-0 !bg-border" />
+      {d.logo
+        ? <img src={d.logo} alt="" className="h-5 w-5 shrink-0 object-contain" />
+        : <Icone className="h-4 w-4 shrink-0 text-muted-foreground" />}
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[12px] leading-tight font-medium" title={d.libelle}>{d.libelle}</p>
+        <p className="truncate text-[10px] leading-tight text-muted-foreground">
+          {d.etat === 'amont' ? 'en amont' : d.etat === 'aval' ? 'en aval' : LIBELLE_GENRE[d.genre]}
+        </p>
+      </div>
+      <Handle type="source" position={Position.Right} className="!h-1.5 !w-1.5 !border-0 !bg-border" />
+    </div>
+  )
+}
+
+const TYPES_DE_NOEUD = { si: NoeudSI }
+
+/** Dagre place les nœuds ; React Flow ne fait que les rendre. */
+function disposer(noeuds: Node[], aretes: Edge[]): Node[] {
+  const g = new dagre.graphlib.Graph()
+  g.setDefaultEdgeLabel(() => ({}))
+  g.setGraph({ rankdir: 'LR', nodesep: 10, ranksep: 120, marginx: 16, marginy: 16 })
+  noeuds.forEach(n => g.setNode(n.id, { width: LARGEUR, height: HAUTEUR }))
+  aretes.forEach(a => g.setEdge(a.source, a.target))
+  dagre.layout(g)
+  return noeuds.map(n => {
+    const p = g.node(n.id)
+    // Dagre donne un CENTRE, React Flow attend un coin haut-gauche. Confondre
+    // les deux décale tout d'une demi-boîte — assez pour que les arêtes ne
+    // touchent plus les nœuds, sans que rien ne le signale.
+    return { ...n, position: { x: p.x - LARGEUR / 2, y: p.y - HAUTEUR / 2 } }
+  })
+}
 
 export default function CarteSi() {
-  const svgRef = useRef<SVGSVGElement | null>(null)
   const [caches, setCaches] = useState<Set<TypeNoeud>>(new Set())
   const [selection, setSelection] = useState<string | null>(null)
-  const [vue, setVue] = useState({ x: 0, y: 0, k: 1 })
-  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({})
 
-  /** Le sous-graphe affiché. Filtrer les nœuds sans filtrer les arêtes
-   *  laisserait des arêtes pendantes — invisibles, et fatales à la simulation. */
-  const { noeuds, aretes, orphelins } = useMemo(() => {
+  const logoDe = useMemo(() => {
+    const m = new Map<string, string | null>()
+    for (const a of applications) m.set(a.nom, a.logo)
+    return m
+  }, [])
+
+  const { noeudsBruts, aretesBrutes, orphelins } = useMemo(() => {
     const gardes = socle.graphe.noeuds.filter(n => !caches.has(n.type))
     const ids = new Set(gardes.map(n => n.id))
     const liens = socle.graphe.aretes.filter(a => ids.has(a.source) && ids.has(a.cible))
     const relies = new Set(liens.flatMap(a => [a.source, a.cible]))
-
-    // Les orphelins sortent de la simulation. Un nœud sans arête n'est soumis
-    // qu'à la répulsion : il part à l'infini, et le recadrage qui le rattrape
-    // écrase tout le reste en une bouillie illisible. Ils sont rangés à part,
-    // en bas, sous leur propre libellé — ce qui est aussi leur sens : ce sont
-    // les applications que rien ne relie encore à un objet de données.
     return {
-      noeuds: gardes.filter(n => relies.has(n.id)).map(n => ({ ...n })) as N[],
+      noeudsBruts: gardes.filter(n => relies.has(n.id)),
       orphelins: gardes.filter(n => !relies.has(n.id)),
-      aretes: liens.map(a => ({ source: a.source, target: a.cible, type: a.type })) as unknown as L[],
+      aretesBrutes: liens,
     }
   }, [caches])
 
-  /** Le voisinage du nœud sélectionné, dans les DEUX sens. */
+  /** Le voisinage du nœud choisi, dans les DEUX sens. */
   const voisinage = useMemo(() => {
     if (!selection) return null
     const amont = new Set<string>()
@@ -82,113 +145,59 @@ export default function CarteSi() {
     return { amont, aval, tout: new Set([selection, ...amont, ...aval]) }
   }, [selection])
 
-  useEffect(() => {
-    const sim: Simulation<N, L> = forceSimulation<N>(noeuds)
-      .force('lien', forceLink<N, L>(aretes).id(d => d.id).distance(110).strength(0.45))
-      .force('repulsion', forceManyBody().strength(-900).distanceMax(420))
-      .force('centre', forceCenter(largeur / 2, zoneGraphe / 2))
-      // Le rayon de collision tient compte d'une PART de la largeur d'étiquette :
-      // deux disques distants de 20 px ne se chevauchent pas, mais leurs
-      // libellés, si — et c'est le libellé qu'on lit.
-      .force('collision', forceCollide<N>()
-        .radius(d => RAYON[d.type] + 14 + Math.min(d.libelle.length, 30) * 1.1))
-      .stop()
+  // La disposition ne dépend QUE de la topologie : elle est calculée une fois
+  // par filtre, et la sélection ne la recalcule pas — sinon le graphe sauterait
+  // à chaque clic, et on perdrait ce qu'on était en train de suivre.
+  const places = useMemo(() => {
+    const n: Node[] = noeudsBruts.map(x => ({
+      id: x.id,
+      type: 'si',
+      position: { x: 0, y: 0 },
+      data: { libelle: x.libelle, genre: x.type, preuve: x.preuve,
+              logo: x.type === 'application' ? logoDe.get(x.libelle) ?? null : null,
+              etat: 'normal' } satisfies DonneesNoeud,
+    }))
+    const e: Edge[] = aretesBrutes.map(a => ({
+      id: `${a.source}->${a.cible}`, source: a.source, target: a.cible, type: 'smoothstep',
+    }))
+    return { noeuds: disposer(n, e), aretes: e }
+  }, [noeudsBruts, aretesBrutes, logoDe])
 
-    // 300 passes d'un coup, puis on dessine : une animation de mise en place
-    // n'apporte rien à la lecture d'une cartographie, et elle empêche de
-    // cliquer pendant deux secondes.
-    sim.tick(300)
-
-    // Recadrage : la simulation ne connaît pas le cadre, et une force de
-    // centrage ne garantit pas que tout y entre. Sans ce pas, les nœuds des
-    // bords sortent du viewBox — ils ne sont pas absents, ils sont coupés, et
-    // rien ne le signale puisque le SVG ne déborde pas.
-    const ns = sim.nodes()
-    const xs = ns.map(n => n.x ?? 0); const ys = ns.map(n => n.y ?? 0)
-    const marge = 80
-    const minX = Math.min(...xs); const maxX = Math.max(...xs)
-    const minY = Math.min(...ys); const maxY = Math.max(...ys)
-    const kx = Math.min((largeur - 2 * marge - 140) / Math.max(maxX - minX, 1), 2.2)
-    const ky = Math.min((zoneGraphe - 2 * marge) / Math.max(maxY - minY, 1), 2.2)
-    const p: Record<string, { x: number; y: number }> = {}
-    for (const n of ns) {
-      p[n.id] = {
-        x: marge + ((n.x ?? 0) - minX) * kx,
-        y: marge + ((n.y ?? 0) - minY) * ky,
-      }
+  const noeuds = useMemo(() => places.noeuds.map(n => {
+    let etat: DonneesNoeud['etat'] = 'normal'
+    if (voisinage) {
+      if (n.id === selection) etat = 'choisi'
+      else if (voisinage.amont.has(n.id)) etat = 'amont'
+      else if (voisinage.aval.has(n.id)) etat = 'aval'
+      else etat = 'efface'
     }
-    setPositions(p)
-    return () => { sim.stop() }
-  }, [noeuds, aretes])
+    return { ...n, data: { ...(n.data as DonneesNoeud), etat } }
+  }), [places.noeuds, voisinage, selection])
 
-  useEffect(() => {
-    // Le zoom et le déplacement, sur des écouteurs natifs.
-    //
-    // `d3-zoom` faisait la même chose en trois lignes, mais il attache ses
-    // écouteurs par son propre canal : aucune analyse statique ne peut vérifier
-    // qu'ils sont retirés, et `react-doctor` le signalait — à raison, puisque
-    // la preuve manquait. Trente lignes dont le nettoyage se lit valent mieux
-    // qu'une dépendance dont il faut croire qu'elle nettoie. La référence est
-    // capturée à l'entrée : relue au démontage, elle peut déjà valoir null.
-    const svg = svgRef.current
-    if (!svg) return undefined
+  const aretes = useMemo(() => places.aretes.map(a => {
+    const dedans = !voisinage || (voisinage.tout.has(a.source) && voisinage.tout.has(a.target))
+    return {
+      ...a,
+      animated: Boolean(voisinage) && dedans,
+      style: {
+        stroke: dedans ? 'var(--gpa-bleu)' : 'var(--color-border-hairline)',
+        strokeWidth: dedans ? 1.6 : 1,
+        opacity: dedans ? 0.8 : 0.25,
+      },
+    }
+  }), [places.aretes, voisinage])
 
-    const molette = (e: WheelEvent) => {
-      e.preventDefault()
-      const boite = svg.getBoundingClientRect()
-      // Le point sous le curseur ne bouge pas : c'est ce qui distingue un zoom
-      // utilisable d'un zoom qui fait perdre ce qu'on était en train de lire.
-      const px = ((e.clientX - boite.left) / boite.width) * largeur
-      const py = ((e.clientY - boite.top) / boite.height) * hauteur
-      // Mise à jour fonctionnelle : l'état précédent vient de React, pas d'une
-      // référence tenue en parallèle. Une `ref` écrite pendant le rendu pour
-      // « avoir la valeur fraîche » est un second état, et les deux divergent.
-      setVue(v => {
-        const k = Math.min(Math.max(v.k * Math.exp(-e.deltaY * 0.0015), 0.4), 4)
-        return { k, x: px - ((px - v.x) / v.k) * k, y: py - ((py - v.y) / v.k) * k }
-      })
-    }
-
-    // Le déplacement est INCRÉMENTAL : chaque mouvement ajoute son propre
-    // écart, donc il n'a jamais besoin de connaître la position courante.
-    let depart: { x: number; y: number } | null = null
-    const prise = (e: PointerEvent) => {
-      depart = { x: e.clientX, y: e.clientY }
-      svg.setPointerCapture(e.pointerId)
-    }
-    const glisse = (e: PointerEvent) => {
-      if (!depart) return
-      const echelle = largeur / svg.getBoundingClientRect().width
-      const dx = (e.clientX - depart.x) * echelle
-      const dy = (e.clientY - depart.y) * echelle
-      depart = { x: e.clientX, y: e.clientY }
-      setVue(v => ({ ...v, x: v.x + dx, y: v.y + dy }))
-    }
-    const lache = () => { depart = null }
-
-    svg.addEventListener('wheel', molette, { passive: false })
-    svg.addEventListener('pointerdown', prise)
-    svg.addEventListener('pointermove', glisse)
-    svg.addEventListener('pointerup', lache)
-    svg.addEventListener('pointercancel', lache)
-    return () => {
-      svg.removeEventListener('wheel', molette)
-      svg.removeEventListener('pointerdown', prise)
-      svg.removeEventListener('pointermove', glisse)
-      svg.removeEventListener('pointerup', lache)
-      svg.removeEventListener('pointercancel', lache)
-    }
+  const auClic = useCallback((_: unknown, n: Node) => {
+    setSelection(s => (s === n.id ? null : n.id))
   }, [])
 
-  const noeudSelectionne = selection
-    ? socle.graphe.noeuds.find(n => n.id === selection) ?? null
-    : null
+  const choisi = selection ? socle.graphe.noeuds.find(n => n.id === selection) ?? null : null
   const libelleDe = (id: string) => socle.graphe.noeuds.find(n => n.id === id)?.libelle ?? id
 
   return (
     <div>
       <Titre surtitre="Livrables 14 et 16"
-             note="La chaîne du CCTP, telle qu'elle est aujourd'hui : processus → objet de données → application. Les fonctionnalités, les interfaces et les règles de gestion sont les trois maillons que les ateliers ajouteront — la carte les attend, elle ne les invente pas.">
+             note="La chaîne du CCTP, disposée en couches : processus à gauche, objets de données au milieu, applications à droite. Les fonctionnalités, les interfaces et les règles de gestion sont les trois maillons que les ateliers ajouteront — la carte les attend, elle ne les invente pas.">
         Carte du système d’information
       </Titre>
 
@@ -202,18 +211,20 @@ export default function CarteSi() {
       </Tuiles>
 
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        {TYPES.map(t => {
-          const actif = !caches.has(t.cle)
-          const n = socle.graphe.noeuds.filter(x => x.type === t.cle).length
+        {(['processus', 'objet', 'application'] as TypeNoeud[]).map(t => {
+          const actif = !caches.has(t)
+          const n = socle.graphe.noeuds.filter(x => x.type === t).length
+          const Icone = ICONE[t]
           return (
-            <Button key={t.cle} variant={actif ? 'secondaire' : 'contour'} taille="sm"
+            <Button key={t} variant={actif ? 'secondaire' : 'contour'} taille="sm"
                     onClick={() => setCaches(s => {
                       const suivant = new Set(s)
-                      if (suivant.has(t.cle)) suivant.delete(t.cle); else suivant.add(t.cle)
+                      if (suivant.has(t)) suivant.delete(t); else suivant.add(t)
                       return suivant
                     })}>
-              <svg width="10" height="10" aria-hidden><circle cx="5" cy="5" r="5" className={t.classe} /></svg>
-              {t.libelle} ({n})
+              <span className={`inline-block h-2.5 w-2.5 rounded-full ${COULEUR[t].puce}`} aria-hidden />
+              <Icone className="h-3.5 w-3.5" aria-hidden />
+              {LIBELLE_GENRE[t]} ({n})
             </Button>
           )
         })}
@@ -222,111 +233,80 @@ export default function CarteSi() {
             Tout réafficher
           </Button>
         )}
-        <span className="text-xs text-muted-foreground">
-          les processus prennent leur nom au clic — vingt-sept étiquettes d’un coup ne se lisent pas
-        </span>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+      <div className="grid gap-4 lg:grid-cols-[1fr_330px]">
         <Card className="overflow-hidden p-0">
-          <svg ref={svgRef} viewBox={`0 0 ${largeur} ${hauteur}`} role="img"
-               aria-label="Carte du système d'information : processus, objets de données et applications"
-               className="block h-[680px] w-full touch-none bg-card">
-            <g transform={`translate(${vue.x},${vue.y}) scale(${vue.k})`}>
-              {aretes.map(a => {
-                const s = typeof a.source === 'object' ? (a.source as N).id : String(a.source)
-                const c = typeof a.target === 'object' ? (a.target as N).id : String(a.target)
-                const ps = positions[s]; const pc = positions[c]
-                if (!ps || !pc) return null
-                const dedans = !voisinage || (voisinage.tout.has(s) && voisinage.tout.has(c))
-                return (
-                  <line key={`${s}->${c}`} x1={ps.x} y1={ps.y} x2={pc.x} y2={pc.y}
-                        className={dedans ? 'stroke-[var(--gpa-bleu)]' : 'stroke-border'}
-                        strokeWidth={dedans ? 1.4 : 0.8} opacity={dedans ? 0.55 : 0.18} />
-                )
-              })}
-              {orphelins.length > 0 && (
-                <g>
-                  <line x1={40} y1={zoneGraphe + 30} x2={largeur - 40} y2={zoneGraphe + 30}
-                        className="stroke-border" strokeWidth={1} />
-                  <text x={40} y={zoneGraphe + 22}
-                        className="fill-muted-foreground font-sans text-[11px] uppercase tracking-[0.1em]">
-                    sans lien connu — {orphelins.length}
-                  </text>
-                  {orphelins.map((n, i) => {
-                    const parLigne = 4
-                    const x = 46 + (i % parLigne) * ((largeur - 92) / parLigne)
-                    const y = zoneGraphe + 58 + Math.floor(i / parLigne) * 30
-                    const classe = TYPES.find(t => t.cle === n.type)?.classe ?? 'fill-muted'
-                    const dedans = !voisinage || voisinage.tout.has(n.id)
-                    return (
-                      <g key={n.id} transform={`translate(${x},${y})`} opacity={dedans ? 1 : 0.2}
-                         className="cursor-pointer"
-                         onClick={() => setSelection(n.id === selection ? null : n.id)}>
-                        <circle r={6} className={classe} stroke="white" strokeWidth={1.5} />
-                        <text x={12} y={4} className="pointer-events-none fill-muted-foreground font-sans text-[11px]">
-                          {n.libelle.length > 26 ? `${n.libelle.slice(0, 25)}…` : n.libelle}
-                        </text>
-                      </g>
-                    )
-                  })}
-                </g>
-              )}
-
-              {noeuds.map(n => {
-                const p = positions[n.id]
-                if (!p) return null
-                const dedans = !voisinage || voisinage.tout.has(n.id)
-                const classe = TYPES.find(t => t.cle === n.type)?.classe ?? 'fill-muted'
-                return (
-                  <g key={n.id} transform={`translate(${p.x},${p.y})`}
-                     opacity={dedans ? 1 : 0.2} className="cursor-pointer"
-                     onClick={() => setSelection(n.id === selection ? null : n.id)}>
-                    <circle r={RAYON[n.type] ?? 7} className={classe}
-                            stroke={n.id === selection ? 'var(--gpa-bleu)' : 'white'}
-                            strokeWidth={n.id === selection ? 3 : 1.5} />
-                    {(n.type !== 'processus' || (voisinage?.tout.has(n.id) ?? false)) && (
-                      <text x={(RAYON[n.type] ?? 7) + 5} y={4}
-                            className="pointer-events-none fill-foreground font-sans text-[11px]">
-                        {n.libelle.length > 30 ? `${n.libelle.slice(0, 29)}…` : n.libelle}
-                      </text>
-                    )}
-                  </g>
-                )
-              })}
-            </g>
-          </svg>
+          {/* Une colonne de 27 processus fait ~1 400 px de haut : un `fitView` sans
+              plancher la réduirait à 30 % et rendrait chaque étiquette illisible.
+              On plafonne donc la réduction (`minZoom` du fit) et on laisse le
+              lecteur naviguer — une cartographie se parcourt, elle ne se regarde
+              pas d'un seul coup d'œil. */}
+          <div style={{ height: 720 }}>
+            <ReactFlow
+              nodes={noeuds}
+              edges={aretes}
+              nodeTypes={TYPES_DE_NOEUD}
+              onNodeClick={auClic}
+              onPaneClick={() => setSelection(null)}
+              fitView
+              fitViewOptions={{ padding: 0.08, minZoom: 0.62, maxZoom: 1 }}
+              minZoom={0.15}
+              maxZoom={2.5}
+              proOptions={{ hideAttribution: false }}
+              nodesDraggable={false}
+              nodesConnectable={false}
+            >
+              <Background variant={BackgroundVariant.Dots} gap={22} size={1}
+                          color="var(--color-border-hairline)" />
+              <Controls showInteractive={false} />
+              <MiniMap pannable zoomable style={{ width: 132, height: 96 }}
+                       nodeColor={n => {
+                         const g = (n.data as DonneesNoeud).genre
+                         return g === 'processus' ? '#23145F' : g === 'objet' ? '#EA515A' : '#789983'
+                       }} />
+            </ReactFlow>
+          </div>
         </Card>
 
         <Card className="p-4">
-          {!noeudSelectionne && (
+          {!choisi && (
             <>
               <p className="gpa-surtitre">Analyse d’impact</p>
               <span className="gpa-filet" aria-hidden />
               <p className="text-sm text-muted-foreground">
-                Sélectionnez un nœud : la carte ne garde que son voisinage, et ce panneau donne ce
-                qui le produit (amont) et ce qui en dépend (aval). C’est le même geste qui répond à
+                Cliquez un nœud : la carte détache son voisinage, et ce panneau donne ce qui le
+                produit (amont) et ce qui en dépend (aval). C’est le même geste qui répond à
                 « qui casse si cette application s’arrête ? » et à « d’où vient cette donnée ? ».
               </p>
-              <p className="mt-3 text-xs text-muted-foreground">
-                Molette pour zoomer, glisser pour déplacer.
-              </p>
+              <ul className="mt-4 space-y-2 text-sm">
+                {(['processus', 'objet', 'application'] as TypeNoeud[]).map(t => {
+                  const Icone = ICONE[t]
+                  return (
+                    <li key={t} className="flex items-center gap-2">
+                      <span className={`inline-block h-2.5 w-2.5 rounded-full ${COULEUR[t].puce}`} aria-hidden />
+                      <Icone className="h-4 w-4 text-muted-foreground" aria-hidden />
+                      <span className="text-muted-foreground">{LIBELLE_GENRE[t]}</span>
+                    </li>
+                  )
+                })}
+              </ul>
             </>
           )}
 
-          {noeudSelectionne && voisinage && (
+          {choisi && voisinage && (
             <>
-              <p className="gpa-surtitre">
-                {TYPES.find(t => t.cle === noeudSelectionne.type)?.libelle ?? noeudSelectionne.type}
-              </p>
+              <p className="gpa-surtitre">{LIBELLE_GENRE[choisi.type] ?? choisi.type}</p>
               <p className="font-display text-[18px] leading-tight font-medium text-[var(--gpa-bleu)]">
-                {noeudSelectionne.libelle}
+                {choisi.libelle}
               </p>
               <span className="gpa-filet" aria-hidden />
-              <EtiquettePreuve preuve={noeudSelectionne.preuve} />
+              <EtiquettePreuve preuve={choisi.preuve} />
 
               <div className="mt-4">
-                <p className="gpa-surtitre">En amont — {voisinage.amont.size}</p>
+                <p className="gpa-surtitre flex items-center gap-1.5">
+                  <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> En amont — {voisinage.amont.size}
+                </p>
                 {voisinage.amont.size === 0
                   ? <p className="mt-1 text-sm text-muted-foreground">rien de connu</p>
                   : <ul className="mt-1 space-y-1 text-sm">
@@ -340,7 +320,9 @@ export default function CarteSi() {
               </div>
 
               <div className="mt-4">
-                <p className="gpa-surtitre">En aval — {voisinage.aval.size}</p>
+                <p className="gpa-surtitre flex items-center gap-1.5">
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden /> En aval — {voisinage.aval.size}
+                </p>
                 {voisinage.aval.size === 0
                   ? <p className="mt-1 text-sm text-muted-foreground">rien de connu</p>
                   : <ul className="mt-1 space-y-1 text-sm">
@@ -352,22 +334,39 @@ export default function CarteSi() {
                       ))}
                     </ul>}
               </div>
-
-              {voisinage.amont.size + voisinage.aval.size === 0 && (
-                <Badge ton="alerte" className="mt-4">orphelin</Badge>
-              )}
             </>
           )}
         </Card>
       </div>
+
+      {orphelins.length > 0 && (
+        <section className="mt-5">
+          <p className="gpa-surtitre flex items-center gap-1.5">
+            <Unlink className="h-3.5 w-3.5" aria-hidden /> Sans lien connu — {orphelins.length}
+          </p>
+          <span className="gpa-filet" aria-hidden />
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {orphelins.map(o => (
+              <Card key={o.id} profondeur="plat" className="flex items-center gap-2 p-2.5">
+                <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${COULEUR[o.type].puce}`} aria-hidden />
+                <span className="min-w-0 flex-1 truncate text-[13px]" title={o.libelle}>{o.libelle}</span>
+                {o.preuve?.includes('hypothèse') && <Badge ton="alerte">hyp.</Badge>}
+              </Card>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Un nœud sans arête sort de la disposition : la placer parmi les autres l’étirerait sans
+            rien apprendre. Ce sont les applications que rien ne relie encore à un objet de données.
+          </p>
+        </section>
+      )}
 
       <Encadre titre="Ce que la carte n’a pas encore" ton="accent">
         <p>
           Les <strong>fonctionnalités opérationnelles</strong>, les <strong>interfaces</strong> et
           les <strong>règles de gestion</strong>. Le compteur d’interfaces affiche zéro et non une
           estimation : un chiffre inventé sur une cartographie est plus coûteux qu’une case vide.
-          Les {nombre(socle.compteurs.orphelins)} nœuds orphelins sont, eux, un résultat : ce sont
-          les applications que rien ne relie encore à un objet de données.
+          Les {nombre(socle.compteurs.orphelins)} nœuds orphelins sont, eux, un résultat.
         </p>
       </Encadre>
 

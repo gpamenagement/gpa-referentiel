@@ -26,6 +26,15 @@ export type Vue = {
 
 export const VUES: Vue[] = [
   {
+    cle: 'carte',
+    libelle: 'Carte du SI',
+    titre: 'Carte du système d’information',
+    sousTitre: 'Processus → objets de données → applications, parcourue dans les deux sens',
+    famille: 'referentiel',
+    livrable: 'Livrables 14 et 16',
+    charge: () => import('./vues/carte-si'),
+  },
+  {
     cle: 'accueil',
     libelle: 'Accueil',
     titre: 'Référentiel SI et cartographie',
@@ -44,21 +53,12 @@ export const VUES: Vue[] = [
   },
   {
     cle: 'objets',
-    libelle: 'Objets de données',
+    libelle: 'Objets',
     titre: 'Objets de données et référentiels',
     sousTitre: 'Les onze objets du métier d’aménageur, et les questions à poser en atelier',
     famille: 'referentiel',
     livrable: 'Livrable 12',
     charge: () => import('./vues/objets'),
-  },
-  {
-    cle: 'carte',
-    libelle: 'Carte du SI',
-    titre: 'Carte du système d’information',
-    sousTitre: 'Processus → objets de données → applications, parcourue dans les deux sens',
-    famille: 'referentiel',
-    livrable: 'Livrables 14 et 16',
-    charge: () => import('./vues/carte-si'),
   },
   {
     cle: 'organisation',
@@ -109,5 +109,8 @@ export const A_VENIR: { libelle: string; livrable: string; quoi: string }[] = [
 export function vueParCle(cle: string): Vue {
   return VUES.find(v => v.cle === cle) ?? VUES[0]
 }
+
+/** La vue d'entrée, sans hash : la carte. C'est ce qu'on vient voir. */
+export const VUE_PAR_DEFAUT = 'carte'
 
 export const composant = (v: Vue) => lazy(v.charge)

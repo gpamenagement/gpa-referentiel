@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ag-grid-community/locale": "^34.3.1",
+    "@dagrejs/dagre": "^3.1.1",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.4",
     "@radix-ui/react-avatar": "^1.1.4",
@@ -31,6 +32,7 @@
     "@radix-ui/react-switch": "^1.1.4",
     "@radix-ui/react-tabs": "^1.1.4",
     "@radix-ui/react-tooltip": "^1.2.0",
+    "@xyflow/react": "^12.11.6",
     "ag-grid-community": "^34.3.1",
     "ag-grid-enterprise": "^34.3.1",
     "ag-grid-react": "^34.3.1",

@@ -1,3 +1,4 @@
+import { BookOpen, GitBranch, Sparkles } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { socle, nombre } from '@/donnees/socle'
@@ -41,7 +42,7 @@ export default function Methodologie() {
 
   return (
     <div>
-      <Titre surtitre="Niveau 0 du CCTP"
+      <Titre surtitre="Niveau 0 du CCTP" icone={<BookOpen />}
              note="Comment chaque entrée de ce référentiel a été obtenue, et comment l’enrichir. Cette page est le livrable méthodologique lui-même, pas son résumé.">
         Méthodologie
       </Titre>
@@ -57,7 +58,7 @@ export default function Methodologie() {
         ))}
       </div>
 
-      <Titre surtitre="Traçabilité">D’où vient ce qui est affiché</Titre>
+      <Titre surtitre="Traçabilité" icone={<GitBranch />}>D’où vient ce qui est affiché</Titre>
       <div className="mb-7 overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
           <thead>
@@ -92,7 +93,7 @@ export default function Methodologie() {
         </table>
       </div>
 
-      <Titre surtitre="Comment enrichir">Trois gestes, et un seul chemin d’écriture</Titre>
+      <Titre surtitre="Comment enrichir" icone={<Sparkles />}>Trois gestes, et un seul chemin d’écriture</Titre>
       <ol className="mb-7 max-w-[76ch] list-decimal space-y-2 pl-5 text-sm">
         <li>
           <strong>Un atelier par direction</strong>, sur le questionnaire à quatre onglets — 68

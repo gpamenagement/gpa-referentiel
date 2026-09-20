@@ -84,6 +84,163 @@ def logo_de(nom: str) -> str | None:
     return f"/brand/vendors/{f}" if f else None
 
 
+# --- Le catalogue de données -------------------------------------------------
+#
+# Il ne se tient pas à la main : il se LIT depuis les transformations. Les
+# descriptions dbt portent déjà le propriétaire, la classification, la fraîcheur
+# et les destinataires ; les tests portent les règles de gestion ; les jeux
+# d'amorce portent les types réels et un exemple de valeur. Un catalogue saisi à
+# côté du code diverge du code en trois semaines — celui-ci ne peut pas.
+DBT = pathlib.Path(
+    "/home/mbakkali/projects/flowmetrik-cowork/flowao/data/dce/686974/outillage-dossier/demo-dbt"
+)
+
+# Quel modèle repose sur quel jeu d'amorce, quelle application l'alimente, et à
+# quel objet de données il correspond.
+#
+# La table est EXPLICITE et non devinée par sous-chaîne : « sima_operations » ne
+# contient pas « socle_operation » (pluriel contre singulier), et un rapprochement
+# approximatif rendait huit modèles sur neuf sans type ni exemple — sans erreur,
+# et sans que le compteur le dise.
+MODELES = {
+    "socle_operation": ("sima_operations", "SIMA", "Opération d'aménagement"),
+    "socle_lot":       ("sima_lots", "SIMA", "Lot / îlot / charge foncière"),
+    "socle_tiers":     ("sima_tiers", "SIMA", "Tiers"),
+    "socle_bail":      ("ublo_baux", "Ublo", "Patrimoine locatif / bail"),
+    "socle_parcelle":  ("foncier_parcelles", "SI Foncier", "Foncier / parcelle"),
+    # Les modèles de référentiel sont CALCULÉS : pas de jeu d'amorce, donc pas
+    # d'exemple de valeur — et c'est juste ainsi.
+    "ref_operation":   (None, "SIMA + SI Foncier", "Opération d'aménagement"),
+    "ref_lot":         (None, "SIMA + Ublo", "Lot / îlot / charge foncière"),
+    "ref_tiers":       (None, "SIMA", "Tiers"),
+    "qualite_referentiel": (None, "contrôles dbt", None),
+}
+
+
+def typer(valeurs: list[str]) -> str:
+    """Le type d'une colonne, déduit de ses valeurs — jamais déclaré à la main."""
+    vues = [v for v in valeurs if v not in ("", None)]
+    if not vues:
+        return "inconnu"
+    if all(re.fullmatch(r"\d{4}-\d{2}-\d{2}", v) for v in vues):
+        return "date"
+    if all(re.fullmatch(r"-?\d+", v) for v in vues):
+        return "entier"
+    if all(re.fullmatch(r"-?\d+[.,]\d+", v) for v in vues):
+        return "décimal"
+    return "texte"
+
+
+def champ_de_texte(texte: str, etiquette: str) -> str | None:
+    m = re.search(rf"{etiquette}\s*:\s*([^.\n]+)", texte)
+    return m.group(1).strip() if m else None
+
+
+def catalogue() -> dict:
+    import csv
+    import yaml
+
+    if not DBT.exists():
+        return {"entites": [], "note": f"démonstration dbt absente : {DBT}"}
+
+    # 1. Les jeux d'amorce : types réels et exemples de valeurs.
+    amorces: dict[str, dict] = {}
+    for f in sorted((DBT / "seeds").glob("*.csv")):
+        lignes = list(csv.DictReader(f.read_text(encoding="utf-8").splitlines()))
+        if not lignes:
+            continue
+        amorces[f.stem] = {
+            "lignes": len(lignes),
+            "colonnes": {
+                c: {"type": typer([l[c] for l in lignes]), "exemple": lignes[0][c]}
+                for c in lignes[0]
+            },
+        }
+
+    # 2. Les modèles : description, propriétaire, classification, règles.
+    entites = []
+    for couche in ("socle", "referentiel"):
+        f = DBT / "models" / couche / f"{couche}.yml"
+        if not f.exists():
+            continue
+        doc = yaml.safe_load(f.read_text(encoding="utf-8"))
+        for m in doc.get("models", []):
+            desc = " ".join((m.get("description") or "").split())
+            nom_amorce, source, objet = MODELES.get(m["name"], (None, None, None))
+            amorce = amorces.get(nom_amorce) if nom_amorce else None
+            champs = []
+            for c in m.get("columns", []):
+                tests = []
+                for t in c.get("data_tests", []) or []:
+                    if isinstance(t, str):
+                        tests.append(t)
+                    elif isinstance(t, dict):
+                        for k, v in t.items():
+                            if k == "accepted_values":
+                                tests.append("valeurs : " + ", ".join(v.get("values", [])))
+                            elif k == "relationships":
+                                tests.append(f"référence {v.get('to', '?')}")
+                            else:
+                                tests.append(k)
+                meta = (amorce or {}).get("colonnes", {}).get(c["name"], {})
+                champs.append({
+                    "nom": c["name"],
+                    "description": " ".join((c.get("description") or "").split()),
+                    "type": meta.get("type"),
+                    "exemple": meta.get("exemple"),
+                    "regles": tests,
+                    "cle": "unique" in tests,
+                    "obligatoire": "not_null" in tests,
+                })
+            # Les colonnes présentes dans les données mais non documentées : ce
+            # sont elles, la vraie dette de catalogue. Elles s'affichent.
+            documentees = {c["nom"] for c in champs}
+            for nom, meta in (amorce or {}).get("colonnes", {}).items():
+                if nom not in documentees:
+                    champs.append({"nom": nom, "description": None, "type": meta["type"],
+                                   "exemple": meta["exemple"], "regles": [],
+                                   "cle": False, "obligatoire": False})
+            # Un échantillon réel : trois lignes suffisent à rendre un schéma
+            # crédible, et à faire voir un format de valeur qu'aucune définition
+            # ne décrit aussi bien (« 94081 » est un code INSEE, pas un entier).
+            echantillon = []
+            if nom_amorce and (DBT / "seeds" / f"{nom_amorce}.csv").exists():
+                lignes_csv = list(csv.DictReader(
+                    (DBT / "seeds" / f"{nom_amorce}.csv").read_text(encoding="utf-8").splitlines()))
+                echantillon = lignes_csv[:3]
+
+            entites.append({
+                "echantillon": echantillon,
+                "cle": cle(m["name"]),
+                "modele": m["name"],
+                "couche": couche,
+                "objet": objet,
+                "source_applicative": source,
+                "description": desc,
+                "proprietaire": champ_de_texte(desc, "Propriétaire(?: de la donnée)?"),
+                "classification": champ_de_texte(desc, "Classification"),
+                "fraicheur": champ_de_texte(desc, "Fra[îi]cheur(?: attendue)?"),
+                "destinataires": champ_de_texte(desc, "Destinataires"),
+                "lignes": (amorce or {}).get("lignes"),
+                "champs": champs,
+                "champs_documentes": len(documentees),
+            })
+    # 3. Les dépendances entre modèles, lues dans le SQL : `ref('x')` est la
+    #    seule déclaration de lignage qui ne peut pas mentir, puisque c'est elle
+    #    qui fait tourner la transformation.
+    relations = []
+    for f in sorted((DBT / "models").rglob("*.sql")):
+        sql = f.read_text(encoding="utf-8")
+        for cible in sorted(set(re.findall(r"ref\(\s*['\"]([a-z0-9_]+)['\"]\s*\)", sql))):
+            relations.append({"de": cible, "vers": f.stem, "type": "alimente"})
+
+    return {
+        "source": "démonstration dbt du dossier d'offre (outillage-dossier/demo-dbt)",
+        "entites": entites,
+        "relations": relations,
+    }
+
+
 def construire(base: pathlib.Path) -> dict:
     apps_src = charger(base, "applications.json")
     objets_src = charger(base, "objets-donnees.json")
@@ -270,8 +427,14 @@ def construire(base: pathlib.Path) -> dict:
         "orphelins": len(orphelins),
     }
 
+    cat = catalogue()
+    compteurs["catalogue_entites"] = len(cat["entites"])
+    compteurs["catalogue_champs"] = sum(len(e["champs"]) for e in cat["entites"])
+    compteurs["catalogue_champs_documentes"] = sum(e["champs_documentes"] for e in cat["entites"])
+
     return {
         "genere_le": __import__("datetime").date.today().isoformat(),
+        "catalogue": cat,
         "source": "flowao/data/dce/686974/base-gpa — marché 202600092",
         "avertissement": objets_src.get("AVERTISSEMENT"),
         "compteurs": compteurs,

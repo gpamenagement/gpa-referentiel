@@ -1,5 +1,878 @@
 {
  "genere_le": "2026-09-20",
+ "catalogue": {
+  "source": "démonstration dbt du dossier d'offre (outillage-dossier/demo-dbt)",
+  "entites": [
+   {
+    "echantillon": [
+     {
+      "code_operation": "OP-2019-0142",
+      "libelle_operation": "Vitry Ardoines — secteur Seine Gare",
+      "commune": "Vitry-sur-Seine",
+      "code_insee": "94081",
+      "phase": "Travaux",
+      "date_ouverture": "2019-04-02",
+      "surface_cessible_m2": "184500",
+      "responsable_operation": "DUPONT Claire"
+     },
+     {
+      "code_operation": "OP-2020-0087",
+      "libelle_operation": "Les Horizons",
+      "commune": "Évry-Courcouronnes",
+      "code_insee": "91228",
+      "phase": "Commercialisation",
+      "date_ouverture": "2020-09-14",
+      "surface_cessible_m2": "96200",
+      "responsable_operation": "MARCHAND Yves"
+     },
+     {
+      "code_operation": "OP-2021-0231",
+      "libelle_operation": "Jardin des Facultés",
+      "commune": "Saint-Maur-des-Fossés",
+      "code_insee": "94068",
+      "phase": "Commercialisation",
+      "date_ouverture": "2021-03-08",
+      "surface_cessible_m2": "41800",
+      "responsable_operation": "DUPONT Claire"
+     }
+    ],
+    "cle": "socle-operation",
+    "modele": "socle_operation",
+    "couche": "socle",
+    "objet": "Opération d'aménagement",
+    "source_applicative": "SIMA",
+    "description": "Opérations d'aménagement, normalisées depuis SIMA. Une ligne par opération, identifiée par son code opération. Propriétaire de la donnée : Direction de l'aménagement. Fraîcheur attendue : quotidienne.",
+    "proprietaire": "Direction de l'aménagement",
+    "classification": null,
+    "fraicheur": "quotidienne",
+    "destinataires": null,
+    "lignes": 6,
+    "champs": [
+     {
+      "nom": "code_operation",
+      "description": "Identifiant unique de l'opération d'aménagement. Clé de rapprochement entre SIMA, SI Foncier et la comptabilité.",
+      "type": "texte",
+      "exemple": "OP-2019-0142",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "phase",
+      "description": "Phase d'avancement de l'opération au sens du cycle d'aménagement.",
+      "type": "texte",
+      "exemple": "Travaux",
+      "regles": [
+       "valeurs : Études, Travaux, Commercialisation, Clôture"
+      ],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "code_insee",
+      "description": "Code INSEE de la commune d'implantation. Nomenclature nationale.",
+      "type": "entier",
+      "exemple": "94081",
+      "regles": [
+       "not_null"
+      ],
+      "cle": false,
+      "obligatoire": true
+     },
+     {
+      "nom": "surface_cessible_m2",
+      "description": "Surface cessible de l'opération, en mètres carrés.",
+      "type": "entier",
+      "exemple": "184500",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "libelle_operation",
+      "description": null,
+      "type": "texte",
+      "exemple": "Vitry Ardoines — secteur Seine Gare",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "commune",
+      "description": null,
+      "type": "texte",
+      "exemple": "Vitry-sur-Seine",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "date_ouverture",
+      "description": null,
+      "type": "date",
+      "exemple": "2019-04-02",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "responsable_operation",
+      "description": null,
+      "type": "texte",
+      "exemple": "DUPONT Claire",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 4
+   },
+   {
+    "echantillon": [
+     {
+      "id_lot": "L-00431",
+      "code_operation": "OP-2019-0142",
+      "destination": "Logement libre",
+      "surface_m2": "4200",
+      "statut_commercial": "Acte signé",
+      "date_reservation": "2023-05-11",
+      "prix_cession_eur": "5880000",
+      "id_acquereur": "TIE-0012"
+     },
+     {
+      "id_lot": "L-00432",
+      "code_operation": "OP-2019-0142",
+      "destination": "Logement social",
+      "surface_m2": "3100",
+      "statut_commercial": "Acte signé",
+      "date_reservation": "2023-07-02",
+      "prix_cession_eur": "2790000",
+      "id_acquereur": "TIE-0031"
+     },
+     {
+      "id_lot": "L-00433",
+      "code_operation": "OP-2019-0142",
+      "destination": "Activité",
+      "surface_m2": "2650",
+      "statut_commercial": "Réservé",
+      "date_reservation": "2025-02-18",
+      "prix_cession_eur": "2120000",
+      "id_acquereur": "TIE-0044"
+     }
+    ],
+    "cle": "socle-lot",
+    "modele": "socle_lot",
+    "couche": "socle",
+    "objet": "Lot / îlot / charge foncière",
+    "source_applicative": "SIMA",
+    "description": "Lots commercialisables, normalisés depuis SIMA. Une ligne par lot. Propriétaire de la donnée : Direction de la commercialisation.",
+    "proprietaire": "Direction de la commercialisation",
+    "classification": null,
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": 10,
+    "champs": [
+     {
+      "nom": "id_lot",
+      "description": "Identifiant unique du lot.",
+      "type": "texte",
+      "exemple": "L-00431",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "code_operation",
+      "description": "Opération de rattachement du lot.",
+      "type": "texte",
+      "exemple": "OP-2019-0142",
+      "regles": [
+       "not_null",
+       "référence ref('socle_operation')"
+      ],
+      "cle": false,
+      "obligatoire": true
+     },
+     {
+      "nom": "statut_commercial",
+      "description": "État de commercialisation du lot.",
+      "type": "texte",
+      "exemple": "Acte signé",
+      "regles": [
+       "valeurs : Disponible, Réservé, Acte signé"
+      ],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "id_acquereur",
+      "description": "Tiers acquéreur du lot, vide tant que le lot est disponible.",
+      "type": "texte",
+      "exemple": "TIE-0012",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "destination",
+      "description": null,
+      "type": "texte",
+      "exemple": "Logement libre",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "surface_m2",
+      "description": null,
+      "type": "entier",
+      "exemple": "4200",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "date_reservation",
+      "description": null,
+      "type": "date",
+      "exemple": "2023-05-11",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "prix_cession_eur",
+      "description": null,
+      "type": "entier",
+      "exemple": "5880000",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 4
+   },
+   {
+    "echantillon": [
+     {
+      "id_acquereur": "TIE-0007",
+      "raison_sociale": "Commune de Évry-Courcouronnes",
+      "siren": "219102282",
+      "forme": "Collectivité",
+      "role": "Acquéreur"
+     },
+     {
+      "id_acquereur": "TIE-0012",
+      "raison_sociale": "Promoteur Seine Horizon SAS",
+      "siren": "812457963",
+      "forme": "SAS",
+      "role": "Promoteur"
+     },
+     {
+      "id_acquereur": "TIE-0031",
+      "raison_sociale": "Bailleur Francilien Habitat",
+      "siren": "775691003",
+      "forme": "OPH",
+      "role": "Bailleur social"
+     }
+    ],
+    "cle": "socle-tiers",
+    "modele": "socle_tiers",
+    "couche": "socle",
+    "objet": "Tiers",
+    "source_applicative": "SIMA",
+    "description": "Tiers en relation avec l'établissement — promoteurs, bailleurs, collectivités, investisseurs. Propriétaire de la donnée : Direction juridique.",
+    "proprietaire": "Direction juridique",
+    "classification": null,
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": 5,
+    "champs": [
+     {
+      "nom": "id_acquereur",
+      "description": "Identifiant interne du tiers.",
+      "type": "texte",
+      "exemple": "TIE-0007",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "siren",
+      "description": "Numéro SIREN à neuf chiffres. Clé d'or de rapprochement avec les référentiels externes.",
+      "type": "entier",
+      "exemple": "219102282",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "raison_sociale",
+      "description": null,
+      "type": "texte",
+      "exemple": "Commune de Évry-Courcouronnes",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "forme",
+      "description": null,
+      "type": "texte",
+      "exemple": "Collectivité",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "role",
+      "description": null,
+      "type": "texte",
+      "exemple": "Acquéreur",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 2
+   },
+   {
+    "echantillon": [
+     {
+      "id_bail": "B-2211",
+      "reference_lot": "L-00433",
+      "id_locataire": "LOC-101",
+      "nature": "Bail commercial 3/6/9",
+      "date_effet": "2025-09-01",
+      "date_fin": "2034-08-31",
+      "loyer_annuel_eur": "148000"
+     },
+     {
+      "id_bail": "B-2212",
+      "reference_lot": "L-00514",
+      "id_locataire": "LOC-118",
+      "nature": "Convention d'occupation précaire",
+      "date_effet": "2025-04-15",
+      "date_fin": "2026-04-14",
+      "loyer_annuel_eur": "22000"
+     },
+     {
+      "id_bail": "B-2240",
+      "reference_lot": "L-00743",
+      "id_locataire": "LOC-101",
+      "nature": "Bail commercial 3/6/9",
+      "date_effet": "2026-01-01",
+      "date_fin": "2034-12-31",
+      "loyer_annuel_eur": "71500"
+     }
+    ],
+    "cle": "socle-bail",
+    "modele": "socle_bail",
+    "couche": "socle",
+    "objet": "Patrimoine locatif / bail",
+    "source_applicative": "Ublo",
+    "description": "Baux et conventions d'occupation, normalisés depuis Ublo. Propriétaire de la donnée : Direction de la gestion locative.",
+    "proprietaire": "Direction de la gestion locative",
+    "classification": null,
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": 3,
+    "champs": [
+     {
+      "nom": "id_bail",
+      "description": "Identifiant unique du bail.",
+      "type": "texte",
+      "exemple": "B-2211",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "reference_lot",
+      "description": "Lot occupé. Cette colonne est la seule jointure entre Ublo et SIMA, et elle n'est garantie par aucune contrainte dans les systèmes sources.",
+      "type": "texte",
+      "exemple": "L-00433",
+      "regles": [
+       "référence ref('socle_lot')"
+      ],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "id_locataire",
+      "description": null,
+      "type": "texte",
+      "exemple": "LOC-101",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "nature",
+      "description": null,
+      "type": "texte",
+      "exemple": "Bail commercial 3/6/9",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "date_effet",
+      "description": null,
+      "type": "date",
+      "exemple": "2025-09-01",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "date_fin",
+      "description": null,
+      "type": "date",
+      "exemple": "2034-08-31",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "loyer_annuel_eur",
+      "description": null,
+      "type": "entier",
+      "exemple": "148000",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 2
+   },
+   {
+    "echantillon": [
+     {
+      "id_parcelle": "PA-7781",
+      "code_operation": "OP-2019-0142",
+      "reference_cadastrale": "94081000AK0142",
+      "commune": "Vitry-sur-Seine",
+      "surface_m2": "62400",
+      "statut_maitrise": "Maîtrisé",
+      "date_acquisition": "2018-11-09"
+     },
+     {
+      "id_parcelle": "PA-7782",
+      "code_operation": "OP-2019-0142",
+      "reference_cadastrale": "94081000AK0143",
+      "commune": "Vitry-sur-Seine",
+      "surface_m2": "38900",
+      "statut_maitrise": "Maîtrisé",
+      "date_acquisition": "2019-02-27"
+     },
+     {
+      "id_parcelle": "PA-8104",
+      "code_operation": "OP-2020-0087",
+      "reference_cadastrale": "91228000BC0031",
+      "commune": "Évry-Courcouronnes",
+      "surface_m2": "96200",
+      "statut_maitrise": "Maîtrisé",
+      "date_acquisition": "2019-12-05"
+     }
+    ],
+    "cle": "socle-parcelle",
+    "modele": "socle_parcelle",
+    "couche": "socle",
+    "objet": "Foncier / parcelle",
+    "source_applicative": "SI Foncier",
+    "description": "Parcelles cadastrales et état de maîtrise foncière, normalisés depuis SI Foncier. Propriétaire de la donnée : Direction du foncier.",
+    "proprietaire": "Direction du foncier",
+    "classification": null,
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": 7,
+    "champs": [
+     {
+      "nom": "id_parcelle",
+      "description": "Identifiant unique de la parcelle dans SI Foncier.",
+      "type": "texte",
+      "exemple": "PA-7781",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "reference_cadastrale",
+      "description": "Référence cadastrale à quatorze caractères. Nomenclature DGFiP.",
+      "type": "texte",
+      "exemple": "94081000AK0142",
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "code_operation",
+      "description": "Opération de rattachement de la parcelle.",
+      "type": "texte",
+      "exemple": "OP-2019-0142",
+      "regles": [
+       "référence ref('socle_operation')"
+      ],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "statut_maitrise",
+      "description": "État de la maîtrise foncière de la parcelle.",
+      "type": "texte",
+      "exemple": "Maîtrisé",
+      "regles": [
+       "valeurs : Maîtrisé, En négociation, Abandonné"
+      ],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "commune",
+      "description": null,
+      "type": "texte",
+      "exemple": "Vitry-sur-Seine",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "surface_m2",
+      "description": null,
+      "type": "entier",
+      "exemple": "62400",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "date_acquisition",
+      "description": null,
+      "type": "date",
+      "exemple": "2018-11-09",
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 4
+   },
+   {
+    "echantillon": [],
+    "cle": "ref-operation",
+    "modele": "ref_operation",
+    "couche": "referentiel",
+    "objet": "Opération d'aménagement",
+    "source_applicative": "SIMA + SI Foncier",
+    "description": "Objet de référence « Opération d'aménagement ». Vue unique d'une opération, consolidée depuis SIMA (commercialisation) et SI Foncier (maîtrise foncière). Propriétaire : Direction de l'aménagement. Classification : interne. Fraîcheur : J+1. Destinataires : CODIR, Power BI, assistants métier.",
+    "proprietaire": "Direction de l'aménagement",
+    "classification": "interne",
+    "fraicheur": "J+1",
+    "destinataires": "CODIR, Power BI, assistants métier",
+    "lignes": null,
+    "champs": [
+     {
+      "nom": "code_operation",
+      "description": "Identifiant unique de l'opération — la clé de rapprochement de tout le référentiel.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "taux_maitrise_pct",
+      "description": "Part de la surface foncière effectivement maîtrisée, en pourcentage.",
+      "type": null,
+      "exemple": null,
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "ca_acte_eur",
+      "description": "Chiffre d'affaires de cession effectivement acté, en euros.",
+      "type": null,
+      "exemple": null,
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     },
+     {
+      "nom": "ca_potentiel_eur",
+      "description": "Chiffre d'affaires de cession si tous les lots étaient cédés au prix affiché.",
+      "type": null,
+      "exemple": null,
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 4
+   },
+   {
+    "echantillon": [],
+    "cle": "ref-lot",
+    "modele": "ref_lot",
+    "couche": "referentiel",
+    "objet": "Lot / îlot / charge foncière",
+    "source_applicative": "SIMA + Ublo",
+    "description": "Objet de référence « Lot ». Le lot, son opération, son acquéreur et son occupation locative — la seule vue qui rapproche SIMA et Ublo. Propriétaire : Direction de la commercialisation. Classification : restreinte.",
+    "proprietaire": "Direction de la commercialisation",
+    "classification": "restreinte",
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": null,
+    "champs": [
+     {
+      "nom": "id_lot",
+      "description": "Identifiant unique du lot.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "acquereur_siren",
+      "description": "SIREN de l'acquéreur, repris du référentiel Tiers.",
+      "type": null,
+      "exemple": null,
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 2
+   },
+   {
+    "echantillon": [],
+    "cle": "ref-tiers",
+    "modele": "ref_tiers",
+    "couche": "referentiel",
+    "objet": "Tiers",
+    "source_applicative": "SIMA",
+    "description": "Objet de référence « Tiers ». Un tiers, son SIREN, et son exposition réelle mesurée en lots et en euros engagés, toutes opérations confondues. Propriétaire : Direction juridique. Classification : restreinte.",
+    "proprietaire": "Direction juridique",
+    "classification": "restreinte",
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": null,
+    "champs": [
+     {
+      "nom": "id_acquereur",
+      "description": "Identifiant unique du tiers.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "siren",
+      "description": "SIREN à neuf chiffres — clé d'or vers les référentiels externes (INSEE, RNE).",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "engagement_eur",
+      "description": "Somme des prix de cession des lots portés par ce tiers.",
+      "type": null,
+      "exemple": null,
+      "regles": [],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 3
+   },
+   {
+    "echantillon": [],
+    "cle": "qualite-referentiel",
+    "modele": "qualite_referentiel",
+    "couche": "referentiel",
+    "objet": null,
+    "source_applicative": "contrôles dbt",
+    "description": "Tableau de bord de qualité du référentiel. Une ligne par contrôle, avec son propriétaire métier et le nombre d'anomalies constatées. C'est la table que Power BI lit ; les tests dbt sont ce qui la remplit.",
+    "proprietaire": null,
+    "classification": null,
+    "fraicheur": null,
+    "destinataires": null,
+    "lignes": null,
+    "champs": [
+     {
+      "nom": "controle",
+      "description": "Énoncé de la règle de gestion contrôlée, en français, relisible par le propriétaire métier.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "unique",
+       "not_null"
+      ],
+      "cle": true,
+      "obligatoire": true
+     },
+     {
+      "nom": "proprietaire",
+      "description": "Direction responsable de la correction de l'anomalie.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "not_null"
+      ],
+      "cle": false,
+      "obligatoire": true
+     },
+     {
+      "nom": "statut",
+      "description": "Conforme si aucune anomalie, À traiter sinon.",
+      "type": null,
+      "exemple": null,
+      "regles": [
+       "valeurs : Conforme, À traiter"
+      ],
+      "cle": false,
+      "obligatoire": false
+     }
+    ],
+    "champs_documentes": 3
+   }
+  ],
+  "relations": [
+   {
+    "de": "ref_operation",
+    "vers": "qualite_referentiel",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_bail",
+    "vers": "qualite_referentiel",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_lot",
+    "vers": "qualite_referentiel",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_operation",
+    "vers": "qualite_referentiel",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_parcelle",
+    "vers": "qualite_referentiel",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_bail",
+    "vers": "ref_lot",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_lot",
+    "vers": "ref_lot",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_operation",
+    "vers": "ref_lot",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_tiers",
+    "vers": "ref_lot",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_lot",
+    "vers": "ref_operation",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_operation",
+    "vers": "ref_operation",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_parcelle",
+    "vers": "ref_operation",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_lot",
+    "vers": "ref_tiers",
+    "type": "alimente"
+   },
+   {
+    "de": "socle_tiers",
+    "vers": "ref_tiers",
+    "type": "alimente"
+   },
+   {
+    "de": "ublo_baux",
+    "vers": "socle_bail",
+    "type": "alimente"
+   },
+   {
+    "de": "sima_lots",
+    "vers": "socle_lot",
+    "type": "alimente"
+   },
+   {
+    "de": "sima_operations",
+    "vers": "socle_operation",
+    "type": "alimente"
+   },
+   {
+    "de": "foncier_parcelles",
+    "vers": "socle_parcelle",
+    "type": "alimente"
+   },
+   {
+    "de": "sima_tiers",
+    "vers": "socle_tiers",
+    "type": "alimente"
+   }
+  ]
+ },
  "source": "flowao/data/dce/686974/base-gpa — marché 202600092",
  "avertissement": "⚠️ CE FICHIER EST UNE HYPOTHÈSE DE TRAVAIL, PAS UN CONSTAT. Aucun de ces objets n'a été observé dans le système d'information de GPA. Ils sont déduits de trois choses : (1) les applications que le CCTP nomme littéralement, (2) le métier d'aménageur public tel qu'il s'exprime dans les 58 fiches d'opération publiques de GPA, (3) l'expérience du domaine. C'est précisément ce que la mission de cartographie ira vérifier : le CCTP demande « l'identification des principaux objets de données » et « l'identification des propriétaires et responsables de ces données ». Ce fichier sert de grille d'entretien d'atelier, il ne se présente pas comme un résultat.",
  "compteurs": {
@@ -17,7 +890,10 @@
   "marches": 1143,
   "noeuds": 64,
   "aretes": 65,
-  "orphelins": 13
+  "orphelins": 13,
+  "catalogue_entites": 9,
+  "catalogue_champs": 47,
+  "catalogue_champs_documentes": 28
  },
  "niveaux_de_preuve": [
   "nommée par le CCTP",
