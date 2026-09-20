@@ -42,6 +42,21 @@ pnpm build && pnpm preview --port 5312
 python3 scripts/verifier.py               # quatre sondes + 12 captures
 ```
 
+**Sur le tailnet**, pour regarder depuis un téléphone :
+
+```bash
+pnpm build
+python3 scripts/servir.py --port 5390 &                       # dist/ en statique
+tailscale serve --bg --https=8490 http://127.0.0.1:5390       # → https://cowork-linux.tailef30ea.ts.net:8490/
+```
+
+Deux choses à savoir. `pnpm preview` ne convient PAS derrière le pont : Vite refuse une requête
+dont l'en-tête `Host` n'est pas dans `allowedHosts`, et la réponse « Blocked request » n'est
+expliquée nulle part dans le journal du pont. Et ce pont est posé **hors du registre**
+`flowhub-vm/apps.yaml` : il survit à un redémarrage du serveur statique, mais **un
+`apps.py apply` réécrit la configuration `tailscale serve` depuis le registre et le supprimerait**
+— sans erreur. L'entrée au registre est une gate.
+
 **La sortie autonome** — un seul fichier `.html`, tout inliné, qui s'ouvre sans serveur (courriel,
 téléphone, poste de soutenance sans réseau) :
 
