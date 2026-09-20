@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Logo, SignatureFlowmetrik } from '@/components/brand/logo'
+import { BandeauDemonstration } from '@/composants/bandeau-demonstration'
 
 /**
  * La coquille : barre latérale + barre haute + zone de contenu.
@@ -22,7 +23,14 @@ export function AppShell(
 ) {
   const [ouvert, setOuvert] = useState(false)
   return (
-    <div className="flex min-h-screen bg-background">
+    // Une colonne, et non plus une rangée : la bannière occupe toute la largeur
+    // en haut de la fenêtre, latérale comprise. Collée (`sticky`), elle reste
+    // lisible quel que soit l'écran atteint par un lien direct — c'est tout son
+    // intérêt : un visiteur qui arrive par `#objets` ne lira pas la page
+    // méthodologie, il lira cette ligne.
+    <div className="flex min-h-screen flex-col bg-background">
+      <BandeauDemonstration />
+      <div className="flex min-h-0 flex-1">
       {/* Voile du tiroir mobile. `md:hidden` et non un test JS : le CSS sait
           déjà à quelle largeur on est, un état React de plus se désynchronise.
           Un `<button>` et non un `<div onClick>` : un div cliquable n'est ni
@@ -39,8 +47,9 @@ export function AppShell(
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-50 flex w-[220px] flex-col border-r border-sidebar-border',
+          'md:sticky md:top-[var(--hauteur-bandeau)] md:h-[calc(100vh-var(--hauteur-bandeau))]',
           'bg-sidebar gpa-motif-blanc transition-transform duration-[var(--motion-entree)] ease-[var(--motion-ease-drawer)]',
-          'md:static md:translate-x-0',
+          'md:translate-x-0',
           ouvert ? 'translate-x-0' : '-translate-x-full',
         )}
       >
@@ -86,7 +95,7 @@ export function AppShell(
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border
+        <header className="sticky top-[var(--hauteur-bandeau)] z-30 flex h-14 items-center gap-3 border-b border-border
                            bg-background/85 px-4 backdrop-blur">
           <Button variant="discret" taille="icone" className="md:hidden"
                   onClick={() => setOuvert(true)} aria-label="Ouvrir le menu">
@@ -98,7 +107,8 @@ export function AppShell(
           </div>
           <div className="flex shrink-0 items-center gap-2">{actions}</div>
         </header>
-        <main className="min-w-0 flex-1 p-4 md:p-6">{children}</main>
+          <main className="min-w-0 flex-1 p-4 md:p-6">{children}</main>
+        </div>
       </div>
     </div>
   )
