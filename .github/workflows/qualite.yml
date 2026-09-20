@@ -1,0 +1,47 @@
+# Les gates, à chaque poussée.
+#
+# Piège que ce dépôt n'a PAS, contrairement à la whiteapp dont il est issu :
+# Rubik est embarquée en woff2 dans `public/brand/polices/`, donc le conteneur
+# GitHub n'a aucune police à installer. La sonde `document.fonts.check` de
+# `verifier.py` le vérifie quand même — une police qu'on croit embarquée et qui
+# ne se charge pas rend une page valide, lisible, et hors charte.
+name: Qualité
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 11 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Types et build
+        run: pnpm build
+
+      - name: react-doctor
+        run: npx react-doctor@latest src
+
+      # `verifier.py` sert la page CONSTRUITE : reconstruire avant, sinon on
+      # juge la version précédente sans s'en apercevoir.
+      - name: Rubik, débordement, texte invisible
+        run: |
+          pip install --quiet playwright && playwright install --with-deps chromium
+          pnpm preview --port 5312 --host 127.0.0.1 &
+          npx wait-on http://127.0.0.1:5312 --timeout 60000
+          python3 scripts/verifier.py --base http://127.0.0.1:5312
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: captures
+          path: captures/*.png

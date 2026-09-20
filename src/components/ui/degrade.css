@@ -1,0 +1,52 @@
+/* Le dégradé de carte — le cinquième cas autorisé, et le seul qui porte une
+ * teinte d'accent.
+ *
+ * La règle de la charte n'est pas « pas de dégradé », c'est : un dégradé DÉRIVE
+ * d'une couleur déjà posée, il n'en introduit aucune. Celui-ci dérive de
+ * l'accent de la filiale, celui-là même que le badge et le filet portent déjà
+ * sur la carte. Aucune teinte nouvelle n'entre.
+ *
+ * Ce qui reste refusé, et que ce fichier ne permet pas :
+ *   — l'accent en fond de SECTION : ici il ne dépasse pas une carte ;
+ *   — l'accent à pleine saturation en fond : la dose plafonne à 20 % mélangés
+ *     dans la surface, et le dégradé s'éteint avant les trois quarts de la
+ *     carte, donc la moyenne reste très en deçà des ~5 % de surface accentuée ;
+ *   — un dégradé à deux teintes — il n'y en a qu'une, la seconde est du vide.
+ *
+ * En sombre, la teinte change de fichier de token, pas de valeur mélangée :
+ * `accentRule` vaut #111111 pour la marque mère, ce qui produirait un trou noir
+ * au coin de la carte. `accentOnDark` est la même couleur pensée pour le fond
+ * sombre — c'est à ça qu'elle sert.
+ */
+.carte-degrade {
+  --degrade-encre: var(--color-accentRule);
+  --degrade-dose: 10%;
+
+  background-image: linear-gradient(
+    158deg,
+    color-mix(in srgb, var(--degrade-encre) var(--degrade-dose), transparent) 0%,
+    color-mix(in srgb, var(--degrade-encre) calc(var(--degrade-dose) / 3), transparent) 38%,
+    transparent 74%
+  );
+}
+
+.dark .carte-degrade {
+  --degrade-encre: var(--color-accentOnDark);
+}
+
+.carte-degrade[data-dose='franche'] {
+  --degrade-dose: 20%;
+}
+
+/* Le filet d'accent, en tête de carte. C'est LUI qui porte l'identité de la
+ * filiale — le dégradé ne fait que l'accompagner. Deux pixels à pleine
+ * saturation se lisent de loin et survivent au niveau de gris ; une surface
+ * lavée, non. Retirer le filet et forcer la dose est le contresens à ne pas
+ * faire. */
+.carte-degrade__filet {
+  background-color: var(--color-accentRule);
+}
+
+.dark .carte-degrade__filet {
+  background-color: var(--color-accentOnDark);
+}

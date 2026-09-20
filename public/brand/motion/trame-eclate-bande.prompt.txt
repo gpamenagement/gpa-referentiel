@@ -1,0 +1,3 @@
+google/gemini-3.1-flash-image · 16:9
+
+Extremely fine technical line drawing on pure white: a wide horizontal exploded isometric wireframe of a mechanical assembly, gears shafts and bearings laid out left to right along a common axis, hairline black strokes only, engineering blueprint, no shading, no fill, large empty white margins above and below

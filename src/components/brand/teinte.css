@@ -1,0 +1,43 @@
+/* La marque teintée — un seul fichier SVG, n'importe quelle encre.
+ *
+ * Les SVG de la charte portent un `fill` en dur (#141527) : servis par `<img>`,
+ * ils ne prennent aucune couleur. Les recopier une fois par filiale donnerait
+ * sept fichiers à régénérer à chaque retouche de la géométrie — exactement ce
+ * que `build_logo.py` existe pour éviter.
+ *
+ * Le masque résout ça sans dupliquer : le SVG ne sert plus d'image mais de
+ * découpe, et c'est `currentColor` qui remplit. Poser `text-unite` sous un
+ * `data-unit` suffit alors à sortir le symbole dans l'accent de la filiale, et
+ * une correction du tracé se propage aux sept d'un coup.
+ *
+ * Le masque lit le canal ALPHA de la source. Il faut donc un SVG sans fond :
+ * les trois de la charte (`mark`, `wordmark`, `logo-horizontal`) n'ont qu'un
+ * `<path>`, aucun `<rect>` de fond — vérifié avant d'écrire ceci. Un fichier
+ * avec fond opaque rendrait un bloc plein, sans erreur.
+ */
+/* Deux réglages qui n'ont l'air de rien et qui décident, à eux seuls, où le
+ * symbole se pose.
+ *
+ * `inline-block` : un bloc prend toute la largeur du parent, `aspect-ratio`
+ * n'a alors plus rien à calculer, et le masque se centre dans une boîte pleine
+ * largeur. En `inline-block`, la largeur se déduit de la hauteur.
+ *
+ * `align-self: start` : dans un parent en `flex-col` — c'est-à-dire dans toute
+ * carte de cette bibliothèque — l'étirement du conteneur reprend la largeur que
+ * `inline-block` venait de rendre, et le symbole repart au milieu. Le premier
+ * réglage sans le second ne se voit pas : rien n'échoue, le signe est
+ * simplement centré dans une carte dont tout le reste est calé à gauche. */
+.marque-teintee {
+  display: inline-block;
+  align-self: start;
+  background-color: currentColor;
+
+  -webkit-mask-image: var(--marque-source);
+  mask-image: var(--marque-source);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}

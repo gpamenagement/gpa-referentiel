@@ -1,0 +1,202 @@
+/* =====================================================================
+   Charte Grand Paris Aménagement — couche d'application
+
+   Ce fichier est la SEULE façon dont la charte d'un tiers entre dans le
+   socle whiteapp. Il ne remplace pas `tokens.css` (généré, interdit
+   d'édition) : il est importé APRÈS lui et redéfinit les mêmes primitives,
+   que le bloc `@theme inline` de `index.css` lit à l'exécution. Toutes les
+   classes Tailwind du socle (`bg-card`, `text-muted-foreground`, `bg-sidebar`…)
+   deviennent donc GPA sans qu'une seule d'entre elles soit réécrite.
+
+   Ce qu'on ne fait PAS, et pourquoi :
+   — pas de `brands/gpa.json` : `assets/tools/build_css.py` refuse tout jeton
+     hors des cinq clés d'accent (« une filiale ne change QUE son accent »).
+     Une charte tierce change les polices, les neutres et le logo : elle
+     n'entre pas par ce point d'extension, et le forcer imposerait de forker
+     la chaîne de charte en huit endroits.
+   — pas de thème sombre : il n'existe pas dans la charte GPA. La bascule est
+     retirée de la coquille plutôt que de fabriquer un sombre inventé.
+
+   Valeurs : toutes relevées, aucune dérivée.
+   Preuve complète et sources [S1]–[S4] :
+   flowmetrik-cowork/flowao/data/dce/686974/charte-gpa/CHARTE.md
+   ===================================================================== */
+
+/* --- 1. Rubik, embarquée localement --------------------------------------
+   SIL Open Font License 1.1. Servie depuis /public, jamais depuis
+   fonts.googleapis.com : un établissement public ne dépend pas d'un CDN
+   tiers pour lire son propre référentiel, et la balise Google Fonts du
+   socle a été retirée de `index.html`.
+   Preuve [S1] : 30 déclarations « font-family:Rubik » sur le site officiel. */
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/brand/polices/Rubik-300-latin.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/brand/polices/Rubik-300-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0; }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/brand/polices/Rubik-400-latin.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/brand/polices/Rubik-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0; }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/brand/polices/Rubik-500-latin.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/brand/polices/Rubik-500-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0; }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("/brand/polices/Rubik-600-latin.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("/brand/polices/Rubik-600-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0; }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("/brand/polices/Rubik-700-latin.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("/brand/polices/Rubik-700-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0; }
+
+/* --- 2. Les primitives de la charte -------------------------------------- */
+:root {
+  /* Palette de marque. Noms GPA conservés : c'est leur vocabulaire. */
+  --gpa-bleu:          #23145F;  /* primaire, dominante  [S1] .bg-brand-blue    */
+  --gpa-rouge:         #EA515A;  /* accent               [S1] .bg-brand-red     */
+  --gpa-vert:          #789983;  /* secondaire           [S1] .bg-brand-green   */
+  --gpa-brun:          #64635B;  /* secondaire           [S1] .bg-brand-brown   */
+  --gpa-lavande:       #E6E4F4;  /* fond teinté          [S1] brand-blue.100    */
+  --gpa-sombre:        #1D1D26;  /* sombre de marque     [S1] .bg-brand-dark    */
+  --gpa-pied:          #111827;  /* fond de pied         [S2] footer bg-gray-900 */
+  --gpa-rouge-symbole: #F45355;  /* rouge du symbole     [S4] favicon.svg .st0  */
+
+  /* Typographie : une seule famille, comme le site. Aucune chasse fixe n'est
+     définie par GPA — Rubik sert aussi aux données, pour qu'un tableau ne
+     tombe pas sur une DejaVu qui signerait un défaut d'embarquement. */
+  --font-family-display: "Rubik", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-family-body:    "Rubik", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-family-data:    "Rubik", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --typography-display-fontFamily: var(--font-family-display);
+  --typography-title-fontFamily:   var(--font-family-display);
+  --typography-body-fontFamily:    var(--font-family-body);
+  --typography-metric-fontFamily:  var(--font-family-data);
+  --typography-label-fontFamily:   var(--font-family-data);
+
+  /* Échelle : le corps du site est 16px/24px, pas les 17px du socle. [S2] */
+  --font-size-body: 16px;
+  --font-leading-normal: 1.5;
+  --typography-body-fontSize: 16px;
+  --typography-body-lineHeight: 1.5;
+  --typography-title-letterSpacing: -0.01em;   /* GPA titre 36/40, peu serré */
+  --typography-display-letterSpacing: -0.02em;
+
+  /* Texte. [S2] 277 éléments en #171717, h3 en #374151, légendes en #6B7280. */
+  --color-text-primary:   #171717;
+  --color-text-secondary: #374151;
+  --color-text-muted:     #6B7280;
+  --color-text-onDark:    #FFFFFF;
+  --color-text-accent:    var(--gpa-bleu);
+
+  /* Surfaces. Le fond de page du site est gray-50, les cartes sont blanches. */
+  --color-surface-page:     #FFFFFF;
+  --color-surface-sunken:   #F9FAFB;
+  --color-surface-raised:   #FFFFFF;
+  --color-surface-inverted: var(--gpa-pied);
+  --color-surface-premium:  var(--gpa-sombre);
+
+  /* Filets. [S2] border-color par défaut = #E5E7EB. Le filet fort est marine :
+     GPA ne pose pas de noir. */
+  --color-border-hairline: #E5E7EB;
+  --color-border-strong:   var(--gpa-bleu);
+  --color-focus:           var(--gpa-bleu);
+
+  /* Accent d'unité — les cinq rôles. Le corail tient 3,58:1 sur blanc : assez
+     pour un FILET, une puce ou une icône, jamais pour du corps de texte.
+     C'est exactement la règle de la charte : « le rouge ne porte pas de texte ». */
+  --color-accent:       var(--gpa-rouge);
+  --color-accentText:   #FFFFFF;
+  --color-accentTextOn: paper;
+  --color-accentRule:   var(--gpa-rouge);
+  --color-accentInk:    var(--gpa-bleu);
+  --color-accentOnDark: var(--gpa-rouge-symbole);
+
+  /* Signaux : conservés du socle. GPA n'a pas de palette de statut, et les
+     quatre valeurs du socle passent déjà les contrastes. Écart assumé. */
+
+  /* Formes. [S2] border-radius calculé à 0px sur TOUS les boutons, cartes et
+     encadrés du site. La charte GPA n'a pas d'angle arrondi. */
+  --radius-soft: 0px;
+  --mode-radius-control: 0px;
+  --mode-radius-container: 0px;
+
+  /* Le filet court d'accroche, marqueur le plus caractéristique de la charte.
+     [S2] 3 × 34 px, corail ou blanc selon le fond. */
+  --gpa-filet-h: 3px;
+  --gpa-filet-l: 34px;
+  --gpa-motif-taille: 340px;
+}
+
+/* --- 3. Le pont shadcn ---------------------------------------------------
+   Le socle traduit ses rôles en paires surface/-foreground. On ne redéfinit
+   ici que les paires dont la valeur GPA n'est pas déductible des primitives :
+   le primaire est marine (le socle le prend noir), et la latérale est un
+   aplat de marque (le socle la prend creusée et claire). */
+:root, .light {
+  --primary:              var(--gpa-bleu);
+  --primary-foreground:   #FFFFFF;
+  --secondary:            var(--gpa-lavande);
+  --secondary-foreground: var(--gpa-bleu);
+  --muted:                #F3F4F6;
+  --muted-foreground:     var(--color-text-muted);
+  --accent:               #F3F4F6;   /* surface de survol shadcn — PAS l'accent de marque */
+  --accent-foreground:    var(--gpa-bleu);
+  --ring:                 var(--gpa-bleu);
+
+  /* La latérale en aplat marine : c'est la signature de la marque à l'écran,
+     et le blanc y tient 13,5:1. */
+  --sidebar:                    var(--gpa-bleu);
+  --sidebar-foreground:         rgba(255, 255, 255, 0.78);
+  --sidebar-primary:            #FFFFFF;
+  --sidebar-primary-foreground: var(--gpa-bleu);
+  --sidebar-accent:             rgba(255, 255, 255, 0.14);
+  --sidebar-accent-foreground:  #FFFFFF;
+  --sidebar-border:             rgba(255, 255, 255, 0.16);
+  --sidebar-ring:               #FFFFFF;
+}
+
+/* --- 4. Les quatre gestes de la charte qu'aucun jeton ne porte ----------- */
+
+/* Le filet court sous un titre. */
+.gpa-filet {
+  display: block; height: var(--gpa-filet-h); width: var(--gpa-filet-l);
+  background: var(--gpa-rouge); border: 0; margin: 0.6rem 0 1rem;
+}
+.gpa-filet--bleu  { background: var(--gpa-bleu); }
+.gpa-filet--blanc { background: #FFFFFF; }
+
+/* Le surtitre en capitales. [S2] 12px, w500, 0,3px d'approche. */
+.gpa-surtitre {
+  font-size: 12px; font-weight: 500; line-height: 1.33;
+  text-transform: uppercase; letter-spacing: 0.3px;
+  color: var(--color-text-muted);
+}
+
+/* Le motif de courbes de niveau, fichiers officiels de GPA. */
+.gpa-motif-clair {
+  background-image: url("/brand/motifs/line-pattern-light.svg");
+  background-size: var(--gpa-motif-taille) var(--gpa-motif-taille);
+  background-repeat: repeat;
+}
+.gpa-motif-blanc {
+  background-image: url("/brand/motifs/line-pattern-white.svg");
+  background-size: var(--gpa-motif-taille) var(--gpa-motif-taille);
+  background-repeat: repeat;
+}
+
+/* L'aplat marine à motif : héros, bandeau de service, pied. */
+.gpa-aplat-bleu { background-color: var(--gpa-bleu); color: #FFFFFF; }
+.gpa-aplat-bleu h1, .gpa-aplat-bleu h2, .gpa-aplat-bleu h3 { color: #FFFFFF; }
+
+/* Les titres sont marine, pas encre — c'est visible sur chaque page du site. */
+h1, h2, h3 { color: var(--gpa-bleu); }
+.gpa-aplat-bleu :is(h1, h2, h3) { color: #FFFFFF; }
+
+/* GPA n'emploie JAMAIS de niveaux de gris sur ses photographies (CHARTE §6),
+   alors que le composant photo du socle applique `grayscale` par défaut. */
+img[data-photo] { filter: none !important; }

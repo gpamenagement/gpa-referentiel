@@ -1,0 +1,88 @@
+{
+  "$description": "Photos Pexels validées et méthode. Clé API : PEXELS_API dans ~/.env (pas PEXELS_API_KEY).",
+  "method": [
+    "Requêtes en anglais — l'index Pexels est anglophone.",
+    "Style reportage / éditorial. Jamais de stock souriant générique en réunion.",
+    "Toujours passées en niveaux de gris (filter: grayscale(1)) pour tenir la direction monochrome.",
+    "Une photo ne remplace jamais une capture produit réelle quand elle existe.",
+    "Requêtes par filiale : voir la config FlowStudio (flowstudio design-system --org flowmetrik).",
+    "Exception FlowImmo depuis le 2026-08-16 : les photos d'un artefact FlowImmo sortent en couleur (decisions/2026-08-16-flowimmo-photos-en-couleur.md). Le niveau de gris reste la règle partout ailleurs."
+  ],
+  "photos": [
+    {
+      "file": "photos/contract-documents-pexels.jpg",
+      "query": "contract documents desk",
+      "usage": "FlowSpend — contrats"
+    },
+    {
+      "file": "photos/binders-archive-pexels.jpg",
+      "query": "binders archive shelves",
+      "usage": "FlowSpend — volume documentaire"
+    },
+    {
+      "file": "photos/files-investigation-pexels.jpg",
+      "query": "files investigation paperwork",
+      "usage": "FlowSpend — recherche d'écart"
+    },
+    {
+      "file": "photos/warehouse-logistics-pexels.jpg",
+      "query": "warehouse logistics",
+      "usage": "FlowSpend — terrain"
+    },
+    {
+      "file": "photos/retail-aisle-pexels.jpg",
+      "query": "retail aisle supermarket",
+      "usage": "FlowRetail — point de vente"
+    },
+    {
+      "file": "photos/business-meeting-pexels.jpg",
+      "query": "business meeting",
+      "usage": "Générique — à utiliser avec parcimonie, proche du stock"
+    },
+    {
+      "file": "photos/closed-shops-street-pexels.jpg",
+      "query": "empty shop for rent street",
+      "usage": "FlowImmo — vacance commerciale, mouvement d'enseigne"
+    },
+    {
+      "file": "photos/local-shops-street-pexels.jpg",
+      "query": "shopping street shops facade",
+      "usage": "FlowImmo / FlowRetail — linéaire commercial"
+    },
+    {
+      "file": "photos/storefront-glass-pexels.jpg",
+      "query": "empty shop for rent street",
+      "usage": "FlowImmo — local disponible"
+    },
+    {
+      "file": "photos/marche-rue-commercante.jpg",
+      "query": "commercial street shops france",
+      "usage": "FlowImmo — couleur, couverture · rue marchande"
+    },
+    {
+      "file": "photos/marche-boutiques-paris.jpg",
+      "query": "commercial street shops france",
+      "usage": "FlowImmo — couleur, domaine marché · devantures"
+    },
+    {
+      "file": "photos/foncier-toits-paris.jpg",
+      "query": "aerial view city rooftops",
+      "usage": "FlowImmo — couleur, domaine foncier · toitures urbaines"
+    },
+    {
+      "file": "photos/commerce-centre-commercial.jpg",
+      "query": "retail shopping mall interior",
+      "usage": "FlowImmo — couleur, domaine entreprises et commerce"
+    },
+    {
+      "file": "photos/terrain-rue-pietonne.jpg",
+      "query": "people walking shopping street",
+      "usage": "FlowImmo — couleur, domaine terrain observable · flux"
+    },
+    {
+      "file": "photos/permis-grue-chantier.jpg",
+      "query": "construction site building crane",
+      "usage": "FlowImmo — couleur, permis et projets"
+    }
+  ]
+}

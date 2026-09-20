@@ -1,0 +1,79 @@
+{
+  "$description": "Logos clients servis par la whiteapp. La vérité vit dans flowmetrik-cowork/references/<slug>/reference.md ; ce fichier n'en est qu'une copie servable. N'y ajouter une référence que si l'INDEX lui donne À LA FOIS le nommage et le logo en accord acquis — c'est la gate G1, et elle ne se contourne pas depuis ici.",
+  "$source": "flowmetrik-cowork/references/INDEX.md, relevé du 2026-08-28",
+  "$plaque": "Un logo client n'est jamais recoloré ni inversé. Il vit sur une plaque blanche, en clair comme en sombre : les fichiers sont de l'encre sombre sur fond transparent ou blanc, et ils disparaissent sur la surface sombre de l'application.",
+  "clients": [
+    {
+      "slug": "aesthe",
+      "nom": "Aesthé",
+      "logo": "aesthe.svg",
+      "secteur": "Santé-beauté premium",
+      "unites": ["flowmetrik"],
+      "travail": "Formation « l'IA pour tous », compétences métier sur mesure, design system",
+      "statut": "livré"
+    },
+    {
+      "slug": "agile-immo",
+      "nom": "Agile Immo",
+      "logo": "agile-immo.jpg",
+      "secteur": "Patrimoine immobilier public",
+      "unites": ["flowenergy", "flowimmo"],
+      "travail": "Plateforme d'analyse des gains énergétiques du parc de l'État",
+      "statut": "livré"
+    },
+    {
+      "slug": "arp-astrance",
+      "nom": "ARP Astrance",
+      "logo": "arp-astrance.png",
+      "secteur": "Conseil en immobilier durable",
+      "unites": ["flowenergy", "flowimmo"],
+      "travail": "Automatisation de la certification BREEAM, et mandat de référent IA",
+      "statut": "en cours"
+    },
+    {
+      "slug": "arthur-loyd",
+      "nom": "Arthur Loyd",
+      "logo": "arthur-loyd.svg",
+      "secteur": "Conseil en immobilier d'entreprise",
+      "unites": ["flowimmo", "flowmetrik"],
+      "travail": "Formation à l'IA des équipes du réseau, sur leurs propres dossiers",
+      "statut": "livré"
+    },
+    {
+      "slug": "batipart",
+      "nom": "Batipart",
+      "logo": "batipart.svg",
+      "secteur": "Groupe d'investissement immobilier",
+      "unites": ["flowmetrik", "flowimmo"],
+      "travail": "Plan de formation IA par niveau, du dirigeant à l'utilisateur quotidien",
+      "statut": "livré"
+    },
+    {
+      "slug": "carrefour",
+      "nom": "Carrefour",
+      "logo": "carrefour.svg",
+      "secteur": "Grande distribution",
+      "unites": ["flowspend"],
+      "travail": "Cockpit data et IA sur les achats non marchands",
+      "statut": "livré"
+    },
+    {
+      "slug": "consultim",
+      "nom": "Consult'Im",
+      "logo": "consultim.svg",
+      "secteur": "Immobilier d'entreprise",
+      "unites": ["flowimmo"],
+      "travail": "Formation IA de l'équipe, puis cadrage de la refonte de la plateforme",
+      "statut": "en cours"
+    },
+    {
+      "slug": "tikehau-sofidy",
+      "nom": "Tikehau Capital / Sofidy",
+      "logo": "tikehau-capital.png",
+      "secteur": "Gestion d'actifs immobiliers",
+      "unites": ["flowimmo", "flowbank"],
+      "travail": "Entrée automatisée des opérations dans le CRM, reprise de l'historique",
+      "statut": "en cours"
+    }
+  ]
+}

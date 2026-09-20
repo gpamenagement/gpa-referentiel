@@ -1,0 +1,3937 @@
+{
+ "genere_le": "2026-09-20",
+ "source": "flowao/data/dce/686974/base-gpa — marché 202600092",
+ "avertissement": "⚠️ CE FICHIER EST UNE HYPOTHÈSE DE TRAVAIL, PAS UN CONSTAT. Aucun de ces objets n'a été observé dans le système d'information de GPA. Ils sont déduits de trois choses : (1) les applications que le CCTP nomme littéralement, (2) le métier d'aménageur public tel qu'il s'exprime dans les 58 fiches d'opération publiques de GPA, (3) l'expérience du domaine. C'est précisément ce que la mission de cartographie ira vérifier : le CCTP demande « l'identification des principaux objets de données » et « l'identification des propriétaires et responsables de ces données ». Ce fichier sert de grille d'entretien d'atelier, il ne se présente pas comme un résultat.",
+ "compteurs": {
+  "applications": 15,
+  "applications_hypothese": 5,
+  "objets": 11,
+  "processus": 27,
+  "interfaces": 0,
+  "operations": 58,
+  "operations_avec_perimetre": 46,
+  "operations_geolocalisees": 58,
+  "personnes": 71,
+  "filiales": 8,
+  "directions_territoriales": 5,
+  "marches": 1143,
+  "noeuds": 64,
+  "aretes": 65,
+  "orphelins": 13
+ },
+ "niveaux_de_preuve": [
+  "nommée par le CCTP",
+  "nommée par une offre d'emploi",
+  "nommée par un marché public",
+  "hypothèse"
+ ],
+ "applications": [
+  {
+   "cle": "sima",
+   "nom": "SIMA",
+   "categorie": "métier — commercialisation",
+   "role": "Outil dédié au suivi de la commercialisation. Seule source alimentant aujourd'hui le Data Warehouse.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« SIMA : Outil dédié au suivi de la commercialisation » ; « le Data Warehouse : données uniquement SIMA mais vers une généralisation de tous les référentiels »",
+   "remarque": "Nom d'application interne. L'éditeur n'est pas nommé par le CCTP — à identifier en atelier.",
+   "logo": "/brand/vendors/outsystems.png"
+  },
+  {
+   "cle": "ublo",
+   "nom": "Ublo",
+   "categorie": "métier — gestion locative",
+   "role": "Gestion locative.",
+   "editeur": "Ublo (éditeur français de logiciel de gestion locative / property management)",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« Ublo : Sur la gestion locative »",
+   "remarque": "Le nom d'éditeur est une lecture directe du nom de produit ; à confirmer en atelier.",
+   "logo": "/brand/vendors/ublo.png"
+  },
+  {
+   "cle": "application-comptabilite-finance",
+   "nom": "Application Comptabilité-Finance",
+   "categorie": "métier — finance",
+   "role": "Application comptable et financière, citée sans nom de produit.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« Les applications à forts enjeux métier : o Application Comptabilité-Finance »",
+   "remarque": "Le CCTP ne nomme PAS le produit. Ne pas supposer Sage, Cegid ou SAP sans preuve.",
+   "logo": null
+  },
+  {
+   "cle": "sig",
+   "nom": "SIG",
+   "categorie": "métier — cartographie",
+   "role": "Outils de la cartographie. Une « direction SIG » existe et sera sollicitée par la mission.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« SIG : Outils de la cartographie » ; « La direction SIG »",
+   "remarque": "Famille d'outils, pas un produit. QGIS/ArcGIS non nommés par le CCTP.",
+   "logo": "/brand/vendors/esri.svg"
+  },
+  {
+   "cle": "si-foncier",
+   "nom": "SI Foncier",
+   "categorie": "métier — foncier",
+   "role": "Outil de gestion de stock foncier.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« SI Foncier : Outil de gestion de stock foncier »",
+   "remarque": null,
+   "logo": "/brand/vendors/progisem-foncier.png"
+  },
+  {
+   "cle": "si-rh",
+   "nom": "SI RH",
+   "categorie": "support — ressources humaines",
+   "role": "Système d'information RH, cité sans nom de produit.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« Le système d'information RH »",
+   "remarque": null,
+   "logo": "/brand/vendors/quarksup.png"
+  },
+  {
+   "cle": "microsoft-power-bi",
+   "nom": "Microsoft Power BI",
+   "categorie": "pilotage — restitution",
+   "role": "Plateforme de restitution et de pilotage. Une dizaine de rapports en service.",
+   "editeur": "Microsoft",
+   "volumetrie": "~10 rapports au 2026 (chiffre du CCTP)",
+   "preuve": "nommée par le CCTP",
+   "citation": "« Microsoft Power BI comme plateforme de restitution et de pilotage » ; « Power BI : Actuellement une dizaine de reporting »",
+   "remarque": null,
+   "logo": "/brand/vendors/powerbi.svg"
+  },
+  {
+   "cle": "data-warehouse",
+   "nom": "Data Warehouse",
+   "categorie": "socle — données",
+   "role": "Entrepôt destiné à consolider les données de l'entreprise. Aujourd'hui alimenté par SIMA seul.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« Un Data Warehouse destiné à consolider les données de l'entreprise » ; « données uniquement SIMA »",
+   "remarque": "La technologie sous-jacente n'est pas nommée (ni Snowflake, ni BigQuery, ni Azure Synapse).",
+   "logo": "/brand/vendors/postgresql.svg"
+  },
+  {
+   "cle": "n8n",
+   "nom": "n8n",
+   "categorie": "socle — intégration",
+   "role": "Plateforme de centralisation des interfaces et d'orchestration des flux ; cible déclarée comme point central des interfaces.",
+   "editeur": "n8n GmbH",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« L'adoption de la plateforme n8n comme outil de centralisation des interfaces et d'orchestration des flux » ; « l'objectif est que la plateforme n8n devienne progressivement le point central des interfaces »",
+   "remarque": null,
+   "logo": "/brand/vendors/n8n.svg"
+  },
+  {
+   "cle": "microsoft-outlook",
+   "nom": "Microsoft Outlook",
+   "categorie": "bureautique — messagerie",
+   "role": "Cité comme support d'interfaces MANUELLES entre systèmes (échanges par courriel).",
+   "editeur": "Microsoft",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« Interfaces manuelles • Doubles saisies ; • Échanges Outlook ; • Échanges d'informations par courriel »",
+   "remarque": null,
+   "logo": "/brand/vendors/outlook.svg"
+  },
+  {
+   "cle": "microsoft-word-excel-powerpoint",
+   "nom": "Microsoft Word / Excel / PowerPoint",
+   "categorie": "bureautique",
+   "role": "Formats modifiables exigés pour les livrables de la mission.",
+   "editeur": "Microsoft",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« L'ensemble des livrables devra être fourni sous format modifiable (Word, Excel, PowerPoint, Visio ou Draw.io) »",
+   "remarque": "Preuve d'un socle bureautique Microsoft, pas d'une application métier.",
+   "logo": "/brand/vendors/excel.svg"
+  },
+  {
+   "cle": "microsoft-visio",
+   "nom": "Microsoft Visio",
+   "categorie": "modélisation",
+   "role": "Format de modélisation accepté pour les livrables.",
+   "editeur": "Microsoft",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« … sous format modifiable (Word, Excel, PowerPoint, Visio ou Draw.io) »",
+   "remarque": null,
+   "logo": "/brand/vendors/visio.svg"
+  },
+  {
+   "cle": "draw-io-diagrams-net",
+   "nom": "Draw.io / diagrams.net",
+   "categorie": "modélisation",
+   "role": "Format de modélisation accepté pour les livrables.",
+   "editeur": "JGraph",
+   "volumetrie": null,
+   "preuve": "nommée par le CCTP",
+   "citation": "« … sous format modifiable (Word, Excel, PowerPoint, Visio ou Draw.io) »",
+   "remarque": null,
+   "logo": "/brand/vendors/drawio.svg"
+  },
+  {
+   "cle": "microsoft-sharepoint",
+   "nom": "Microsoft SharePoint",
+   "categorie": "documentaire / qualité",
+   "role": "Porte le système de management qualité et environnement (SMQE) de l'établissement. Hors périmètre de la mission.",
+   "editeur": "Microsoft",
+   "volumetrie": null,
+   "preuve": "nommée par le DCE (hors CCTP)",
+   "citation": "« Mise à jour de forme à la suite de la migration du SMQE vers SharePoint (ex S4F17) » — Lettre de consultation, tableau des versions, V1 du 05/01/2024",
+   "remarque": "Le CCTP ne la met pas dans le périmètre de l'étude.",
+   "logo": "/brand/vendors/sharepoint.svg"
+  },
+  {
+   "cle": "si-tracabilite-des-dechets",
+   "nom": "SI traçabilité des déchets",
+   "categorie": "métier — environnement",
+   "role": "Plateforme web de gestion de la traçabilité des données de déchets, avec applications mobiles iOS et Android.",
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "nommée par un marché public",
+   "citation": "« MISSION DE DEVELOPPEMENT D'UNE PLATEFORME WEB DEDIEE A LA GESTION DE LA TRACABILITE DES DONNEES » — avis BOAMP 23-135949 du 01/10/2023, référence interne DSI_SIDECHETS",
+   "remarque": "⚠️ Application ABSENTE du CCTP. Le périmètre de l'étude énumère six applications métier et ne la mentionne pas — à poser en question de cadrage : hors périmètre volontairement, ou oubliée ?",
+   "logo": "/brand/vendors/microsoft365.svg"
+  }
+ ],
+ "applications_hypothese": [
+  {
+   "cle": "ged-gestion-documentaire",
+   "nom": "GED / gestion documentaire",
+   "categorie": "support",
+   "role": null,
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "hypothèse",
+   "citation": null,
+   "remarque": null,
+   "logo": null
+  },
+  {
+   "cle": "outil-de-gestion-des-marches-publics-profil-acheteur",
+   "nom": "Outil de gestion des marchés publics / profil acheteur",
+   "categorie": "support — achats",
+   "role": null,
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "hypothèse",
+   "citation": null,
+   "remarque": null,
+   "logo": null
+  },
+  {
+   "cle": "facturation-electronique-chorus-pro",
+   "nom": "Facturation électronique (Chorus Pro)",
+   "categorie": "réglementaire",
+   "role": null,
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "hypothèse",
+   "citation": null,
+   "remarque": null,
+   "logo": null
+  },
+  {
+   "cle": "outil-de-gestion-d-operations-d-amenagement-bilans-de-zac",
+   "nom": "Outil de gestion d'opérations d'aménagement / bilans de ZAC",
+   "categorie": "métier",
+   "role": null,
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "hypothèse",
+   "citation": null,
+   "remarque": null,
+   "logo": null
+  },
+  {
+   "cle": "assistants-metier-agents-ia",
+   "nom": "Assistants métier / agents IA",
+   "categorie": "prospectif",
+   "role": null,
+   "editeur": null,
+   "volumetrie": null,
+   "preuve": "hypothèse",
+   "citation": null,
+   "remarque": null,
+   "logo": null
+  }
+ ],
+ "objets": [
+  {
+   "cle": "operation-d-amenagement",
+   "nom": "Opération d'aménagement",
+   "definition": "L'unité de pilotage de l'aménageur : un projet urbain porté sur un périmètre, avec un programme, un calendrier, un bilan et des partenaires. C'est l'objet pivot autour duquel tout le reste s'agrège.",
+   "processus": [
+    "Pilotage d'opération",
+    "Reporting DG/CODIR",
+    "Communication publique"
+   ],
+   "applications": [
+    "SIMA",
+    "Data Warehouse",
+    "Power BI",
+    "SIG",
+    "Application Comptabilité-Finance"
+   ],
+   "attributs": [
+    "identifiant",
+    "nom",
+    "commune(s)",
+    "département",
+    "direction territoriale de rattachement",
+    "type d'opération",
+    "périmètre géographique",
+    "surface",
+    "programme de logements",
+    "calendrier (début, phases, livraison)",
+    "statut d'avancement",
+    "photographie",
+    "partenaires"
+   ],
+   "indice": "Les 58 opérations publiées sur grandparisamenagement.fr/operations portent exactement ces attributs — le site public en est la projection lisible (voir operations.json).",
+   "questions": [
+    "Quelle application détient l'identifiant maître d'une opération ?",
+    "Le périmètre géographique vit-il dans le SIG, et avec quel identifiant de jointure vers SIMA ?",
+    "Le site public est-il alimenté à la main depuis le CMS Contentful, ou dérivé d'un référentiel interne ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "zac-zone-d-amenagement-concerte",
+   "nom": "ZAC (zone d'aménagement concerté)",
+   "definition": "Le cadre juridique le plus fréquent d'une opération. Elle a ses propres actes (dossier de création, dossier de réalisation, traité de concession) et son propre calendrier réglementaire.",
+   "processus": [
+    "Montage juridique d'opération",
+    "Concertation et enquête publique",
+    "Suivi réglementaire"
+   ],
+   "applications": [
+    "GED",
+    "SIG",
+    "SI Foncier"
+   ],
+   "attributs": [
+    "dénomination",
+    "collectivité concédante",
+    "date de création",
+    "date de réalisation",
+    "traité de concession et avenants",
+    "périmètre",
+    "programme des équipements publics"
+   ],
+   "indice": "Le mot « ZAC » revient dans une large part des 58 fiches d'opération publiques ; « traité de concession », « concertation », « enquête publique » et « déclaration d'utilité publique » y figurent également.",
+   "questions": [
+    "Une opération = une ZAC, ou plusieurs ZAC par opération ? (le site public montre au moins un cas de deux ZAC sous une même fiche)",
+    "Où vivent les actes juridiques : GED, SharePoint, disque partagé ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "foncier-parcelle",
+   "nom": "Foncier / parcelle",
+   "definition": "Le stock de terrain : ce qui est acquis, ce qui est en cours d'acquisition, ce qui est cédé. Le CCTP nomme explicitement un outil dédié.",
+   "processus": [
+    "Acquisition foncière",
+    "Portage",
+    "Cession",
+    "Gestion patrimoniale"
+   ],
+   "applications": [
+    "SI Foncier",
+    "SIG",
+    "Application Comptabilité-Finance"
+   ],
+   "attributs": [
+    "référence cadastrale",
+    "propriétaire",
+    "surface",
+    "statut (à acquérir / acquis / cédé)",
+    "date et prix d'acquisition",
+    "opération de rattachement",
+    "géométrie"
+   ],
+   "indice": "CCTP : « SI Foncier : Outil de gestion de stock foncier » et « La direction foncière et du patrimoine ». Les fiches publiques parlent de parcelles, de cessions et de déconstruction pour libérer le foncier.",
+   "questions": [
+    "Le SI Foncier et le SIG partagent-ils la référence cadastrale comme clé ?",
+    "Qui est propriétaire de la donnée foncière : direction foncière ou direction SIG ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "lot-ilot-charge-fonciere",
+   "nom": "Lot / îlot / charge foncière",
+   "definition": "La maille de commercialisation : ce qui est vendu à un promoteur ou à un bailleur. C'est l'objet que suit SIMA.",
+   "processus": [
+    "Commercialisation",
+    "Consultation de promoteurs",
+    "Cession de charge foncière"
+   ],
+   "applications": [
+    "SIMA",
+    "Data Warehouse",
+    "Power BI"
+   ],
+   "attributs": [
+    "identifiant de lot",
+    "îlot",
+    "surface de plancher (SDP)",
+    "destination (logement, commerce, activité, équipement)",
+    "acquéreur",
+    "prix de cession",
+    "date de promesse",
+    "date d'acte",
+    "statut"
+   ],
+   "indice": "CCTP pour SIMA. Les fiches publiques citent lots, îlots, promoteurs, bailleurs et cessions.",
+   "questions": [
+    "SIMA porte-t-il le lot, ou seulement l'affaire commerciale ?",
+    "Comment le lot se raccroche-t-il à la parcelle du SI Foncier ?",
+    "Le Data Warehouse n'est aujourd'hui alimenté que par SIMA : quelle maille y est chargée ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "programme",
+   "nom": "Programme",
+   "definition": "Ce qui sera construit : le nombre de logements, leur répartition (social, accession, libre), les m² d'activité, de commerce, d'équipement.",
+   "processus": [
+    "Programmation urbaine",
+    "Négociation avec la collectivité",
+    "Reporting logement"
+   ],
+   "applications": [
+    "SIMA",
+    "Data Warehouse",
+    "Power BI",
+    "tableurs Excel"
+   ],
+   "attributs": [
+    "nombre de logements",
+    "répartition par typologie de financement",
+    "SDP par destination",
+    "équipements publics",
+    "espaces publics",
+    "version du programme"
+   ],
+   "indice": "Les « chiffres clés » des 58 fiches publiques sont exactement cela : nombre de logements, m² SDP de commerces/services/équipements, m² d'espaces publics.",
+   "questions": [
+    "Le programme est-il versionné ? Où se compare le programme prévu au programme réalisé ?",
+    "Qui arbitre la valeur de référence quand SIMA, le bilan et la communication publique divergent ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "bilan-d-operation",
+   "nom": "Bilan d'opération",
+   "definition": "Le compte économique d'une opération : dépenses (foncier, travaux, études, frais financiers) contre recettes (cessions, participations, subventions). Il est révisé périodiquement (CRAC).",
+   "processus": [
+    "Pilotage économique",
+    "Clôture annuelle",
+    "Reddition de comptes au concédant"
+   ],
+   "applications": [
+    "Application Comptabilité-Finance",
+    "tableurs Excel",
+    "Power BI"
+   ],
+   "attributs": [
+    "opération",
+    "exercice",
+    "poste de dépense",
+    "poste de recette",
+    "engagé / réalisé / reste à faire",
+    "version du bilan"
+   ],
+   "indice": "Le CCTP nomme une « application Comptabilité-Finance », une direction financière ET une direction comptable — deux directions distinctes. Les fiches publiques mentionnent des financeurs nommés par opération.",
+   "questions": [
+    "Le bilan vit-il dans l'application Comptabilité-Finance, ou dans des classeurs Excel hors SI ? C'est l'une des questions les plus discriminantes de la mission.",
+    "Quelle est l'interface entre SIMA (recettes de cession) et le bilan ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "marche-contrat",
+   "nom": "Marché / contrat",
+   "definition": "Les achats de l'établissement : marchés de travaux, de maîtrise d'œuvre, d'études, de prestations intellectuelles — dont le présent marché.",
+   "processus": [
+    "Achat public",
+    "Exécution et facturation",
+    "Reddition réglementaire"
+   ],
+   "applications": [
+    "outil de gestion des marchés / profil acheteur",
+    "Application Comptabilité-Finance",
+    "GED"
+   ],
+   "attributs": [
+    "référence",
+    "objet",
+    "titulaire",
+    "montant",
+    "durée",
+    "opération de rattachement",
+    "avenants",
+    "bons de commande",
+    "factures"
+   ],
+   "indice": "CCTP : « La direction des achats » est nommée parmi les directions à solliciter. Le marché n° 686974 lui-même en est une instance.",
+   "questions": [
+    "Quel outil porte le marché, et est-il interfacé avec la comptabilité ?",
+    "Un marché est-il rattaché à une opération dans le SI, ou seulement dans un tableur ?",
+    "Les données essentielles de la commande publique sont-elles publiées automatiquement ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "tiers",
+   "nom": "Tiers",
+   "definition": "Toute entité avec qui l'établissement traite : collectivités et EPT, promoteurs, bailleurs, entreprises, financeurs, riverains, partenaires institutionnels.",
+   "processus": [
+    "Tous les processus. C'est le référentiel transverse par excellence — donc le premier candidat au doublon."
+   ],
+   "applications": [
+    "SIMA",
+    "Ublo",
+    "Application Comptabilité-Finance",
+    "SI RH"
+   ],
+   "attributs": [
+    "raison sociale",
+    "SIRET",
+    "rôle (concédant, acquéreur, titulaire, financeur, locataire)",
+    "contacts",
+    "opérations liées"
+   ],
+   "indice": "Le CCTP place la « rationalisation des référentiels », la réduction des doublons et le MDM au cœur des livrables attendus — le tiers est le cas d'école.",
+   "questions": [
+    "Combien de fois une même collectivité est-elle saisie dans le SI ?",
+    "Existe-t-il un référentiel tiers, ou autant de référentiels que d'applications ?",
+    "Le SIRET est-il la clé, et est-il saisi partout ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "document",
+   "nom": "Document",
+   "definition": "La pièce : acte, délibération, plan, PV, rapport, convention, marché. Le CCTP parle de « bases documentaires » à valoriser.",
+   "processus": [
+    "Toutes. Le document est la trace probante de chaque décision."
+   ],
+   "applications": [
+    "GED",
+    "SharePoint / disques partagés"
+   ],
+   "attributs": [
+    "type",
+    "date",
+    "auteur",
+    "objet rattaché (opération, lot, marché, parcelle)",
+    "version",
+    "statut de validation",
+    "confidentialité"
+   ],
+   "indice": "CCTP : « La valorisation des bases documentaires » figure parmi les prérequis IA à identifier ; « Génération documentaire » est classée comme interface semi-automatisée.",
+   "questions": [
+    "Quelle est la GED, et couvre-t-elle toutes les directions ?",
+    "Les documents portent-ils un rattachement structuré à l'opération, ou seulement une arborescence de dossiers ? C'est le prérequis nº 1 à tout assistant métier."
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "jalon-phase",
+   "nom": "Jalon / phase",
+   "definition": "Le calendrier : dossier de création, dossier de réalisation, concertation, enquête publique, DUP, démarrage des travaux, livraisons successives.",
+   "processus": [
+    "Pilotage d'opération",
+    "Reporting DG/CODIR",
+    "Communication publique"
+   ],
+   "applications": [
+    "SIMA",
+    "Power BI",
+    "tableurs Excel et Microsoft Project"
+   ],
+   "attributs": [
+    "type de jalon",
+    "date prévue",
+    "date réalisée",
+    "opération ou lot de rattachement",
+    "responsable"
+   ],
+   "indice": "Les 58 fiches publiques portent des calendriers et des dates de livraison ; 56 d'entre elles citent au moins deux millésimes (voir operations.json, champ `annees_citees`).",
+   "questions": [
+    "Le calendrier est-il structuré quelque part, ou reconstitué à la main pour chaque comité ?",
+    "Qui met à jour la date de livraison publiée sur le site ?"
+   ],
+   "preuve": "hypothèse de travail"
+  },
+  {
+   "cle": "patrimoine-locatif-bail",
+   "nom": "Patrimoine locatif / bail",
+   "definition": "Le parc géré en location par l'établissement, porté par Ublo. Objet moins visible mais explicitement nommé par le CCTP.",
+   "processus": [
+    "Gestion locative",
+    "Quittancement",
+    "Recouvrement"
+   ],
+   "applications": [
+    "Ublo",
+    "Application Comptabilité-Finance"
+   ],
+   "attributs": [
+    "bien",
+    "locataire",
+    "bail",
+    "loyer",
+    "quittance",
+    "état des lieux",
+    "parcelle ou lot d'origine"
+   ],
+   "indice": "CCTP : « Ublo : Sur la gestion locative ».",
+   "questions": [
+    "Quel est le volume du parc locatif ? Provient-il du portage foncier (bâti acquis en attente de démolition) ?",
+    "Ublo est-il interfacé avec la comptabilité, ou réconcilié à la main ?"
+   ],
+   "preuve": "hypothèse de travail"
+  }
+ ],
+ "processus": [
+  "Achat public",
+  "Acquisition foncière",
+  "Cession",
+  "Cession de charge foncière",
+  "Clôture annuelle",
+  "Commercialisation",
+  "Communication publique",
+  "Concertation et enquête publique",
+  "Consultation de promoteurs",
+  "Exécution et facturation",
+  "Gestion locative",
+  "Gestion patrimoniale",
+  "Montage juridique d'opération",
+  "Négociation avec la collectivité",
+  "Pilotage d'opération",
+  "Pilotage économique",
+  "Portage",
+  "Programmation urbaine",
+  "Quittancement",
+  "Recouvrement",
+  "Reddition de comptes au concédant",
+  "Reddition réglementaire",
+  "Reporting DG/CODIR",
+  "Reporting logement",
+  "Suivi réglementaire",
+  "Tous les processus. C'est le référentiel transverse par excellence — donc le premier candidat au doublon.",
+  "Toutes. Le document est la trace probante de chaque décision."
+ ],
+ "organisation": {
+  "directions_territoriales": [
+   {
+    "nom": "Direction territoriale Grand Paris Ouest",
+    "statut": "prouve",
+    "note": "10 opérations rattachées sur les 58 fiches publiques relevées le 2026-09-19."
+   },
+   {
+    "nom": "Direction territoriale Grand Paris Seine Amont",
+    "statut": "prouve",
+    "note": "2 opérations rattachées sur les 58 fiches publiques. À ne pas confondre avec l'EPA ORSA (Orly Rungis-Seine Amont), établissement distinct."
+   },
+   {
+    "nom": "Direction territoriale Grand Paris Est",
+    "statut": "prouve",
+    "note": "6 opérations rattachées sur les 58 fiches publiques."
+   },
+   {
+    "nom": "Direction territoriale Grand Paris Nord",
+    "statut": "prouve",
+    "note": "9 opérations rattachées sur les 58 fiches publiques."
+   },
+   {
+    "nom": "Direction territoriale Grand Paris Sud",
+    "statut": "prouve",
+    "note": "13 opérations rattachées sur les 58 fiches publiques — la plus fournie. Effectif publié : « Composée d'une vingtaine de collaborateurs, l'équipe basée à Evry ». Implantation : Évry-Courcouronnes (91). Seule direction territoriale dont le sigle interne (DTGPS) apparaisse publiquement, et seule dont l'effectif soit chiffré."
+   }
+  ],
+  "directions_fonctionnelles": [
+   {
+    "nom": "Direction du Développement Économique et des Partenariats",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Direction d'Intervention pour l'Amélioration de l'Habitat",
+    "statut": "prouve",
+    "note": "RÉPONSE À LA QUESTION « que signifie DIAH » : Direction d'Intervention pour l'Amélioration de l'Habitat. Le sigle est développé littéralement sur la page des directions fonctionnelles. Deux opérations du site lui sont rattachées (Clichy Cœur de Ville ; Le renouveau du centre-ville de Villeneuve-Saint-Georges) et l'offre f07560f0362b0819 recrute pour elle sur la ZAC du Bas-Clichy."
+   },
+   {
+    "nom": "Direction du Foncier et du Patrimoine",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Direction du Développement Opérationnel et de l'Innovation",
+    "statut": "prouve",
+    "note": "RÉPONSE À LA QUESTION « que signifie DDOI » : Direction du Développement Opérationnel et de l'Innovation. Une opération du site lui est rattachée (ZAC de la Grande Plaine)."
+   }
+  ],
+  "directions_support": [
+   {
+    "nom": "Direction juridique et financière",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Département Finances et Filiales",
+    "statut": "prouve",
+    "note": "Le département est « en renforcement lié à un fort développement d'activités » : le poste de Responsable administratif et financier filiales et participations est explicitement « créé »."
+   },
+   {
+    "nom": "Agence comptable",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Direction des Systèmes d'Information",
+    "statut": "prouve",
+    "note": "Aucune offre d'emploi SI n'était publiée sur le portail au 2026-09-19."
+   },
+   {
+    "nom": "Direction de la Communication",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Direction du Développement Social et de l'Organisation",
+    "statut": "prouve",
+    "note": "DÉDUIT : porte vraisemblablement la fonction ressources humaines. Aucune page publique n'emploie le libellé « direction des ressources humaines »."
+   },
+   {
+    "nom": "Directions ressources (mention générique, sans énumération)",
+    "statut": "prouve",
+    "note": "Confirme qu'un chef de projet territorial travaille en transverse avec les fonctions support, sans que l'offre les nomme."
+   }
+  ],
+  "filiales": [
+   {
+    "nom": "Terra Eco",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Holding à 100 % GPA regroupant l'ensemble des nouvelles SCCV de l'établissement",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "ECO — filiale baux à construction développement économique",
+    "statut": "prouve",
+    "note": "Le rapport entre « ECO » et « Terra Eco » n'est pas explicité par les sources publiques relevées — ne pas les confondre sans vérification."
+   },
+   {
+    "nom": "Une dizaine de sociétés de promotion immobilière (SCCV)",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "SEM Aménagement 77",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "Foncière territoriale à Meaux",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "SPLA-IN Grand Paris Sud Aménagement",
+    "statut": "prouve",
+    "note": null
+   },
+   {
+    "nom": "SPLA-IN Porte Sud Grand Paris",
+    "statut": "prouve",
+    "note": null
+   }
+  ],
+  "directions_cctp": [
+   {
+    "nom": "Direction Générale / CODIR",
+    "preuve": "nommée par le CCTP (§3.1, destinataire du support de pilotage DG/CODIR)"
+   },
+   {
+    "nom": "Direction des Systèmes d'Information (DSI)",
+    "preuve": "nommée par le CCTP (§3.2) ; rôles cités : Directeur des Systèmes d'Information, Directeur de Projet SI, Chefs de Projet SI"
+   },
+   {
+    "nom": "Direction financière",
+    "preuve": "nommée par le CCTP (§4, directions à solliciter)"
+   },
+   {
+    "nom": "Direction comptable",
+    "preuve": "nommée par le CCTP (§4)"
+   },
+   {
+    "nom": "Direction des achats",
+    "preuve": "nommée par le CCTP (§4)"
+   },
+   {
+    "nom": "Direction foncière et du patrimoine",
+    "preuve": "nommée par le CCTP (§4)"
+   },
+   {
+    "nom": "Direction déléguée à la commercialisation",
+    "preuve": "nommée par le CCTP (§4)"
+   },
+   {
+    "nom": "Direction des ressources humaines",
+    "preuve": "nommée par le CCTP (§4)"
+   },
+   {
+    "nom": "Direction SIG",
+    "preuve": "nommée par le CCTP (§4)"
+   }
+  ]
+ },
+ "personnes": [
+  {
+   "cle": "arnaud-cursente",
+   "nom": "Cursente",
+   "prenom": "Arnaud",
+   "fonction": "Directeur général de Grand Paris Aménagement",
+   "direction": "Direction générale — comité de direction",
+   "depuis": "2026-01-05",
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/post/communique-de-presse-arnaud-cursente-nomme-directeur-general-de-grand-paris"
+  },
+  {
+   "cle": "frederic-moulin",
+   "nom": "Moulin",
+   "prenom": "Frédéric",
+   "fonction": "Directeur général délégué de Grand Paris Aménagement, Directeur général de l'EPA Orly Rungis-Seine Amont et de la SOLIDEO",
+   "direction": "Direction générale — comité de direction",
+   "depuis": "2021-10-27",
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "soraya-hamrioui",
+   "nom": "Hamrioui",
+   "prenom": "Soraya",
+   "fonction": "Directrice générale adjointe à l'aménagement",
+   "direction": "Direction générale — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "fabien-guisseau",
+   "nom": "Guisseau",
+   "prenom": "Fabien",
+   "fonction": "Directeur général adjoint au Développement économique et aux partenariats stratégiques, et Directeur général de Terra Eco",
+   "direction": "Direction générale — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "sandie-michelis",
+   "nom": "Michelis",
+   "prenom": "Sandie",
+   "fonction": "Directrice générale adjointe en charge des activités hors Île-de-France",
+   "direction": "Direction générale — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "vincent-seroz",
+   "nom": "Seroz",
+   "prenom": "Vincent",
+   "fonction": "Directeur de cabinet",
+   "direction": "Direction générale — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "lara-bellier",
+   "nom": "Bellier",
+   "prenom": "Lara",
+   "fonction": "Chargée de mission – projets stratégiques et prioritaires de la Direction générale",
+   "direction": "Direction générale — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "david-zitzmann-andrieu",
+   "nom": "Zitzmann-Andrieu",
+   "prenom": "David",
+   "fonction": "Directeur des Systèmes d'Information (DSI)",
+   "direction": "Direction des Systèmes d'Information — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "solveig-mondy",
+   "nom": "Mondy",
+   "prenom": "Solveig",
+   "fonction": "Directrice juridique et financière",
+   "direction": "Direction juridique et financière — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "sabine-laubertin",
+   "nom": "Laubertin",
+   "prenom": "Sabine",
+   "fonction": "Agent comptable",
+   "direction": "Agence comptable — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "marie-gallas-amblard",
+   "nom": "Gallas-Amblard",
+   "prenom": "Marie",
+   "fonction": "Directrice de la Communication ; responsable de la publication du site officiel",
+   "direction": "Direction de la Communication — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "benjamin-avocat-maulaz",
+   "nom": "Avocat-Maulaz",
+   "prenom": "Benjamin",
+   "fonction": "Directeur du Développement Social et de l'Organisation (fonction RH)",
+   "direction": "Direction du Développement Social et de l'Organisation — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "armand-koestel",
+   "nom": "Koestel",
+   "prenom": "Armand",
+   "fonction": "Directeur délégué à l'Intervention pour l'Amélioration de l'Habitat (DIAH)",
+   "direction": "DIAH — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "alexandre-villatte",
+   "nom": "Villatte",
+   "prenom": "Alexandre",
+   "fonction": "Directeur du Développement Opérationnel et de l'Innovation (DDOI)",
+   "direction": "DDOI — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "camille-grison",
+   "nom": "Grison",
+   "prenom": "Camille",
+   "fonction": "Directrice du Foncier et du Patrimoine (DFP)",
+   "direction": "DFP — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "veronique-levildier",
+   "nom": "Levildier",
+   "prenom": "Véronique",
+   "fonction": "Directrice territoriale Grand Paris Ouest",
+   "direction": "Direction du Territoire Grand Paris Ouest — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "alexandra-espinosa",
+   "nom": "Espinosa",
+   "prenom": "Alexandra",
+   "fonction": "Directrice territoriale Grand Paris Seine Amont",
+   "direction": "Direction du Territoire Grand Paris Seine-Amont (EPA ORSA) — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "sandy-messaoui",
+   "nom": "Messaoui",
+   "prenom": "Sandy",
+   "fonction": "Directeur territorial Grand Paris Est",
+   "direction": "Direction du Territoire Grand Paris Est — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "marianne-desserrieres",
+   "nom": "Desserrieres",
+   "prenom": "Marianne",
+   "fonction": "Directrice territoriale Grand Paris Nord",
+   "direction": "Direction du Territoire Grand Paris Nord — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "gautier-deremaux",
+   "nom": "Deremaux",
+   "prenom": "Gautier",
+   "fonction": "Directeur territorial Grand Paris Sud",
+   "direction": "Direction du Territoire Grand Paris Sud — comité de direction",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "johann-trinh",
+   "nom": "Trinh",
+   "prenom": "Johann",
+   "fonction": "Directeur de projet SI — en charge des applicatifs métiers à la DSI (intitulé « IT Project Director » sur TheOrg et LinkedIn, « IT Project Manager » dans LeMagIT)",
+   "direction": "Direction des Systèmes d'Information",
+   "depuis": "2023-01",
+   "preuve": "prouvé",
+   "source": "presse",
+   "url": "https://www.lemagit.fr/etude/Grand-Paris-Amenagement-mise-sur-le-low-code-pour-porter-le-cycle-de-vie-des-amenagements-urbains"
+  },
+  {
+   "cle": "olinda-helena",
+   "nom": "Helena",
+   "prenom": "Olinda",
+   "fonction": "Responsable gestion des marchés",
+   "direction": "Achats et commande publique",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "BOAMP",
+   "url": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records?where=idweb%3D%2226-83396%22"
+  },
+  {
+   "cle": "jean-philippe-dugoin-clement",
+   "nom": "Dugoin-Clément",
+   "prenom": "Jean-Philippe",
+   "fonction": "Président du conseil d'administration de Grand Paris Aménagement ; Vice-président du Conseil régional d'Île-de-France en charge de l'aménagement, du logement et du SDRIF ; maire de Mennecy",
+   "direction": "Conseil d'administration — présidence",
+   "depuis": "2021 (mandat reconduit à l'unanimité par le conseil d'administration du 28 novembre 2025)",
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "francois-adam",
+   "nom": "Adam",
+   "prenom": "François",
+   "fonction": "Premier vice-président de Grand Paris Aménagement ; Directeur de l'Habitat, de l'Urbanisme et des Paysages",
+   "direction": "Conseil d'administration — vice-présidence",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "laurent-jeanne",
+   "nom": "Jeanne",
+   "prenom": "Laurent",
+   "fonction": "Second vice-président de Grand Paris Aménagement ; administrateur représentant le conseil régional ; Délégué spécial à la rénovation urbaine et à la politique de la ville ; maire de Champigny-sur-Marne",
+   "direction": "Conseil d'administration — vice-présidence",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "valerie-pecresse",
+   "nom": "Pécresse",
+   "prenom": "Valérie",
+   "fonction": "Administratrice représentant le conseil régional ; Ancienne Ministre, Présidente du conseil régional d'Île-de-France",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "adrien-delacroix",
+   "nom": "Delacroix",
+   "prenom": "Adrien",
+   "fonction": "Administrateur représentant le conseil régional ; Conseiller régional d'Île-de-France, adjoint au Maire de Saint-Denis",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "patrick-ollier",
+   "nom": "Ollier",
+   "prenom": "Patrick",
+   "fonction": "Administrateur représentant la Métropole ; Ancien Ministre, Président de la Métropole du Grand Paris, maire de Rueil-Malmaison",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "emmanuel-gregoire",
+   "nom": "Grégoire",
+   "prenom": "Emmanuel",
+   "fonction": "Administrateur représentant la Métropole ; Conseiller métropolitain du Grand Paris, Premier Adjoint à la Maire de Paris chargé de l'urbanisme, de l'architecture, du Grand Paris et des relations avec les arrondissements",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "stephane-raffalli",
+   "nom": "Raffalli",
+   "prenom": "Stéphane",
+   "fonction": "Administrateur représentant les EPCI de grande couronne ; 4e Vice-Président de la communauté d'agglomération Grand Paris Sud Seine Essonne Sénart, maire de Ris-Orangis",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "pascal-doll",
+   "nom": "Doll",
+   "prenom": "Pascal",
+   "fonction": "Administrateur représentant les EPCI de grande couronne ; Président de la communauté d'agglomération Roissy Pays de France",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "olivier-capitanio",
+   "nom": "Capitanio",
+   "prenom": "Olivier",
+   "fonction": "Administrateur représentant l'EPA Orly Rungis Seine-Amont ; Président du conseil départemental du Val-de-Marne ; Président du conseil d'administration de l'EPA ORSA (réélu pour un second mandat, à l'unanimité)",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "stephane-troussel",
+   "nom": "Troussel",
+   "prenom": "Stéphane",
+   "fonction": "Administrateur — personnalité qualifiée ; Président du conseil départemental de Seine-Saint-Denis",
+   "direction": "Conseil d'administration — collège des collectivités",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "damien-botteghi",
+   "nom": "Botteghi",
+   "prenom": "Damien",
+   "fonction": "Administrateur représentant l'État ; Directeur de l'habitat, de l'urbanisme et des paysages (DHUP)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "herve-schmitt",
+   "nom": "Schmitt",
+   "prenom": "Hervé",
+   "fonction": "Administrateur représentant l'État ; Directeur régional et interdépartemental adjoint de l'équipement et de l'aménagement d'Île-de-France (DRIEA)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "laurent-bresson",
+   "nom": "Bresson",
+   "prenom": "Laurent",
+   "fonction": "Administrateur représentant l'État ; Directeur régional DRHIL",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "marie-gautier-melleray",
+   "nom": "Gautier-Melleray",
+   "prenom": "Marie",
+   "fonction": "Administratrice représentant l'État ; Secrétaire générale aux politiques publiques (SGAPP)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "bruno-patier",
+   "nom": "Patier",
+   "prenom": "Bruno",
+   "fonction": "Administrateur représentant l'État ; Adjoint au sous-directeur de la 4e sous-direction de la Direction du budget",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "emmanuelle-gay",
+   "nom": "Gay",
+   "prenom": "Emmanuelle",
+   "fonction": "Administratrice représentant l'État ; Directrice régionale et interdépartementale de l'équipement et de l'aménagement d'Île-de-France (DRIEAT)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "matthieu-blet",
+   "nom": "Blet",
+   "prenom": "Matthieu",
+   "fonction": "Administrateur représentant l'État ; Chef du bureau de la stratégie de la contractualisation et de l'évaluation (DGCL)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "laure-hilzenkopp",
+   "nom": "Hilzenkopp",
+   "prenom": "Laure",
+   "fonction": "Administratrice représentant l'État ; directrice de projet FIN INFRA, Direction générale du Trésor",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "valerie-belrose",
+   "nom": "Belrose",
+   "prenom": "Valérie",
+   "fonction": "Administratrice représentant l'État ; Directrice adjointe (DRIEAT)",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "agnes-reiner",
+   "nom": "Reiner",
+   "prenom": "Agnès",
+   "fonction": "Administratrice représentant l'État ; Directrice générale déléguée appui opérationnel et stratégique au sein de l'ANCT",
+   "direction": "Conseil d'administration — collège de l'État",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "gilles-battail",
+   "nom": "Battail",
+   "prenom": "Gilles",
+   "fonction": "Administrateur suppléant — collège du conseil régional",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "valerie-montandon",
+   "nom": "Montandon",
+   "prenom": "Valérie",
+   "fonction": "Administratrice suppléante — collège du conseil régional",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "philippe-laurent",
+   "nom": "Laurent",
+   "prenom": "Philippe",
+   "fonction": "Administrateur suppléant — collège du conseil régional",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "kader-chibane",
+   "nom": "Chibane",
+   "prenom": "Kader",
+   "fonction": "Administrateur suppléant — collège du conseil régional",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "pascal-pelain",
+   "nom": "Pelain",
+   "prenom": "Pascal",
+   "fonction": "Administrateur suppléant — collège de la Métropole du Grand Paris",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "michel-lepretre",
+   "nom": "Leprêtre",
+   "prenom": "Michel",
+   "fonction": "Administrateur suppléant — collège de la Métropole du Grand Paris",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "eric-braive",
+   "nom": "Braive",
+   "prenom": "Éric",
+   "fonction": "Administrateur suppléant — collège des EPCI de grande couronne",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "alain-aubry",
+   "nom": "Aubry",
+   "prenom": "Alain",
+   "fonction": "Administrateur suppléant — collège des EPCI de grande couronne",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "celine-bonhomme",
+   "nom": "Bonhomme",
+   "prenom": "Céline",
+   "fonction": "Administratrice suppléante de Damien Botteghi (DHUP) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "muriel-bensaid",
+   "nom": "Bensaid",
+   "prenom": "Muriel",
+   "fonction": "Administratrice suppléante d'Hervé Schmitt (DRIEA) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "guillaume-mangin",
+   "nom": "Mangin",
+   "prenom": "Guillaume",
+   "fonction": "Administrateur suppléant de Laurent Bresson (DRHIL) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "helene-croze",
+   "nom": "Croze",
+   "prenom": "Hélène",
+   "fonction": "Administratrice suppléante de Marie Gautier-Melleray (SGAPP) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "sania-matulic",
+   "nom": "Matulic",
+   "prenom": "Sania",
+   "fonction": "Administratrice suppléante de Bruno Patier (Direction du budget) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "jerome-roques",
+   "nom": "Roques",
+   "prenom": "Jérôme",
+   "fonction": "Administrateur suppléant d'Emmanuelle Gay (DRIEAT) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "anouk-watrin",
+   "nom": "Watrin",
+   "prenom": "Anouk",
+   "fonction": "Administratrice suppléante de Matthieu Blet (DGCL) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "jerome-ayache",
+   "nom": "Ayache",
+   "prenom": "Jérôme",
+   "fonction": "Administrateur suppléant de Valérie Belrose (DRIEAT) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "sabrina-abdi",
+   "nom": "Abdi",
+   "prenom": "Sabrina",
+   "fonction": "Administratrice suppléante d'Agnès Reiner (ANCT) — collège de l'État",
+   "direction": "Conseil d'administration — suppléants",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "odile-eveillard",
+   "nom": "Eveillard",
+   "prenom": "Odile",
+   "fonction": "Directrice de projets",
+   "direction": "Direction du Territoire Grand Paris Sud",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "bertrand-chaput",
+   "nom": "Chaput",
+   "prenom": "Bertrand",
+   "fonction": "Directeur de projet",
+   "direction": "Non précisée par la source",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "baptiste-durand",
+   "nom": "Durand",
+   "prenom": "Baptiste",
+   "fonction": "Chef de projets Études",
+   "direction": "Direction du Développement Opérationnel et de l'Innovation (DDOI)",
+   "depuis": null,
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/comite-de-direction"
+  },
+  {
+   "cle": "amelie-jacobi",
+   "nom": "Jacobi",
+   "prenom": "Amélie",
+   "fonction": "Cheffe du département Achats et Marchés",
+   "direction": "Achats et commande publique",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/etablissement/conseil-d-administration"
+  },
+  {
+   "cle": "nadine-asm",
+   "nom": "Asm",
+   "prenom": "Nadine",
+   "fonction": "Cheffe de projet SI",
+   "direction": "Direction des Systèmes d'Information",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://theorg.com/org/grand-paris-amenagement/teams/it-project-management"
+  },
+  {
+   "cle": "anne-bloch-laine",
+   "nom": "Bloch-Lainé",
+   "prenom": "Anne",
+   "fonction": "Directrice juridique adjointe",
+   "direction": "Direction juridique et financière",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://theorg.com/org/grand-paris-amenagement/teams/legal-affairs"
+  },
+  {
+   "cle": "aurelie-da-silva",
+   "nom": "da Silva",
+   "prenom": "Aurélie",
+   "fonction": "Cheffe du département juridique",
+   "direction": "Direction juridique et financière",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://theorg.com/org/grand-paris-amenagement/teams/legal-affairs"
+  },
+  {
+   "cle": "julie-kiffer",
+   "nom": "Kiffer",
+   "prenom": "Julie",
+   "fonction": "Juriste Marchés",
+   "direction": "Direction juridique et financière — commande publique",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://theorg.com/org/grand-paris-amenagement/teams/legal-affairs"
+  },
+  {
+   "cle": "sebastien-maison",
+   "nom": "Maison",
+   "prenom": "Sébastien",
+   "fonction": "Responsable SIG",
+   "direction": "Direction SIG",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://www.linkedin.com/in/s%C3%A9bastien-maison-bb553a4a/"
+  },
+  {
+   "cle": "benjamin-assimo",
+   "nom": "Assimo",
+   "prenom": "Benjamin",
+   "fonction": "Senior IT Project Manager Consultant — prestataire externe déjà en place dans l'équipe SI",
+   "direction": "Direction des Systèmes d'Information (prestataire)",
+   "depuis": null,
+   "preuve": "à confirmer",
+   "source": "presse",
+   "url": "https://theorg.com/org/grand-paris-amenagement/teams/it-project-management"
+  },
+  {
+   "cle": "stephan-de-fa",
+   "nom": "de Faÿ",
+   "prenom": "Stéphan",
+   "fonction": "Directeur général de Grand Paris Aménagement — ANCIEN, mandat achevé le 5 janvier 2026",
+   "direction": "Direction générale (ancien titulaire)",
+   "depuis": "novembre 2020 — janvier 2026",
+   "preuve": "prouvé",
+   "source": "site officiel",
+   "url": "https://www.grandparisamenagement.fr/post/communique-de-presse-arnaud-cursente-nomme-directeur-general-de-grand-paris"
+  }
+ ],
+ "operations": [
+  {
+   "cle": "triangle-de-lechat-votre-quartier-se-transforme",
+   "nom": "Triangle de l’Echat : votre quartier se transforme !",
+   "commune": "Créteil",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 9.0,
+   "logements": 1040,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/69ldRjwT02WQiLrVMfhIpb/ebb3b461d65adcb66c50701dbd8de9cf/d28a2827-af74-4fb8-828c-04e5a56c6eea.jpg",
+    "largeur": 1485,
+    "hauteur": 1047,
+    "titre": "Header triangle de l'Echat Créteil"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/triangle-de-lechat-votre-quartier-se-transforme",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.78848,
+    "lon": 2.456761
+   }
+  },
+  {
+   "cle": "zac-sevran-mandela",
+   "nom": "Sevran Mandela Gare",
+   "commune": "Sevran (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers de gare"
+   ],
+   "surface_ha": 7.0,
+   "logements": 600,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6XkVYWreBkLDb6Ivty3M9U/d9901cd89d6fe319f1e75514d05d7fb8/Sevran_Mandela_Gare.png",
+    "largeur": 908,
+    "hauteur": 638,
+    "titre": "Sevran Mandela Gare"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-sevran-mandela",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.93897,
+    "lon": 2.538716
+   }
+  },
+  {
+   "cle": "la-grande-borne-ouest",
+   "nom": "La Grande Borne Ouest",
+   "commune": "Grigny (91) & Viry-Chatillon(91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Rénovation urbaine"
+   ],
+   "surface_ha": 34.0,
+   "logements": 480,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/1H0BiYW5duvYYr2D4BE2yx/e25779d8262cd44bc1c6ccfa5698a60a/1736784788836.jpeg",
+    "largeur": 2048,
+    "hauteur": 1241,
+    "titre": "La Grande Borne Ouest - Grigny & Viry-Chatillon"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/la-grande-borne-ouest",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 81,
+   "localisation": {
+    "lat": 48.65207,
+    "lon": 2.375111
+   }
+  },
+  {
+   "cle": "les-ardoines-zac-seine-gare-vitry-et-zac-gare-ardoines",
+   "nom": "Les Ardoines – Zac Seine Gare Vitry et Zac Gare Ardoines",
+   "commune": "Vitry-sur-Seine (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "ORSA",
+   "types": [
+    "Quartiers de gare",
+    "Quartiers mixtes",
+    "Renaturation"
+   ],
+   "surface_ha": 300.0,
+   "logements": 8000,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/5UxDoBc3zu3hOs4iVHSXJB/73f06df8ba8877aa5aeeef4f1555513e/vitry-ardoines-1.jpg",
+    "largeur": 2000,
+    "hauteur": 1353,
+    "titre": "vitry-ardoines-1"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/les-ardoines-zac-seine-gare-vitry-et-zac-gare-ardoines",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 20,
+   "localisation": {
+    "lat": 48.78318,
+    "lon": 2.408437
+   }
+  },
+  {
+   "cle": "quartier-de-la-caserne-renard",
+   "nom": "Quartier de la Caserne Renard",
+   "commune": "Saint-Cyr-L’ecole (78)",
+   "departements": [
+    "Yvelines"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes",
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 25.0,
+   "logements": 1860,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6Mv7ykeKlqvNZEBkt6gUOJ/cb28c0b202ac76cc2b0129a9de3e3bff/Caserne-Renard-1.jpg",
+    "largeur": 5472,
+    "hauteur": 3078,
+    "titre": "Caserne Renard Crédit ID Link"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-de-la-caserne-renard",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 60,
+   "localisation": {
+    "lat": 48.80897982,
+    "lon": 2.067864049
+   }
+  },
+  {
+   "cle": "parc-princesse",
+   "nom": "Le Parc Princesse",
+   "commune": "Le Vésinet (78)",
+   "departements": [
+    "Yvelines"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Parcs habités",
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 18.3,
+   "logements": 460,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/51mmaL2cucZM7y9O0zC1vc/7ab2064c1afe21a48182c9278a15f952/Parce-Princesse-1.jpg",
+    "largeur": 2000,
+    "hauteur": 1405,
+    "titre": "Parce-Princesse-1"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/parc-princesse",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 224,
+   "localisation": {
+    "lat": 48.88288748,
+    "lon": 2.125733243
+   }
+  },
+  {
+   "cle": "jardin-des-facultes",
+   "nom": "Le Jardin des Facultés",
+   "commune": "Saint-Maur-des-Fossés (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers mixtes",
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": null,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/7ClVq3xlkkyAf7WuNTVFki/76d393b9f2afcf80a8f17ac17b7aac8f/fiche-operation-jardin-des-facultes-saint-maur-des-fosses.jpg",
+    "largeur": 1280,
+    "hauteur": 920,
+    "titre": "ZAC des Facultés"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/jardin-des-facultes",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 29,
+   "localisation": {
+    "lat": 48.80119639,
+    "lon": 2.515796779
+   }
+  },
+  {
+   "cle": "triangle-de-gonesse",
+   "nom": "Projet d’aménagement autour de la future gare - Triangle de Gonesse (Ligne 17)",
+   "commune": "Gonesse (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Activités économiques",
+    "Quartiers de gare"
+   ],
+   "surface_ha": 400.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/1MuFCos7XgFdoZxqcvFw7e/1869dabd01a36a2f26d41c98471460c2/triangle-gonesse-bg.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Le Triangle de Gonesse"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/triangle-de-gonesse",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 4,
+   "localisation": {
+    "lat": 48.96756,
+    "lon": 2.476312
+   }
+  },
+  {
+   "cle": "chemin-des-carrieres-orly-2",
+   "nom": "Chemin des Carrières : votre quartier se transforme !",
+   "commune": "Orlyqzaeaze",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 6.5,
+   "logements": 770,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/LEgO4aBEqlB9viAQifjnf/caf230847aefe9dfce09dc1c14eea62a/orly_page_web_projet.JPG",
+    "largeur": 1574,
+    "hauteur": 455,
+    "titre": "Header page Orly Chemin des carrières"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/chemin-des-carrieres-orly-2",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.74519,
+    "lon": 2.401373
+   }
+  },
+  {
+   "cle": "clichy-coeur-de-ville",
+   "nom": "Clichy Cœur de Ville",
+   "commune": "Clichy-sous-Bois (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": "DIAH",
+   "types": [
+    "Revitalisation de centres-villes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": null,
+   "logements": 1520,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3Yj6M7tW4ZXI2VI24Srq1l/604ddac923a5b46edca1871d93aaa934/Agence_MGAU_Perspective.png",
+    "largeur": 2000,
+    "hauteur": 935,
+    "titre": "Clichy coeur de ville Grand Paris Aménagement"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/clichy-coeur-de-ville",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.91089,
+    "lon": 2.546147
+   }
+  },
+  {
+   "cle": "les-horizons",
+   "nom": "Les Horizons",
+   "commune": "Courcouronnes, Evry (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 17.0,
+   "logements": 1700,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/32iBdERk1VnU4xSltr1URY/9b6917a9e10d8a2dee387b4a6a2b81ba/fiche-operation-les-horizons-evry-courcouronnes.jpg",
+    "largeur": 1280,
+    "hauteur": 753,
+    "titre": "LES HORIZONS"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/les-horizons",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 61,
+   "localisation": {
+    "lat": 48.63483823,
+    "lon": 2.41582059
+   }
+  },
+  {
+   "cle": "le-grand-parc",
+   "nom": "Le Grand Parc",
+   "commune": "Bondoufle (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Parcs habités",
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 48.0,
+   "logements": 2000,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/40GszwMPT9vpOytJbPajTM/4a01326c29ea7c78ae5a20a01098282c/legrandparc",
+    "largeur": 2000,
+    "hauteur": 1333,
+    "titre": "Le Grand Parc"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/le-grand-parc",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 223,
+   "localisation": {
+    "lat": 48.61419073,
+    "lon": 2.3576151
+   }
+  },
+  {
+   "cle": "plateau-de-la-dhuys",
+   "nom": "Plateau de la Dhuys",
+   "commune": "Clichy-Montfermeil (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": 60.0,
+   "logements": 3300,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/plateau-de-la-dhuys",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 137,
+   "localisation": {
+    "lat": 48.90539118,
+    "lon": 2.548994628
+   }
+  },
+  {
+   "cle": "ecoquartier-ancre-de-lune",
+   "nom": "L’Ancre de Lune",
+   "commune": "Trilport (77)",
+   "departements": [
+    "Seine-et-Marne"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 8.0,
+   "logements": 460,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/1ttQNKJtWcrUzFQP3zr3vn/d55aacb7b0a255f7c4a574bebdcb2478/fiche-operation-l-ancre-de-lune-trilport.jpg",
+    "largeur": 814,
+    "hauteur": 401,
+    "titre": "Ecoquartier L’Ancre de Lune"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/ecoquartier-ancre-de-lune",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 93,
+   "localisation": {
+    "lat": 48.96004787,
+    "lon": 2.952821225
+   }
+  },
+  {
+   "cle": "agro-quartier-de-montjean",
+   "nom": "L’agro-quartier de Montjean ",
+   "commune": "Rungis, Fresnes (94), Wissous (91)",
+   "departements": [
+    "Essonne",
+    "Val-de-Marne"
+   ],
+   "dt": "ORSA",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 22.0,
+   "logements": 250,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/1UD4l9FHIeBtsKe7a9Ip8Y/ef17e39f66a98ca21a198935918a6b58/agro-quartier-montjean-1.jpg",
+    "largeur": 2400,
+    "hauteur": 1200,
+    "titre": "agro-quartier-montjean-1"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/agro-quartier-de-montjean",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 224,
+   "localisation": {
+    "lat": 48.74072,
+    "lon": 2.333725
+   }
+  },
+  {
+   "cle": "aerolians-paris",
+   "nom": "AeroliansParis",
+   "commune": "Tremblay-en-France (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 198.0,
+   "logements": null,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/aerolians-paris",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 170,
+   "localisation": {
+    "lat": 48.96676037,
+    "lon": 2.531961586
+   }
+  },
+  {
+   "cle": "renouveau-villeneuve-saint-georges-centre-ville",
+   "nom": "Le renouveau du centre-ville de Villeneuve-Saint-Georges",
+   "commune": "Villeneuve-Saint-Georges",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "DIAH",
+   "types": [
+    "Revitalisation de centres-villes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": 3.5,
+   "logements": 340,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6WWQ4Mt9LgjGnYwjy1NlRk/5bd7fbe3b4448b705966075204b274db/Le_renouveau_du_centre-ville_de_Villeneuve-Saint-Georges.jpg",
+    "largeur": 1000,
+    "hauteur": 500,
+    "titre": "Le renouveau du centre-ville de Villeneuve-Saint-Georges"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/renouveau-villeneuve-saint-georges-centre-ville",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 102,
+   "localisation": {
+    "lat": 48.73057,
+    "lon": 2.447488
+   }
+  },
+  {
+   "cle": "zac-intercommunale-thiais-orly",
+   "nom": "ZAC intercommunale Thiais-Orly",
+   "commune": "Thiais, Orly (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Seine Amont",
+   "types": [
+    "Quartiers mixtes",
+    "Quartiers de gare"
+   ],
+   "surface_ha": 30.0,
+   "logements": 2212,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/7qW9KozpetOyVIBylIRHs9/5609831accc3551287040c67ae4b6a69/ZAC_THiais-Orly_parc_orly.JPG",
+    "largeur": 1636,
+    "hauteur": 924,
+    "titre": "Parc Orly"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-intercommunale-thiais-orly",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.76034,
+    "lon": 2.387405
+   }
+  },
+  {
+   "cle": "fort-daubervilliers",
+   "nom": "Fort d’Aubervilliers",
+   "commune": "Aubervilliers (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 36.0,
+   "logements": 1800,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/KZHeKGg8BjEE7UeBqjK1q/2d0e715bf6c035b248f2698dbadf8e55/AUFO_parc_coeur_de_Fort.JPG",
+    "largeur": 1676,
+    "hauteur": 630,
+    "titre": "Parc cœur du Fort d'Aubervilliers"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/fort-daubervilliers",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 219,
+   "localisation": {
+    "lat": 48.91103113,
+    "lon": 2.400422147
+   }
+  },
+  {
+   "cle": "triangle-de-l-echat",
+   "nom": "Triangle de l'Echat",
+   "commune": "Créteil (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 9.0,
+   "logements": 1040,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6MOLvXLZjMhEwxeCM5fLqi/5150bf7d98611d034345189d56b74d5b/fiche-operation-triangle-de-l-echat-creteil.jpg",
+    "largeur": 1280,
+    "hauteur": 914,
+    "titre": "Triangle de l&rsquo;Echat"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/triangle-de-l-echat",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 4,
+   "localisation": {
+    "lat": 48.80195313293424,
+    "lon": 2.447978953277925
+   }
+  },
+  {
+   "cle": "le-chemin-des-carrieres",
+   "nom": "Le Chemin des Carrières",
+   "commune": "Orly (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Seine Amont",
+   "types": [
+    "Quartiers mixtes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": 6.5,
+   "logements": 770,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/f8xwlW34839tgctKVAwuJ/a50c301a9b7595cf19fece1b481f5602/Chemin_des_Carrie__res_-_credit_EPA_ORSA_SATHY.jpg",
+    "largeur": 1920,
+    "hauteur": 1080,
+    "titre": "Chemin des Carrières Orly "
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/le-chemin-des-carrieres",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.74519,
+    "lon": 2.401373
+   }
+  },
+  {
+   "cle": "quartier-maison-blanche",
+   "nom": "Parc Maison Blanche",
+   "commune": "Neuilly-sur-Marne (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers mixtes",
+    "Parcs habités"
+   ],
+   "surface_ha": 59.0,
+   "logements": 4200,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/5EMOtHd6m0X4V5k2gJa1Rh/e6865aa8e496c5a1875c1c51bc7f4d20/neuilly-sur-marne-maison-blanche-grande.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Quartier Maison Blanche"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-maison-blanche",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 289,
+   "localisation": {
+    "lat": 48.8611705,
+    "lon": 2.541171114
+   }
+  },
+  {
+   "cle": "la-pepiniere",
+   "nom": "La Pépinière",
+   "commune": "Villepinte (93)",
+   "departements": [
+    "Seine-Saint-Denis"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers résidentiels",
+    "Parcs habités"
+   ],
+   "surface_ha": 13.4,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/5ZDnhkBA9VfPF9djCmHc1P/8b9f78dc512a2dc03ea6c758f30439cd/DSC09215.png",
+    "largeur": 1920,
+    "hauteur": 1025,
+    "titre": "Pépinière de Villepinte"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/la-pepiniere",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 12,
+   "localisation": {
+    "lat": 48.9533008,
+    "lon": 2.532464231
+   }
+  },
+  {
+   "cle": "charenton-bercy",
+   "nom": "Charenton Bercy",
+   "commune": "Charenton-le-Pont (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "Grand Paris Est",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 3.6,
+   "logements": 1500,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/4IEiR51RkIpoNhGO10HB9H/658b6ce72d8d239917ef7e08ac764704/fiche-operation-charenton-bercy-charenton-le-pont.jpg",
+    "largeur": 1500,
+    "hauteur": 1000,
+    "titre": "Charenton Bercy"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/charenton-bercy",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 175,
+   "localisation": {
+    "lat": 48.8258921764477,
+    "lon": 2.39934927328997
+   }
+  },
+  {
+   "cle": "bois-du-temple",
+   "nom": "Bois du temple",
+   "commune": "Puiseux en France (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Activités économiques"
+   ],
+   "surface_ha": 90.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/7wNEHMxfEUou0o7Q548SXn/61559a47f5998420c37a8d03649c24fa/Bois_du_temple_-_Puiseux_en_france.jpg",
+    "largeur": 1200,
+    "hauteur": 400,
+    "titre": "Bois du temple Puiseux en France - Crédits Maisant Ludovic"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/bois-du-temple",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 49.05722,
+    "lon": 2.501046
+   }
+  },
+  {
+   "cle": "chalais-meudon",
+   "nom": "Chalais Meudon",
+   "commune": "Meudon (92)",
+   "departements": [
+    "Hauts-de-Seine"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 15.7,
+   "logements": null,
+   "photo": {
+    "url": "https://downloads.ctfassets.net/439cm2y9hugl/4BTlNtjJ4EVEdgXAKl7VYy/8846aa8df30943da553444fab72bfb08/MEDO_230926_ONERA_002__ABommart.jpg",
+    "largeur": 6048,
+    "hauteur": 4024,
+    "titre": "Chalais meudon - ABommart"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/chalais-meudon",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 48.8025,
+    "lon": 2.237172
+   }
+  },
+  {
+   "cle": "taverny-coeur-de-ville",
+   "nom": "Cœur de Ville - le Quartier des T",
+   "commune": "Taverny (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Revitalisation de centres-villes"
+   ],
+   "surface_ha": null,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6HuXzTLuV989UlrBeZS6hu/3cbd3c72db9326802bf0221204ade2ef/Coeur_de_ville_-_Quartier_des_T.png",
+    "largeur": 2000,
+    "hauteur": 685,
+    "titre": "Coeur de Ville Quartier des T"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/taverny-coeur-de-ville",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 49.02744,
+    "lon": 2.223507
+   }
+  },
+  {
+   "cle": "operation-damenagement-du-bois-briard",
+   "nom": "Le Bois Briard",
+   "commune": "Évry-Courcouronnes (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": null,
+   "logements": 360,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6zTNDAvJdCMcj4wQJmLOGU/16da515832864bc8bc7e9499490f6ae7/fiche-operation-amenagement-bois-briard-evry-courcouronnes.jpg",
+    "largeur": 1500,
+    "hauteur": 725,
+    "titre": "Opération d&rsquo;aménagement du Bois Briard"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/operation-damenagement-du-bois-briard",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 68,
+   "localisation": {
+    "lat": 48.6230272676921,
+    "lon": 2.41545022645126
+   }
+  },
+  {
+   "cle": "zac-de-la-grande-plaine",
+   "nom": "ZAC de la Grande Plaine",
+   "commune": "Nangis (77)",
+   "departements": [
+    "Seine-et-Marne"
+   ],
+   "dt": "DDOI",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 35.0,
+   "logements": 600,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/2vkYkr59YcKN5GTtyAGvkx/d5ea8ecae431ab49f4e5b4d32bbd0be5/zac-de-le-grande-plaine.jpg",
+    "largeur": 1280,
+    "hauteur": 906,
+    "titre": "ZAC de la Grande Plaine"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-de-la-grande-plaine",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 20,
+   "localisation": {
+    "lat": 48.55618803501256,
+    "lon": 2.9967355728149414
+   }
+  },
+  {
+   "cle": "quartier-des-trois-noyers",
+   "nom": "Quartier des trois noyers",
+   "commune": "Rubelles (77)",
+   "departements": [
+    "Seine-et-Marne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes",
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 19.0,
+   "logements": 400,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/1WOCxnbIhdPyvcACPP8BV7/e24f16fea2dddd1acc68bb4d5c2e839e/fiche-operation-rubelles-quartier-iles-trois-noyers.jpg",
+    "largeur": 1280,
+    "hauteur": 711,
+    "titre": "Quartier des trois noyers"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-des-trois-noyers",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 178,
+   "localisation": {
+    "lat": 48.55822597,
+    "lon": 2.678082784
+   }
+  },
+  {
+   "cle": "l-eco-quartier-louvres-puiseux-en-france",
+   "nom": "L'Eco-quartier Louvres et Puiseux-en-France",
+   "commune": "Louvres, Puiseux-en-France (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers mixtes",
+    "Revitalisation de centres-villes"
+   ],
+   "surface_ha": 82.0,
+   "logements": 3340,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/uKr3sM50fTAf7RzZchiX5/0380f1a17615c3f0e72fda357e13face/fiche-operation-ecoquartier-louvres-puiseux.jpg",
+    "largeur": 1280,
+    "hauteur": 854,
+    "titre": "L&rsquo;Eco-quartier Louvres et Puiseux-en-France"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/l-eco-quartier-louvres-puiseux-en-france",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 112,
+   "localisation": {
+    "lat": 49.05311235,
+    "lon": 2.501756845
+   }
+  },
+  {
+   "cle": "parc-d-activites-la-butte-aux-bergers",
+   "nom": "Parc d’activités La Butte aux Bergers",
+   "commune": "Louvres (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Activités économiques"
+   ],
+   "surface_ha": 17.0,
+   "logements": null,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/parc-d-activites-la-butte-aux-bergers",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 86,
+   "localisation": {
+    "lat": 49.05291476,
+    "lon": 2.483251885
+   }
+  },
+  {
+   "cle": "leonard-de-vinci",
+   "nom": "Léonard de Vinci",
+   "commune": "Lisses (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes",
+    "Activités économiques"
+   ],
+   "surface_ha": 30.0,
+   "logements": null,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/leonard-de-vinci",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 88,
+   "localisation": {
+    "lat": 48.61116547,
+    "lon": 2.408991088
+   }
+  },
+  {
+   "cle": "zac-du-plateau",
+   "nom": "ZAC du Plateau",
+   "commune": "Ivry-sur-Seine (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "ORSA",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 8.0,
+   "logements": 427,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6Ti8wMLkhJiBQsp3F4Y9A3/927b18ac31e0f535f6ae0460ff276359/fiche-commerciale-operation-zac-du-plateau-ivry-sur-seine.jpg",
+    "largeur": 1313,
+    "hauteur": 887,
+    "titre": "ZAC du Plateau"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-du-plateau",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 181,
+   "localisation": {
+    "lat": 48.81303936,
+    "lon": 2.370388368
+   }
+  },
+  {
+   "cle": "agrocite-gagarine-truillot",
+   "nom": "L’Agrocité Gagarine-Truillot",
+   "commune": "Ivry-sur-Seine (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": "ORSA",
+   "types": [
+    "Quartiers mixtes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": 13.0,
+   "logements": 1430,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/FiifKVlZ7DrNXxiO64qwc/8ed7893bc22b1cc68bc0b9aa74b53130/PERSPECTIVE01V1-gagarine.jpg",
+    "largeur": 3200,
+    "hauteur": 2073,
+    "titre": "PERSPECTIVE01V1-gagarine"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/agrocite-gagarine-truillot",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 6,
+   "localisation": {
+    "lat": 48.81226,
+    "lon": 2.392176
+   }
+  },
+  {
+   "cle": "grigny-2",
+   "nom": "Grigny 2",
+   "commune": "Grigny (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 60.0,
+   "logements": 5000,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6jVHUrFcDPGzn0RddviK09/057dc368a17944399edd940ffc2b827e/fiche-operation-grigny-2-grigny.jpg",
+    "largeur": 1500,
+    "hauteur": 832,
+    "titre": "Grigny 2"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/grigny-2",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 0,
+    "lon": 0
+   }
+  },
+  {
+   "cle": "coeur-de-ville-republique",
+   "nom": "Cœur de ville - République",
+   "commune": "Grigny (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes",
+    "Revitalisation de centres-villes"
+   ],
+   "surface_ha": 70.0,
+   "logements": 1100,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3maFokWHVIPv1CNSKHByKw/3bfd8200bcbc7b83cb16601524cd8aa9/fiche-operation-zac-centre-ville-grigny.jpg",
+    "largeur": 1280,
+    "hauteur": 864,
+    "titre": "ZAC Centre-Ville"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/coeur-de-ville-republique",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 426,
+   "localisation": {
+    "lat": 48.65912245,
+    "lon": 2.376275615
+   }
+  },
+  {
+   "cle": "centre-ville-de-gonesse",
+   "nom": "Le centre ville de Gonesse",
+   "commune": "Gonesse (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers résidentiels",
+    "Revitalisation de centres-villes"
+   ],
+   "surface_ha": 17.0,
+   "logements": 560,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/12dXVs7gRMIQ2Mo6GlWOfm/1a7ae5861368dc2f3c5d7ebf33997d37/centre-ville-gonesse-bg.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Le centre ville de Gonesse"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/centre-ville-de-gonesse",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 22,
+   "localisation": {
+    "lat": 48.98659179,
+    "lon": 2.45035835
+   }
+  },
+  {
+   "cle": "centre-ancien-de-gonesse",
+   "nom": "Le centre ancien de Gonesse",
+   "commune": "Gonesse (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Revitalisation de centres-villes"
+   ],
+   "surface_ha": null,
+   "logements": 140,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6osB1tmGqIfl7NkvWOwDfR/9f06fc452143cb0957100791fdfff36a/fiche-operation-mixte-gonesse-centre-ancien.jpg",
+    "largeur": 1200,
+    "hauteur": 800,
+    "titre": "Le centre ancien de Gonesse"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/centre-ancien-de-gonesse",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 98,
+   "localisation": {
+    "lat": 48.99023722,
+    "lon": 2.445579313
+   }
+  },
+  {
+   "cle": "zac-dame-blanche-nord",
+   "nom": "ZAC Dame Blanche Nord",
+   "commune": "Garges-lès-Gonesse (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes",
+    "Rénovation urbaine"
+   ],
+   "surface_ha": null,
+   "logements": 2002,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3l0v8FPv2puTwVMVVfbpfD/b4420532f2b1a4c134fd8c49d4b0b72f/fiche-operation-zac-la-dame-blanche-nord-garges-les-gonesse.jpg",
+    "largeur": 1500,
+    "hauteur": 615,
+    "titre": "ZAC Dame Blanche Nord"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-dame-blanche-nord",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 114,
+   "localisation": {
+    "lat": 48.9778436081322,
+    "lon": 2.3929401925594
+   }
+  },
+  {
+   "cle": "centre-ville-de-fosses",
+   "nom": "Le centre ville de Fosses",
+   "commune": "Fosses (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": null,
+   "logements": 269,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/6ze97sXGjMxu9C7s5aF1wy/bbedc5548ed5b8834a6740b8f258e298/centre-fosses-bg.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Le centre ville de Fosses"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/centre-ville-de-fosses",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 35,
+   "localisation": {
+    "lat": 49.09944038,
+    "lon": 2.517998338
+   }
+  },
+  {
+   "cle": "centre-urbain-les-aunettes",
+   "nom": "Centre urbain les Aunettes",
+   "commune": "Évry (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Revitalisation de centres-villes",
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 140.0,
+   "logements": 1440,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/centre-urbain-les-aunettes",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 37,
+   "localisation": {
+    "lat": 48.62177683,
+    "lon": 2.425150531
+   }
+  },
+  {
+   "cle": "la-croix-ronde",
+   "nom": "La Croix Ronde",
+   "commune": "Epinay-sur-Orge (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 40.0,
+   "logements": null,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/la-croix-ronde",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 189,
+   "localisation": {
+    "lat": 48.67212288,
+    "lon": 2.302384287
+   }
+  },
+  {
+   "cle": "quartier-les-bois-rochefort",
+   "nom": "Quartier les Bois Rochefort",
+   "commune": "Cormeilles-en-Parisis (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 100.0,
+   "logements": 2000,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/l82S5095UKayUSnt0xOzy/af0eca1618e525894a81c4cb0c1f07e0/Capture_d___e__cran_2022-09-29_a___23.44.35.png",
+    "largeur": 2996,
+    "hauteur": 1426,
+    "titre": "Les Bois Rochefort Cormeilles en Parisis"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-les-bois-rochefort",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 30,
+   "localisation": {
+    "lat": 48.95350659,
+    "lon": 2.186348349
+   }
+  },
+  {
+   "cle": "montagne-des-glaises",
+   "nom": "Montagne des Glaises",
+   "commune": "Corbeil-Essonnes (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 10.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/7E0Jh5LcMkNL156WXHx9b3/1df32e4f79c4dc3f5e34febcd5580670/fiche-montagne-les-glaises-corbeil-essonnes.jpg",
+    "largeur": 1500,
+    "hauteur": 532,
+    "titre": "Montagne des Glaises"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/montagne-des-glaises",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 163,
+   "localisation": {
+    "lat": 48.6117103212713,
+    "lon": 2.46161037640995
+   }
+  },
+  {
+   "cle": "quartier-les-vignes-blanches",
+   "nom": "Quartier Les Vignes Blanches",
+   "commune": "Carrières-sur-Seine (78)",
+   "departements": [
+    "Yvelines"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 19.0,
+   "logements": 565,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-les-vignes-blanches",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 59,
+   "localisation": {
+    "lat": 48.91326569,
+    "lon": 2.171923903
+   }
+  },
+  {
+   "cle": "ecoparc-des-cettons",
+   "nom": "Ecoparc des Cettons",
+   "commune": "Chanteloup-les-Vignes (78)",
+   "departements": [
+    "Yvelines"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Activités économiques"
+   ],
+   "surface_ha": 25.0,
+   "logements": null,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/ecoparc-des-cettons",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 75,
+   "localisation": {
+    "lat": 48.97005656,
+    "lon": 2.028165032
+   }
+  },
+  {
+   "cle": "la-croix-de-l-orme",
+   "nom": "La Croix de l’Orme",
+   "commune": "Bruyères-Le-Châtel (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": "Grand Paris Sud",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": 14.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3qeV2DmmUUQNAZGowshCjE/7275f652e146dabce80ca3f269d41dfd/la-croix-de-l-orme-bruyeres-le-chatel.jpg",
+    "largeur": 767,
+    "hauteur": 753,
+    "titre": "La Croix de l’Orme"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/la-croix-de-l-orme",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 90,
+   "localisation": {
+    "lat": 48.59069618,
+    "lon": 2.184669032
+   }
+  },
+  {
+   "cle": "asnieres-universite",
+   "nom": "Asnières Université",
+   "commune": "Asnières-sur-Seine (92)",
+   "departements": [
+    "Hauts-de-Seine"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers résidentiels"
+   ],
+   "surface_ha": null,
+   "logements": 250,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3pghIm78aitWLoTIrjObnb/6f3c4894471145edb4dc4157051f97a0/asnieres-universite.jpg",
+    "largeur": 1500,
+    "hauteur": 513,
+    "titre": "Asnières Université"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/asnieres-universite",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 0,
+    "lon": 0
+   }
+  },
+  {
+   "cle": "renaturation-et-restauration-des-berges-de-lyerres",
+   "nom": "Le Quartier Belleplace-Blandin",
+   "commune": "Villeneuve-Saint-Georges (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": null,
+   "types": [
+    "Renaturation",
+    "Études urbaines"
+   ],
+   "surface_ha": 24.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/3qtrARXRH95IRdMaTQSz6R/8879d3a4e85e09e618bcea70c38c065e/fiche-operation-renaturation-restauration-berges-yerres.jpg",
+    "largeur": 1280,
+    "hauteur": 574,
+    "titre": "Renaturation et restauration des berges de l&rsquo;Yerres"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/renaturation-et-restauration-des-berges-de-lyerres",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 495,
+   "localisation": {
+    "lat": 48.7182154175293,
+    "lon": 2.44780709534702
+   }
+  },
+  {
+   "cle": "les-meuniers",
+   "nom": "Les Meuniers",
+   "commune": "Bessancourt (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes",
+    "Parcs habités"
+   ],
+   "surface_ha": 30.0,
+   "logements": 1200,
+   "photo": {
+    "url": "https://downloads.ctfassets.net/439cm2y9hugl/5JZrC5S1DcscMCnh97onNq/682af384c8f8d4a82683de1097020229/Les-Meuniers-1.jpg",
+    "largeur": 7952,
+    "hauteur": 5304,
+    "titre": "Les-Meuniers-1"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/les-meuniers",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 152,
+   "localisation": {
+    "lat": 49.03446041,
+    "lon": 2.202371836
+   }
+  },
+  {
+   "cle": "quartier-de-la-croix-bonnet",
+   "nom": "Quartier de la Croix Bonnet",
+   "commune": "Bois d’Arcy (78)",
+   "departements": [
+    "Yvelines"
+   ],
+   "dt": "Grand Paris Ouest",
+   "types": [
+    "Quartiers mixtes",
+    "Renaturation"
+   ],
+   "surface_ha": 120.0,
+   "logements": 1800,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/2GvzkiFyvlV66DusVFBBSg/7e17b8eacf174f8ebc196894385c9465/Bois_d-Arcy.jpg",
+    "largeur": 1000,
+    "hauteur": 700,
+    "titre": "Bois d'arcy"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/quartier-de-la-croix-bonnet",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 307,
+   "localisation": {
+    "lat": 48.80578662,
+    "lon": 2.000979627
+   }
+  },
+  {
+   "cle": "le-chene-bocquet",
+   "nom": "Le Chêne Bocquet",
+   "commune": "Taverny (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Parcs habités",
+    "Quartiers de gare"
+   ],
+   "surface_ha": 19.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/4tKrxuSnuDc4i3u4dSHHll/7b6e4afa93bec0ed6cf168129e7704c2/taverny-chene-bocquet.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Le Chêne Bocquet"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/le-chene-bocquet",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 81,
+   "localisation": {
+    "lat": 49.03121574,
+    "lon": 2.19384284
+   }
+  },
+  {
+   "cle": "phase-operationnelle-secteur-place-du-8-mai-1945",
+   "nom": "Phase opérationnelle secteur place du 8 mai 1945",
+   "commune": "Vigneux-sur-Seine (91)",
+   "departements": [
+    "Essonne"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 6.0,
+   "logements": 200,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/HyHldUBXbtKoI82FhSuwr/0353b1df03dbe10fe8241285fa62a14d/fiche-operation-place-8-mai-1945-vigneux-sur-seine.jpg",
+    "largeur": 1280,
+    "hauteur": 936,
+    "titre": "Phase opérationnelle secteur place du 8 mai 1945"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/phase-operationnelle-secteur-place-du-8-mai-1945",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 85,
+   "localisation": {
+    "lat": 48.7035921442422,
+    "lon": 2.42722827313049
+   }
+  },
+  {
+   "cle": "parc-international-dactivites-de-paris-nord-2",
+   "nom": "Parc International d'Activités de Paris Nord 2",
+   "commune": "Villepinte, Tremblay-en-France, Gonesse, Aulnay-sous-Bois (93), Roissy-en-France (95)",
+   "departements": [
+    "Seine-Saint-Denis",
+    "Val-d'Oise"
+   ],
+   "dt": "Grand Paris Nord",
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 72.0,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/4MvpBxC6XvtzWpveOUrUR6/c15828148e151ae58108196825a3ac15/fiche-operation-parc-international-paris-nord-2.jpg",
+    "largeur": 1080,
+    "hauteur": 900,
+    "titre": "Parc International d&rsquo;Activités de Paris Nord 2"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/parc-international-dactivites-de-paris-nord-2",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 243,
+   "localisation": {
+    "lat": 48.9663049616939,
+    "lon": 2.52081978204034
+   }
+  },
+  {
+   "cle": "reconversion-du-site-de-lhopital-adelaide-hautval",
+   "nom": "Reconversion du site de l'hôpital Adélaïde Hautval",
+   "commune": "Villiers-le-Bel (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 8.29,
+   "logements": 370,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/kjvnUgCpFQCB955pr6G79/d303facd70540129ef9e02c8b5954cc2/fiche-reconversion-hopital-adelaide-hautval-villiers-le-bel.jpg",
+    "largeur": 1500,
+    "hauteur": 564,
+    "titre": "Reconversion du site de l&rsquo;hôpital Adélaïde Hautval"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/reconversion-du-site-de-lhopital-adelaide-hautval",
+   "perimetre_publie": false,
+   "perimetre_nb_points": 0,
+   "localisation": {
+    "lat": 0,
+    "lon": 0
+   }
+  },
+  {
+   "cle": "zac-multi-sites-du-plateau",
+   "nom": "ZAC Multi sites du Plateau",
+   "commune": "Vitry-sur-Seine (94)",
+   "departements": [
+    "Val-de-Marne"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 4.0,
+   "logements": 399,
+   "photo": {
+    "url": null,
+    "largeur": null,
+    "hauteur": null,
+    "titre": null
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/zac-multi-sites-du-plateau",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 7,
+   "localisation": {
+    "lat": 48.77420263,
+    "lon": 2.372780237
+   }
+  },
+  {
+   "cle": "les-ecouardes",
+   "nom": "Les Ecouardes",
+   "commune": "Taverny (95)",
+   "departements": [
+    "Val-d'Oise"
+   ],
+   "dt": null,
+   "types": [
+    "Quartiers mixtes"
+   ],
+   "surface_ha": 18.6,
+   "logements": null,
+   "photo": {
+    "url": "https://images.ctfassets.net/439cm2y9hugl/YcICEovvQJJpSPVIe8j1l/8c670f4ee3e460f8508d7f568d92ca8e/taverny-les-ecouardes.jpg",
+    "largeur": 1500,
+    "hauteur": 707,
+    "titre": "Les Ecouardes"
+   },
+   "url": "https://www.grandparisamenagement.fr/operations/les-ecouardes",
+   "perimetre_publie": true,
+   "perimetre_nb_points": 128,
+   "localisation": {
+    "lat": 49.02577093,
+    "lon": 2.20527964
+   }
+  }
+ ],
+ "marches": {
+  "total": 1143,
+  "avec_montant": 88,
+  "montant_total_eur": 181420162,
+  "par_annee": {
+   "2015": 66,
+   "2016": 103,
+   "2017": 93,
+   "2018": 102,
+   "2019": 115,
+   "2020": 97,
+   "2021": 88,
+   "2022": 130,
+   "2023": 114,
+   "2024": 119,
+   "2025": 69,
+   "2026": 47
+  },
+  "top_titulaires": []
+ },
+ "graphe": {
+  "noeuds": [
+   {
+    "id": "pro:achat-public",
+    "libelle": "Achat public",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:acquisition-fonciere",
+    "libelle": "Acquisition foncière",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:cession",
+    "libelle": "Cession",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:cession-de-charge-fonciere",
+    "libelle": "Cession de charge foncière",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:cloture-annuelle",
+    "libelle": "Clôture annuelle",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:commercialisation",
+    "libelle": "Commercialisation",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:communication-publique",
+    "libelle": "Communication publique",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:concertation-et-enquete-publique",
+    "libelle": "Concertation et enquête publique",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:consultation-de-promoteurs",
+    "libelle": "Consultation de promoteurs",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:execution-et-facturation",
+    "libelle": "Exécution et facturation",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:gestion-locative",
+    "libelle": "Gestion locative",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:gestion-patrimoniale",
+    "libelle": "Gestion patrimoniale",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:montage-juridique-d-operation",
+    "libelle": "Montage juridique d'opération",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:negociation-avec-la-collectivite",
+    "libelle": "Négociation avec la collectivité",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:pilotage-d-operation",
+    "libelle": "Pilotage d'opération",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:pilotage-economique",
+    "libelle": "Pilotage économique",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:portage",
+    "libelle": "Portage",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:programmation-urbaine",
+    "libelle": "Programmation urbaine",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:quittancement",
+    "libelle": "Quittancement",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:recouvrement",
+    "libelle": "Recouvrement",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:reddition-de-comptes-au-concedant",
+    "libelle": "Reddition de comptes au concédant",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:reddition-reglementaire",
+    "libelle": "Reddition réglementaire",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:reporting-dg-codir",
+    "libelle": "Reporting DG/CODIR",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:reporting-logement",
+    "libelle": "Reporting logement",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:suivi-reglementaire",
+    "libelle": "Suivi réglementaire",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:tous-les-processus-c-est-le-referentiel-transverse-par-excel",
+    "libelle": "Tous les processus. C'est le référentiel transverse par excellence — donc le premier candidat au doublon.",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "pro:toutes-le-document-est-la-trace-probante-de-chaque-decision",
+    "libelle": "Toutes. Le document est la trace probante de chaque décision.",
+    "type": "processus",
+    "preuve": "déduit du métier d'aménageur"
+   },
+   {
+    "id": "app:sima",
+    "libelle": "SIMA",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:ublo",
+    "libelle": "Ublo",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:application-comptabilite-finance",
+    "libelle": "Application Comptabilité-Finance",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:sig",
+    "libelle": "SIG",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:si-foncier",
+    "libelle": "SI Foncier",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:si-rh",
+    "libelle": "SI RH",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:microsoft-power-bi",
+    "libelle": "Microsoft Power BI",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:data-warehouse",
+    "libelle": "Data Warehouse",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:n8n",
+    "libelle": "n8n",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:microsoft-outlook",
+    "libelle": "Microsoft Outlook",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:microsoft-word-excel-powerpoint",
+    "libelle": "Microsoft Word / Excel / PowerPoint",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:microsoft-visio",
+    "libelle": "Microsoft Visio",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:draw-io-diagrams-net",
+    "libelle": "Draw.io / diagrams.net",
+    "type": "application",
+    "preuve": "nommée par le CCTP"
+   },
+   {
+    "id": "app:microsoft-sharepoint",
+    "libelle": "Microsoft SharePoint",
+    "type": "application",
+    "preuve": "nommée par le DCE (hors CCTP)"
+   },
+   {
+    "id": "app:si-tracabilite-des-dechets",
+    "libelle": "SI traçabilité des déchets",
+    "type": "application",
+    "preuve": "nommée par un marché public"
+   },
+   {
+    "id": "app:ged-gestion-documentaire",
+    "libelle": "GED / gestion documentaire",
+    "type": "application",
+    "preuve": "hypothèse"
+   },
+   {
+    "id": "app:outil-de-gestion-des-marches-publics-profil-acheteur",
+    "libelle": "Outil de gestion des marchés publics / profil acheteur",
+    "type": "application",
+    "preuve": "hypothèse"
+   },
+   {
+    "id": "app:facturation-electronique-chorus-pro",
+    "libelle": "Facturation électronique (Chorus Pro)",
+    "type": "application",
+    "preuve": "hypothèse"
+   },
+   {
+    "id": "app:outil-de-gestion-d-operations-d-amenagement-bilans-de-zac",
+    "libelle": "Outil de gestion d'opérations d'aménagement / bilans de ZAC",
+    "type": "application",
+    "preuve": "hypothèse"
+   },
+   {
+    "id": "app:assistants-metier-agents-ia",
+    "libelle": "Assistants métier / agents IA",
+    "type": "application",
+    "preuve": "hypothèse"
+   },
+   {
+    "id": "obj:operation-d-amenagement",
+    "libelle": "Opération d'aménagement",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:power-bi",
+    "libelle": "Power BI",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:zac-zone-d-amenagement-concerte",
+    "libelle": "ZAC (zone d'aménagement concerté)",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:ged",
+    "libelle": "GED",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:foncier-parcelle",
+    "libelle": "Foncier / parcelle",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "obj:lot-ilot-charge-fonciere",
+    "libelle": "Lot / îlot / charge foncière",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "obj:programme",
+    "libelle": "Programme",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:tableurs-excel",
+    "libelle": "tableurs Excel",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:bilan-d-operation",
+    "libelle": "Bilan d'opération",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "obj:marche-contrat",
+    "libelle": "Marché / contrat",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:outil-de-gestion-des-marches-profil-acheteur",
+    "libelle": "outil de gestion des marchés / profil acheteur",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:tiers",
+    "libelle": "Tiers",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "obj:document",
+    "libelle": "Document",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:sharepoint-disques-partages",
+    "libelle": "SharePoint / disques partagés",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:jalon-phase",
+    "libelle": "Jalon / phase",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   },
+   {
+    "id": "app:tableurs-excel-et-microsoft-project",
+    "libelle": "tableurs Excel et Microsoft Project",
+    "type": "application",
+    "preuve": "citée par un objet de données"
+   },
+   {
+    "id": "obj:patrimoine-locatif-bail",
+    "libelle": "Patrimoine locatif / bail",
+    "type": "objet",
+    "preuve": "hypothèse de travail"
+   }
+  ],
+  "aretes": [
+   {
+    "source": "pro:pilotage-d-operation",
+    "cible": "obj:operation-d-amenagement",
+    "type": "produit"
+   },
+   {
+    "source": "pro:reporting-dg-codir",
+    "cible": "obj:operation-d-amenagement",
+    "type": "produit"
+   },
+   {
+    "source": "pro:communication-publique",
+    "cible": "obj:operation-d-amenagement",
+    "type": "produit"
+   },
+   {
+    "source": "obj:operation-d-amenagement",
+    "cible": "app:sima",
+    "type": "porte"
+   },
+   {
+    "source": "obj:operation-d-amenagement",
+    "cible": "app:data-warehouse",
+    "type": "porte"
+   },
+   {
+    "source": "obj:operation-d-amenagement",
+    "cible": "app:power-bi",
+    "type": "porte"
+   },
+   {
+    "source": "obj:operation-d-amenagement",
+    "cible": "app:sig",
+    "type": "porte"
+   },
+   {
+    "source": "obj:operation-d-amenagement",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   },
+   {
+    "source": "pro:montage-juridique-d-operation",
+    "cible": "obj:zac-zone-d-amenagement-concerte",
+    "type": "produit"
+   },
+   {
+    "source": "pro:concertation-et-enquete-publique",
+    "cible": "obj:zac-zone-d-amenagement-concerte",
+    "type": "produit"
+   },
+   {
+    "source": "pro:suivi-reglementaire",
+    "cible": "obj:zac-zone-d-amenagement-concerte",
+    "type": "produit"
+   },
+   {
+    "source": "obj:zac-zone-d-amenagement-concerte",
+    "cible": "app:ged",
+    "type": "porte"
+   },
+   {
+    "source": "obj:zac-zone-d-amenagement-concerte",
+    "cible": "app:sig",
+    "type": "porte"
+   },
+   {
+    "source": "obj:zac-zone-d-amenagement-concerte",
+    "cible": "app:si-foncier",
+    "type": "porte"
+   },
+   {
+    "source": "pro:acquisition-fonciere",
+    "cible": "obj:foncier-parcelle",
+    "type": "produit"
+   },
+   {
+    "source": "pro:portage",
+    "cible": "obj:foncier-parcelle",
+    "type": "produit"
+   },
+   {
+    "source": "pro:cession",
+    "cible": "obj:foncier-parcelle",
+    "type": "produit"
+   },
+   {
+    "source": "pro:gestion-patrimoniale",
+    "cible": "obj:foncier-parcelle",
+    "type": "produit"
+   },
+   {
+    "source": "obj:foncier-parcelle",
+    "cible": "app:si-foncier",
+    "type": "porte"
+   },
+   {
+    "source": "obj:foncier-parcelle",
+    "cible": "app:sig",
+    "type": "porte"
+   },
+   {
+    "source": "obj:foncier-parcelle",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   },
+   {
+    "source": "pro:commercialisation",
+    "cible": "obj:lot-ilot-charge-fonciere",
+    "type": "produit"
+   },
+   {
+    "source": "pro:consultation-de-promoteurs",
+    "cible": "obj:lot-ilot-charge-fonciere",
+    "type": "produit"
+   },
+   {
+    "source": "pro:cession-de-charge-fonciere",
+    "cible": "obj:lot-ilot-charge-fonciere",
+    "type": "produit"
+   },
+   {
+    "source": "obj:lot-ilot-charge-fonciere",
+    "cible": "app:sima",
+    "type": "porte"
+   },
+   {
+    "source": "obj:lot-ilot-charge-fonciere",
+    "cible": "app:data-warehouse",
+    "type": "porte"
+   },
+   {
+    "source": "obj:lot-ilot-charge-fonciere",
+    "cible": "app:power-bi",
+    "type": "porte"
+   },
+   {
+    "source": "pro:programmation-urbaine",
+    "cible": "obj:programme",
+    "type": "produit"
+   },
+   {
+    "source": "pro:negociation-avec-la-collectivite",
+    "cible": "obj:programme",
+    "type": "produit"
+   },
+   {
+    "source": "pro:reporting-logement",
+    "cible": "obj:programme",
+    "type": "produit"
+   },
+   {
+    "source": "obj:programme",
+    "cible": "app:sima",
+    "type": "porte"
+   },
+   {
+    "source": "obj:programme",
+    "cible": "app:data-warehouse",
+    "type": "porte"
+   },
+   {
+    "source": "obj:programme",
+    "cible": "app:power-bi",
+    "type": "porte"
+   },
+   {
+    "source": "obj:programme",
+    "cible": "app:tableurs-excel",
+    "type": "porte"
+   },
+   {
+    "source": "pro:pilotage-economique",
+    "cible": "obj:bilan-d-operation",
+    "type": "produit"
+   },
+   {
+    "source": "pro:cloture-annuelle",
+    "cible": "obj:bilan-d-operation",
+    "type": "produit"
+   },
+   {
+    "source": "pro:reddition-de-comptes-au-concedant",
+    "cible": "obj:bilan-d-operation",
+    "type": "produit"
+   },
+   {
+    "source": "obj:bilan-d-operation",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   },
+   {
+    "source": "obj:bilan-d-operation",
+    "cible": "app:tableurs-excel",
+    "type": "porte"
+   },
+   {
+    "source": "obj:bilan-d-operation",
+    "cible": "app:power-bi",
+    "type": "porte"
+   },
+   {
+    "source": "pro:achat-public",
+    "cible": "obj:marche-contrat",
+    "type": "produit"
+   },
+   {
+    "source": "pro:execution-et-facturation",
+    "cible": "obj:marche-contrat",
+    "type": "produit"
+   },
+   {
+    "source": "pro:reddition-reglementaire",
+    "cible": "obj:marche-contrat",
+    "type": "produit"
+   },
+   {
+    "source": "obj:marche-contrat",
+    "cible": "app:outil-de-gestion-des-marches-profil-acheteur",
+    "type": "porte"
+   },
+   {
+    "source": "obj:marche-contrat",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   },
+   {
+    "source": "obj:marche-contrat",
+    "cible": "app:ged",
+    "type": "porte"
+   },
+   {
+    "source": "pro:tous-les-processus-c-est-le-referentiel-transverse-par-excel",
+    "cible": "obj:tiers",
+    "type": "produit"
+   },
+   {
+    "source": "obj:tiers",
+    "cible": "app:sima",
+    "type": "porte"
+   },
+   {
+    "source": "obj:tiers",
+    "cible": "app:ublo",
+    "type": "porte"
+   },
+   {
+    "source": "obj:tiers",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   },
+   {
+    "source": "obj:tiers",
+    "cible": "app:si-rh",
+    "type": "porte"
+   },
+   {
+    "source": "pro:toutes-le-document-est-la-trace-probante-de-chaque-decision",
+    "cible": "obj:document",
+    "type": "produit"
+   },
+   {
+    "source": "obj:document",
+    "cible": "app:ged",
+    "type": "porte"
+   },
+   {
+    "source": "obj:document",
+    "cible": "app:sharepoint-disques-partages",
+    "type": "porte"
+   },
+   {
+    "source": "pro:pilotage-d-operation",
+    "cible": "obj:jalon-phase",
+    "type": "produit"
+   },
+   {
+    "source": "pro:reporting-dg-codir",
+    "cible": "obj:jalon-phase",
+    "type": "produit"
+   },
+   {
+    "source": "pro:communication-publique",
+    "cible": "obj:jalon-phase",
+    "type": "produit"
+   },
+   {
+    "source": "obj:jalon-phase",
+    "cible": "app:sima",
+    "type": "porte"
+   },
+   {
+    "source": "obj:jalon-phase",
+    "cible": "app:power-bi",
+    "type": "porte"
+   },
+   {
+    "source": "obj:jalon-phase",
+    "cible": "app:tableurs-excel-et-microsoft-project",
+    "type": "porte"
+   },
+   {
+    "source": "pro:gestion-locative",
+    "cible": "obj:patrimoine-locatif-bail",
+    "type": "produit"
+   },
+   {
+    "source": "pro:quittancement",
+    "cible": "obj:patrimoine-locatif-bail",
+    "type": "produit"
+   },
+   {
+    "source": "pro:recouvrement",
+    "cible": "obj:patrimoine-locatif-bail",
+    "type": "produit"
+   },
+   {
+    "source": "obj:patrimoine-locatif-bail",
+    "cible": "app:ublo",
+    "type": "porte"
+   },
+   {
+    "source": "obj:patrimoine-locatif-bail",
+    "cible": "app:application-comptabilite-finance",
+    "type": "porte"
+   }
+  ],
+  "orphelins": [
+   "app:microsoft-power-bi",
+   "app:n8n",
+   "app:microsoft-outlook",
+   "app:microsoft-word-excel-powerpoint",
+   "app:microsoft-visio",
+   "app:draw-io-diagrams-net",
+   "app:microsoft-sharepoint",
+   "app:si-tracabilite-des-dechets",
+   "app:ged-gestion-documentaire",
+   "app:outil-de-gestion-des-marches-publics-profil-acheteur",
+   "app:facturation-electronique-chorus-pro",
+   "app:outil-de-gestion-d-operations-d-amenagement-bilans-de-zac",
+   "app:assistants-metier-agents-ia"
+  ]
+ }
+}

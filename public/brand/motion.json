@@ -1,0 +1,43 @@
+{
+  "$description": "Animations et visuels générés. Deux familles : le vectoriel de marque (fait main, autoritaire) et le génératif (ambiance, jamais de logo officiel).",
+  "vector": [
+    {
+      "file": "../brand/logo/flowmetrik-mark-animated-ink.svg",
+      "name": "Mark — onde",
+      "usage": "Chargement, hero discret"
+    },
+    {
+      "file": "../brand/logo/flowmetrik-mark-draw-animated-ink.svg",
+      "name": "Mark — tracé",
+      "usage": "Ouverture de deck, séquence de page"
+    },
+    {
+      "file": "../brand/logo/flowmetrik-loader-ink.svg",
+      "name": "Loader",
+      "usage": "Attente courte dans un outil"
+    }
+  ],
+  "generated": [
+    {
+      "file": "motion/agent-infrastructure.webp",
+      "name": "Infrastructure agent v1",
+      "tool": "Nano Banana — google/gemini-3.1-flash-image via OpenRouter"
+    },
+    {
+      "file": "motion/agent-infrastructure-v2.webp",
+      "name": "Infrastructure agent v2",
+      "tool": "idem, itération"
+    },
+    {
+      "file": "motion/operations-command-center-v1.webp",
+      "name": "Centre d'opérations",
+      "tool": "idem"
+    }
+  ],
+  "rules": [
+    "Les trois animations vectorielles existaient en turquoise. Les variantes -ink sont les seules actives ; les originales restent en historique dans brand/logo/.",
+    "Un modèle image réinterprète la forme : jamais pour le logo officiel, uniquement pour de l'ambiance.",
+    "Clé OPENROUTER_API_KEY dans ~/.env. La clé GEMINI_API_KEY directe AI Studio ne fonctionne pas.",
+    "Une animation générée ne remplace pas un schéma qui explique quelque chose."
+  ]
+}

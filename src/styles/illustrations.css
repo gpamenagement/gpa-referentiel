@@ -1,0 +1,94 @@
+/* ============================================================
+   Le mouvement des illustrations.
+   Source des composants : src/components/brand/illustrations/
+   Table descriptive (titre, usage, durée) : illustrations/animations.ts
+   Gate : python3 scripts/gate_illustrations.py
+
+   LA RÈGLE — une boucle revient à son point de départ.
+
+   Pour les quatre animations en boucle, l'image au temps zéro et l'image
+   à la fin d'un cycle sont identiques. Ce n'est pas une élégance : une
+   boucle qui ne referme pas produit un sursaut à chaque tour, et ce
+   sursaut est la première chose qu'on voit d'une page, avant d'en lire
+   un mot. `gate_illustrations.py` le vérifie deux fois — en lisant les
+   keyframes ci-dessous, puis en comparant les pixels rendus à t=0 et à
+   t=une période.
+
+   La cinquième, `tracer`, est une ENTRÉE : elle se joue une fois et
+   s'arrête sur le dessin complet. Elle est déclarée à part plutôt que
+   d'être une boucle mal fermée — un dessin qui s'efface pour se
+   redessiner est un clignotement, pas une animation.
+
+   POURQUOI PAS UN « TRAIT QUI S'ÉCRIT »
+
+   Le réflexe, sur du line-art, est d'animer `stroke-dashoffset`. Il ne
+   s'applique pas ici : potrace rend des tracés REMPLIS — le contour de
+   l'épaisseur, pas la ligne médiane. Les passer en `stroke` dessinerait
+   le contour du contour, soit un trait double et creux. `tracer`
+   procède donc par découpe, ce qui donne le même effet sur la bonne
+   matière.
+   ============================================================ */
+
+/* `transform-box: fill-box` : sans lui, l'origine d'une transformation
+   SVG est le coin du système de coordonnées du document, pas celui de
+   la forme — une rotation de deux degrés envoie alors le dessin hors
+   cadre, et rien ne dit pourquoi. */
+.illu { transform-box: fill-box; transform-origin: center; }
+
+@keyframes illu-flotter {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.2%); }
+}
+@keyframes illu-respirer {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%      { transform: scale(1.22); opacity: 0.72; }
+}
+/* La lueur entre par la gauche HORS cadre et sort par la droite HORS
+   cadre : au début comme à la fin, elle n'est pas visible, donc les deux
+   extrémités du cycle montrent la même image. Une lueur qui démarrerait
+   dans le cadre apparaîtrait d'un coup à chaque tour. */
+@keyframes illu-balayer {
+  0%   { transform: translateX(-140%); }
+  100% { transform: translateX(240%); }
+}
+@keyframes illu-pivoter {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(1.1deg); }
+  75%      { transform: rotate(-1.1deg); }
+}
+@keyframes illu-tracer {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+.illu[data-anim='flotter'] { animation: illu-flotter 6s ease-in-out infinite; }
+.illu[data-anim='pivoter'] { animation: illu-pivoter 8s ease-in-out infinite; }
+/* `forwards` : sans lui le dessin disparaîtrait à la dernière image de
+   l'entrée, qui est la seule animation à ne pas revenir à son départ. */
+.illu[data-anim='tracer']  { animation: illu-tracer 1.6s cubic-bezier(.65, 0, .35, 1) forwards; }
+
+/* `respirer` ne touche QUE l'accent — c'est tout son propos. Le sélecteur
+   vise donc le groupe de l'accent, jamais la figure entière. */
+.illu[data-anim='respirer'] .illu-accent {
+  animation: illu-respirer 3.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.illu[data-anim='balayer'] .illu-lueur {
+  animation: illu-balayer 4.5s cubic-bezier(.4, 0, .6, 1) infinite;
+}
+
+/* La bande de lueur est toujours dans le balisage et masquée ici, plutôt
+   qu'ajoutée en JavaScript : montée au changement d'animation, elle
+   ferait sauter le dessin au premier rendu. */
+.illu .illu-lueur { display: none; }
+.illu[data-anim='balayer'] .illu-lueur { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* On s'arrête sur l'image de repos, qui est le dessin COMPLET — jamais
+     sur un état partiel. Pour `tracer`, cela veut dire : pas de découpe
+     du tout, sans quoi le dessin resterait invisible. */
+  .illu,
+  .illu * { animation: none !important; }
+  .illu[data-anim='tracer'] { clip-path: none !important; }
+}

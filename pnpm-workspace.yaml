@@ -1,0 +1,49 @@
+# pnpm 11 exige un accord explicite pour chaque paquet qui compile un binaire à
+# l'installation. Deux pièges enchaînés :
+#   - le réglage a déménagé de package.json vers ce fichier ; laissé dans
+#     package.json il est ignoré avec un simple WARN ;
+#   - `onlyBuiltDependencies` ne suffit plus seul, il faut aussi `allowBuilds`.
+# Sans les deux, esbuild s'installe sans binaire et Vite échoue plus tard sur
+# une erreur qui ne parle jamais d'installation.
+onlyBuiltDependencies:
+  - esbuild
+allowBuilds:
+  esbuild: true
+
+# Durcissement de la chaîne d'approvisionnement : aucun script d'installation en
+# dehors de la liste ci-dessus. Un `postinstall` est un shell arbitraire exécuté
+# par une dépendance transitive, et c'est le vecteur le plus court d'un paquet
+# compromis vers le poste de travail.
+dangerouslyAllowAllBuilds: false
+
+
+# Quarantaine sur les versions fraîchement publiées : une version de moins de
+# sept jours n'est pas installée. C'est la fenêtre pendant laquelle un paquet
+# compromis est publié, exploité, puis dépublié — sept jours suffisent à ce que
+# la communauté le repère.
+minimumReleaseAge: 10080
+# Vérifie que node_modules correspond au verrou avant chaque script. Sans ça,
+# un `pnpm dev` tourne joyeusement sur un arbre de dépendances périmé.
+verifyDepsBeforeRun: true
+# `trustPolicy: no-downgrade` a été essayé le 2026-08-28, puis RETIRÉ.
+#
+# Il refuse une version dont les signaux de confiance sont plus faibles que ceux
+# d'une version antérieure — le symptôme d'un paquet repris par quelqu'un
+# d'autre. L'intention est juste. En pratique, sur une chaîne React ordinaire,
+# il bloque tout install sur deux dépendances transitives :
+#
+#   semver@6.3.1        tiré par @babel/core via @vitejs/plugin-react
+#   undici-types@6.21.0 tiré par @types/node
+#
+# Ni l'une ni l'autre n'est compromise : ce sont des versions anciennes,
+# antérieures aux attestations de provenance npm. Les contourner demandait de
+# monter @vitejs/plugin-react à une version publiée le jour même — que la
+# quarantaine refuse, à raison. Les deux politiques se contredisaient.
+#
+# Une politique qui bloque chaque `pnpm add` est une politique qu'on désactive
+# en urgence un vendredi soir, et qui ne protège alors plus de rien. Les deux
+# qui restent couvrent les attaques réelles : le script d'installation
+# arbitraire, et la version fraîchement publiée puis dépubliée.
+#
+# À reprendre le jour où pnpm distinguera « a perdu sa provenance » de « n'en a
+# jamais eu ». C'est cette distinction qui manque, pas la politique.
