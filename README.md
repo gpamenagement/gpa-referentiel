@@ -87,6 +87,24 @@ Chacune est née d'un défaut déjà produit ailleurs, et qu'aucune erreur ne si
 4. **La carte dessine au moins 50 nœuds** — un graphe vide est une page parfaitement valide :
    si la simulation échoue, le cadre est là, et il ne contient rien.
 
+## La carte des opérations
+
+Fond **Géoplateforme IGN** (`data.geopf.fr`, WMTS `PLANIGNV2`) — ouvert, sans clé ni compte : un
+établissement public français regarde ses opérations sur la carte de l'État, et un fond qui exige
+un jeton est une dépendance qu'un marché public fait justifier.
+
+**`maplibre-gl` est épinglée en `5.24.0`.** En `6.9.0`, sur cette machine, le worker ne termine
+jamais le chargement du style : `isStyleLoaded()` reste faux, la source GeoJSON n'est jamais
+découpée en tuiles, et la carte s'affiche **avec son fond, ses contrôles et son échelle, mais sans
+un seul point** — sans erreur de console, sans requête en échec, sans rien dans le journal. Ne pas
+remonter de version sans repasser `scripts/verifier.py`, dont la sonde compte les points
+**rendus** (`queryRenderedFeatures`) et non ceux de la source.
+
+Deuxième piège, du même genre : trois opérations portaient `lat 0 / lon 0` — un géocodage échoué,
+pas une position. Gardées, elles étiraient l'emprise jusqu'au golfe de Guinée, le cadrage
+automatique dézoomait à l'échelle du monde, et les 55 autres devenaient invisibles. Elles sont
+écartées à l'import et comptées à l'écran comme « sans position ».
+
 ## La charte
 
 `src/styles/charte-gpa.css` est **la seule façon dont la charte d'un tiers entre dans le socle

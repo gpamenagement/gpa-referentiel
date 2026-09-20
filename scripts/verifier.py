@@ -40,7 +40,7 @@ def main() -> None:
             page = nav.new_page(viewport={"width": largeur, "height": hauteur},
                                 device_scale_factor=2)
             for vue in VUES:
-                page.goto(f"{args.base}/#{vue}", wait_until="networkidle")
+                page.goto(f"{args.base}/#{vue}", wait_until="load")
                 page.wait_for_timeout(700)      # la simulation de force, puis le rendu
 
                 if not page.evaluate("document.fonts.check('16px Rubik')"):
@@ -87,6 +87,45 @@ def main() -> None:
 
                 # Le catalogue a sa propre sonde : une table de schéma vide est
                 # une page valide, et c'est le défaut qu'on ne verrait pas.
+                # La carte : un fond qui ne charge pas laisse un cadre gris,
+                # et une source vide laisse un fond sans points. Deux pannes
+                # silencieuses, deux sondes.
+                if vue == "operations":
+                    page.wait_for_timeout(2500)
+                    toile = page.evaluate(
+                        "document.querySelectorAll('.maplibregl-canvas').length")
+                    if toile == 0:
+                        defauts.append(f"operations {suffixe} : aucune toile MapLibre")
+                    tuiles = page.evaluate("""() => performance.getEntriesByType('resource')
+                        .filter(r => r.name.includes('data.geopf.fr')).length""")
+                    if tuiles == 0:
+                        defauts.append(f"operations {suffixe} : aucune tuile IGN demandée")
+                    # Le rendu est en WebGL : aucun élément du DOM ne prouve
+                    # qu'un point est dessiné. Une carte vide garde son fond,
+                    # ses contrôles et son échelle — elle a l'air juste. Seule
+                    # la source, interrogée, dit la vérité.
+                    points = page.evaluate("""() => {
+                        const m = window.__carteGpa;
+                        if (!m || !m.getSource('operations')) return -1;
+                        // Les features RENDUES, pas celles de la source : une
+                        // source pleine dont rien n'est dessiné est exactement
+                        // le défaut que maplibre-gl 6.9 produisait en silence.
+                        return m.queryRenderedFeatures({layers: ['operations-points']}).length;
+                    }""")
+                    vue_carte = page.evaluate("""() => {
+                        const m = window.__carteGpa;
+                        return m ? {lat: m.getCenter().lat, zoom: m.getZoom()} : null;
+                    }""")
+                    # Le cadrage : une seule coordonnée aberrante (0,0) suffit à
+                    # dézoomer la carte à l'échelle du monde, et les points
+                    # deviennent invisibles sans qu'aucun compteur ne bouge.
+                    if vue_carte and not (46 < vue_carte["lat"] < 51 and vue_carte["zoom"] > 6):
+                        defauts.append(
+                            f"operations {suffixe} : cadrage hors Île-de-France "
+                            f"(lat {vue_carte['lat']:.1f}, zoom {vue_carte['zoom']:.1f})")
+                    if points < 40:
+                        defauts.append(f"operations {suffixe} : {points} points dans la source, moins de 40")
+
                 if vue == "objets":
                     champs = page.evaluate("document.querySelectorAll('table tbody tr').length")
                     if champs < 8:

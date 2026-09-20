@@ -883,7 +883,7 @@
   "interfaces": 0,
   "operations": 58,
   "operations_avec_perimetre": 46,
-  "operations_geolocalisees": 58,
+  "operations_geolocalisees": 55,
   "personnes": 71,
   "filiales": 8,
   "directions_territoriales": 5,
@@ -3451,10 +3451,7 @@
    "url": "https://www.grandparisamenagement.fr/operations/grigny-2",
    "perimetre_publie": false,
    "perimetre_nb_points": 0,
-   "localisation": {
-    "lat": 0,
-    "lon": 0
-   }
+   "localisation": null
   },
   {
    "cle": "coeur-de-ville-republique",
@@ -3806,10 +3803,7 @@
    "url": "https://www.grandparisamenagement.fr/operations/asnieres-universite",
    "perimetre_publie": false,
    "perimetre_nb_points": 0,
-   "localisation": {
-    "lat": 0,
-    "lon": 0
-   }
+   "localisation": null
   },
   {
    "cle": "renaturation-et-restauration-des-berges-de-lyerres",
@@ -4000,10 +3994,7 @@
    "url": "https://www.grandparisamenagement.fr/operations/reconversion-du-site-de-lhopital-adelaide-hautval",
    "perimetre_publie": false,
    "perimetre_nb_points": 0,
-   "localisation": {
-    "lat": 0,
-    "lon": 0
-   }
+   "localisation": null
   },
   {
    "cle": "zac-multi-sites-du-plateau",

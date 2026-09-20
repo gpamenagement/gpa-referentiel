@@ -360,7 +360,17 @@ def construire(base: pathlib.Path) -> dict:
             # du vide sans qu'aucune erreur ne le dise.
             "perimetre_publie": bool(o.get("perimetre_polygone")),
             "perimetre_nb_points": o.get("perimetre_nb_points"),
-            "localisation": o.get("localisation"),
+            # « Null Island » : trois opérations portent lat 0 / lon 0, ce qui
+            # n'est pas une position mais un géocodage échoué. Gardées, elles
+            # étirent l'emprise de la carte jusqu'au golfe de Guinée : le cadrage
+            # automatique dézoome à l'échelle du monde et les 55 autres
+            # deviennent invisibles — sans la moindre erreur.
+            "localisation": (
+                o["localisation"]
+                if isinstance(o.get("localisation"), dict)
+                and (o["localisation"].get("lat") or o["localisation"].get("lon"))
+                else None
+            ),
         })
 
     # --- marchés ----------------------------------------------------------

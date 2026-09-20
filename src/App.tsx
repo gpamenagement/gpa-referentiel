@@ -6,7 +6,6 @@ import {
 import { AppShell, type Entree } from '@/components/shell/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Logo } from '@/components/brand/logo'
-import { BandeauDemonstration } from '@/composants/bandeau-demonstration'
 import { VUES, VUE_PAR_DEFAUT, composant, vueParCle } from '@/registre'
 import { socle } from '@/donnees/socle'
 
@@ -76,7 +75,6 @@ export default function App() {
         </>
       }
     >
-      <BandeauDemonstration />
       <Suspense fallback={<p className="text-sm text-muted-foreground">Chargement…</p>}>
         <Contenu />
       </Suspense>
